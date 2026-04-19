@@ -19,11 +19,8 @@ export default function Home() {
             className="h-auto w-full"
           />
         </div>
-        <p className="m-0 font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-          The fastest, cheapest way to get your raw genome as a VCF file
-        </p>
-        <h1 className="m-0 mt-4 text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
-          Download your genome file.
+        <h1 className="m-0 text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
+          The fastest, cheapest way to get your raw genome as a VCF file.
         </h1>
       </div>
 
@@ -33,7 +30,10 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="mt-16">
+      <section className="mt-24 sm:mt-28">
+        <h2 className="m-0 mb-6 text-center text-[22px] font-semibold tracking-[-0.02em] sm:text-[24px]">
+          FAQ
+        </h2>
         <Faq />
       </section>
     </SiteShell>
