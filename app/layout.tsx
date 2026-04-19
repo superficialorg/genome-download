@@ -15,8 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 const TITLE = "The Genome Computer Company";
+const TWITTER_TITLE =
+  "The Genome Computer Company - The fastest, cheapest way to download your genome.";
 const DESCRIPTION =
-  "The fastest, cheapest way to download your genome.";
+  "The fastest, cheapest way to download your genome. CLIA-, CAP-, and NATA-accredited sequencing. Delivered as a VCF file in 1 week.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://genome.computer"),
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@genomecomputer",
     creator: "@genomecomputer",
-    title: TITLE,
+    title: TWITTER_TITLE,
     description: DESCRIPTION,
     images: [
       { url: "/og-image.png", alt: "The Genome Computer Company" },
