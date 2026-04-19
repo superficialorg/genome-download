@@ -12,7 +12,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
 export function SiteHeader({ compact = false }: { compact?: boolean }) {
   return (
-    <header className={compact ? "mb-10" : "mb-12 sm:mb-16"}>
+    <header
+      className={`flex flex-col items-center text-center ${compact ? "mb-10" : "mb-12 sm:mb-16"}`}
+    >
       <Link href="/" aria-label="genome.download home">
         <div className="text-3xl leading-none">🧬</div>
       </Link>

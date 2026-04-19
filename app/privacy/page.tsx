@@ -9,6 +9,15 @@ export default function PrivacyPage() {
     <SiteShell>
       <SiteHeader compact />
       <article className="prose-like flex flex-col gap-6">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <h1 className="m-0 text-[28px] font-semibold tracking-[-0.02em]">
+            Privacy
+          </h1>
+          <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
+            Last updated: April 2026.
+          </p>
+        </div>
+
         <div className="rounded-[var(--radius-lg)] border border-border bg-muted px-4 py-3 text-[13px] text-muted-foreground">
           <strong className="text-foreground">Draft — pending counsel review.</strong>{" "}
           This page describes our intended data practices. It is not yet a
@@ -18,13 +27,6 @@ export default function PrivacyPage() {
           </a>{" "}
           with questions.
         </div>
-
-        <h1 className="m-0 text-[28px] font-semibold tracking-[-0.02em]">
-          Privacy
-        </h1>
-        <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
-          Last updated: April 2026.
-        </p>
 
         <section className="flex flex-col gap-3">
           <h2 className="m-0 text-[18px] font-semibold tracking-[-0.01em]">

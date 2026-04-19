@@ -27,14 +27,14 @@ export default async function OrderPage({
   return (
     <SiteShell>
       <SiteHeader compact />
-      <div className="mb-8">
+      <div className="mb-8 flex flex-col items-center text-center">
         <p className="m-0 font-mono text-[13px] text-muted-foreground">
           Order
         </p>
         <h1 className="m-0 mt-2 text-[24px] font-semibold leading-[1.2] tracking-[-0.02em] sm:text-[28px]">
           {product.name}
         </h1>
-        <p className="m-0 mt-2 text-[15px] text-muted-foreground">
+        <p className="m-0 mt-2 max-w-[520px] text-[15px] text-muted-foreground">
           {product.description}
         </p>
         <p className="m-0 mt-3 font-mono text-[15px] text-foreground">

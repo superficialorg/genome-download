@@ -20,7 +20,8 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     name: "Raw SNP genotype",
     priceCents: 6900,
     priceLabel: "$69",
-    description: "700K variants. Comparable to 23andMe coverage.",
+    description:
+      "700K variants. Comparable to 23andMe coverage. Delivered as a VCF file.",
     stripePriceId: process.env.STRIPE_PRICE_SNP ?? "TODO_STRIPE_PRICE_SNP",
   },
   "snp-imputed": {
@@ -28,7 +29,8 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     name: "SNP + imputed genome",
     priceCents: 8900,
     priceLabel: "$89",
-    description: "23M variants. Extended coverage via statistical imputation.",
+    description:
+      "23M variants via statistical imputation. Delivered as a VCF file.",
     stripePriceId:
       process.env.STRIPE_PRICE_SNP_IMPUTED ?? "TODO_STRIPE_PRICE_SNP_IMPUTED",
   },
@@ -37,7 +39,8 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     name: "Whole genome, 1x",
     priceCents: 9900,
     priceLabel: "$99",
-    description: "Low-coverage whole genome sequencing. Imputation-friendly.",
+    description:
+      "Low-coverage whole genome sequencing. Imputation-friendly. Delivered as a VCF file.",
     stripePriceId: process.env.STRIPE_PRICE_WGS_1X ?? "TODO_STRIPE_PRICE_WGS_1X",
   },
   "wgs-30x": {
@@ -46,7 +49,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 14900,
     priceLabel: "$149",
     description:
-      "Full genome sequencing. Delivered as VCF, with BAM and FASTQ on request.",
+      "Full genome sequencing. Delivered as a VCF file — BAM and FASTQ available on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_30X ?? "TODO_STRIPE_PRICE_WGS_30X",
   },
@@ -55,7 +58,8 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     name: "Whole genome, 100x",
     priceCents: 19900,
     priceLabel: "$199",
-    description: "Research-grade depth.",
+    description:
+      "Research-grade depth. Delivered as a VCF file — BAM and FASTQ available on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_100X ?? "TODO_STRIPE_PRICE_WGS_100X",
   },

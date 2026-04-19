@@ -15,7 +15,7 @@ export default async function ThanksPage({
   return (
     <SiteShell>
       <SiteHeader compact />
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col items-center gap-5 text-center">
         <p className="m-0 text-3xl leading-none">✓</p>
         <h1 className="m-0 text-[28px] font-semibold leading-[1.15] tracking-[-0.02em] sm:text-[32px]">
           Order confirmed.
