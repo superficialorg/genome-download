@@ -20,10 +20,8 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
         aria-label="The Human Genome Company home"
         className="inline-flex items-center text-foreground transition-opacity hover:opacity-80"
       >
-        <span className="text-[15px] font-medium leading-[1.2] tracking-[-0.01em] sm:text-[16px]">
-          The Human Genome
-          <br />
-          Company
+        <span className="text-[15px] font-medium tracking-[-0.01em] sm:text-[16px]">
+          The Human Genome Company
         </span>
       </Link>
       <a
