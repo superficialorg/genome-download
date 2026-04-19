@@ -28,7 +28,7 @@ export async function sendOrderConfirmation(params: {
   const { error } = await client.emails.send({
     from,
     to,
-    subject: `The Personal Genome Company — order ${orderId} confirmed`,
+    subject: `genome.download — order ${orderId} confirmed`,
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #171717;">
         <p style="font-size: 32px; margin: 0 0 16px;">🧬</p>

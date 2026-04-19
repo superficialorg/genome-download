@@ -17,12 +17,12 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
     >
       <Link
         href="/"
-        aria-label="The Personal Genome Company home"
+        aria-label="genome.download home"
         className="inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
       >
         <span className="text-2xl leading-none">🧬</span>
         <span className="text-[15px] font-normal tracking-[-0.01em] sm:text-[16px]">
-          The Personal Genome Company
+          genome.download
         </span>
       </Link>
       <a

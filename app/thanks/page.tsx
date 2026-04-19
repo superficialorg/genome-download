@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SiteShell, SiteHeader } from "@/components/site-shell";
 
 export const metadata = {
-  title: "Thanks — The Personal Genome Company",
+  title: "Thanks — genome.download",
 };
 
 export default async function ThanksPage({
