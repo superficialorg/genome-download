@@ -13,11 +13,26 @@ export function SiteShell({ children }: { children: ReactNode }) {
 export function SiteHeader({ compact = false }: { compact?: boolean }) {
   return (
     <header
-      className={`flex flex-col items-center text-center ${compact ? "mb-10" : "mb-12 sm:mb-16"}`}
+      className={`flex items-center justify-between ${compact ? "mb-10" : "mb-12 sm:mb-16"}`}
     >
-      <Link href="/" aria-label="genome.download home">
-        <div className="text-3xl leading-none">🧬</div>
+      <Link
+        href="/"
+        aria-label="genome.download home"
+        className="inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
+      >
+        <span className="text-2xl leading-none">🧬</span>
+        <span className="font-mono text-[15px] font-medium tracking-[-0.01em]">
+          genome.download
+        </span>
       </Link>
+      <a
+        href="mailto:contact@genome.download"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
+      >
+        Contact
+      </a>
     </header>
   );
 }
