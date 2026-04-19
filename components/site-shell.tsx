@@ -31,7 +31,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
         rel="noopener noreferrer"
         className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
       >
-        contact@genome.download
+        Contact
       </a>
     </header>
   );
@@ -39,8 +39,8 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
 
 function SiteFooter() {
   return (
-    <footer className="mt-20 flex flex-col items-start gap-4 text-[13px] text-muted-foreground sm:mt-24 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-      <div className="flex flex-wrap gap-x-5 gap-y-2">
+    <footer className="mt-20 flex flex-col items-center gap-4 text-center text-[13px] text-muted-foreground sm:mt-24 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6">
+      <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
         <a
           href="mailto:contact@genome.download"
           className="text-muted-foreground transition-colors hover:text-foreground"
@@ -65,10 +65,10 @@ function SiteFooter() {
           rel="noopener noreferrer"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
-          @genome.download
+          @genomedownload
         </a>
       </div>
-      <div>🇺🇸 Made &amp; Sequenced in the USA · © Humankind Bio, Inc.</div>
+      <div>🇺🇸 CLIA/CAP-accredited in the USA · © Humankind Bio, Inc.</div>
     </footer>
   );
 }
