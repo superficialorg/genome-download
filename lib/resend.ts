@@ -23,12 +23,12 @@ export async function sendOrderConfirmation(params: {
       reason: "Resend not configured (RESEND_API_KEY missing).",
     };
   }
-  const from = process.env.RESEND_FROM ?? "contact@genome.download";
+  const from = process.env.RESEND_FROM ?? "contact@genome.computer";
   const { to, orderId, productName, amountLabel } = params;
   const { error } = await client.emails.send({
     from,
     to,
-    subject: `genome.download — order ${orderId} confirmed`,
+    subject: `The Genome Computer Company — order ${orderId} confirmed`,
     html: `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #171717;">
         <p style="font-size: 32px; margin: 0 0 16px;">🧬</p>
@@ -42,7 +42,7 @@ export async function sendOrderConfirmation(params: {
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 24px 0;" />
         <p style="font-size: 13px; color: #737373; margin: 0 0 4px;">Order <strong style="color: #171717; font-family: monospace;">${orderId}</strong></p>
         <p style="font-size: 13px; color: #737373; margin: 0 0 4px;">${productName} — ${amountLabel}</p>
-        <p style="font-size: 13px; color: #737373; margin: 24px 0 0;">Questions: <a href="mailto:contact@genome.download" style="color: #171717;">contact@genome.download</a></p>
+        <p style="font-size: 13px; color: #737373; margin: 24px 0 0;">Questions: <a href="mailto:contact@genome.computer" style="color: #171717;">contact@genome.computer</a></p>
       </div>
     `,
   });

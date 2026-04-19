@@ -216,7 +216,7 @@ function PayAndSave({
     const save = await saveRes.json();
     if (!save.ok) {
       setError(
-        "Payment succeeded but we couldn't record your order. Please email contact@genome.download with order reference: " +
+        "Payment succeeded but we couldn't record your order. Please email contact@genome.computer with order reference: " +
           paymentIntentId
       );
       setSubmitting(false);

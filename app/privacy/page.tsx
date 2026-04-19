@@ -1,7 +1,7 @@
 import { SiteShell, SiteHeader } from "@/components/site-shell";
 
 export const metadata = {
-  title: "Privacy — genome.download",
+  title: "Privacy — The Genome Computer Company",
 };
 
 export default function PrivacyPage() {
@@ -53,8 +53,8 @@ export default function PrivacyPage() {
             We retain your genomic data files and the biological sample for up
             to 12 months after delivery to support redelivery requests. You may
             request earlier deletion at any time by emailing{" "}
-            <a href="mailto:contact@genome.download" className="text-foreground underline underline-offset-2">
-              contact@genome.download
+            <a href="mailto:contact@genome.computer" className="text-foreground underline underline-offset-2">
+              contact@genome.computer
             </a>
             . We will confirm destruction of your sample and delete your files
             within 14 days.
@@ -80,8 +80,8 @@ export default function PrivacyPage() {
           </h2>
           <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
             Humankind Bio, Inc. Questions, deletion requests, or concerns:{" "}
-            <a href="mailto:contact@genome.download" className="text-foreground underline underline-offset-2">
-              contact@genome.download
+            <a href="mailto:contact@genome.computer" className="text-foreground underline underline-offset-2">
+              contact@genome.computer
             </a>
             .
           </p>

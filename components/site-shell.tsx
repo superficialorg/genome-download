@@ -17,16 +17,16 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
     >
       <Link
         href="/"
-        aria-label="genome.download home"
+        aria-label="The Genome Computer Company home"
         className="inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
       >
         <span className="text-2xl leading-none">🧬</span>
         <span className="text-[15px] font-normal tracking-[-0.01em] sm:text-[16px]">
-          genome.download
+          The Genome Computer Company
         </span>
       </Link>
       <a
-        href="mailto:contact@genome.download"
+        href="mailto:contact@genome.computer"
         target="_blank"
         rel="noopener noreferrer"
         className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
@@ -42,10 +42,10 @@ function SiteFooter() {
     <footer className="mt-20 flex flex-col items-center gap-4 text-center text-[13px] text-muted-foreground sm:mt-24 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6">
       <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
         <a
-          href="mailto:contact@genome.download"
+          href="mailto:contact@genome.computer"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
-          contact@genome.download
+          contact@genome.computer
         </a>
         <Link
           href="/privacy"
@@ -60,15 +60,18 @@ function SiteFooter() {
           Terms
         </Link>
         <a
-          href="https://x.com/genomedownload"
+          href="https://x.com/genomecomputer"
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
-          @genomedownload
+          @genomecomputer
         </a>
       </div>
-      <div>CLIA/CAP-accredited in the USA 🇺🇸 · © Humankind Bio, Inc.</div>
+      <div>
+        CLIA, CAP, and NATA accredited. ISO 15189 certified. San Francisco, CA
+        🇺🇸, Brisbane, QLD 🇦🇺. · © Humankind Bio, Inc.
+      </div>
     </footer>
   );
 }
