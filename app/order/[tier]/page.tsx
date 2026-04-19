@@ -26,8 +26,10 @@ export default async function OrderPage({
 
   return (
     <SiteShell>
-      <SiteHeader compact />
-      <div className="mb-8 flex flex-col items-center text-center">
+      <div className="pt-6 sm:pt-10">
+        <SiteHeader compact />
+      </div>
+      <div className="mb-8 mt-6 flex flex-col items-center text-center sm:mt-10">
         <p className="m-0 font-mono text-[13px] text-muted-foreground">
           Order
         </p>
@@ -45,7 +47,7 @@ export default async function OrderPage({
       <OrderForm product={product} />
 
       <p className="mt-8 text-xs text-muted-foreground">
-        Shipping available in the United States only. By placing an order you
+        Available in the United States only. By placing an order you
         agree to our{" "}
         <a href="/terms" className="underline underline-offset-2">
           Terms
