@@ -46,9 +46,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@genomecomputer",
+    creator: "@genomecomputer",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/og-image.png"],
+    images: [
+      { url: "/og-image.png", alt: "The Genome Computer Company" },
+    ],
   },
 };
 
