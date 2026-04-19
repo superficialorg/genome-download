@@ -47,13 +47,27 @@ export default function Home() {
 
       <section className="mt-16 sm:mt-20">
         <div className="rounded-[var(--radius-lg)] border border-border bg-muted px-6 py-6 text-center sm:px-8 sm:py-8">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="mx-auto mb-4 size-6 text-foreground sm:size-7"
+            aria-hidden="true"
+          >
+            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
           <p className="m-0 text-[17px] font-medium tracking-[-0.01em] text-foreground sm:text-[18px]">
             Your DNA stays private and remains in your full control.
           </p>
           <p className="m-0 mt-3 text-[15px] leading-[1.55] text-muted-foreground sm:text-[16px]">
-            We&apos;re a Public Benefit Corporation. We&apos;re legally bound
-            to never sell or license your individual genetic data. It&apos;s
-            your data and always will be.
+            We&apos;re a Public Benefit Corporation and we&apos;re legally
+            bound to never sell or license your individual genetic data.
+            It&apos;s your data and always will be.
           </p>
         </div>
       </section>
