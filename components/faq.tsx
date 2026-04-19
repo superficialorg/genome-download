@@ -62,8 +62,7 @@ const ITEMS: FaqItem[] = [
         >
           humans.inc
         </a>
-        , a genomic archetype platform. It's one place you can send your file.
-        So is anywhere else.
+        , the biological context layer for artificial intelligence.
       </>
     ),
   },
