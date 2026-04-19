@@ -40,7 +40,7 @@ See `.env.example`. Vars are grouped by purpose:
 ## Routes
 
 - `/` — landing page (5 product tiers + FAQ + footer)
-- `/order/[tier]` — checkout form per tier (`snp`, `snp-imputed`, `wgs-1x`, `wgs-30x`, `wgs-100x`)
+- `/order/[tier]` — checkout form per tier (`snp`, `snp-imputed`, `wgs-30x`, `wgs-100x`)
 - `/thanks?order=...` — post-purchase confirmation
 - `/privacy` — draft privacy policy (pending counsel review)
 - `/terms` — draft terms of service (pending counsel review)

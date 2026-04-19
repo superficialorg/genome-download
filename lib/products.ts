@@ -1,7 +1,6 @@
 export type TierSlug =
   | "snp"
   | "snp-imputed"
-  | "wgs-1x"
   | "wgs-30x"
   | "wgs-100x";
 
@@ -34,20 +33,11 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     stripePriceId:
       process.env.STRIPE_PRICE_SNP_IMPUTED ?? "TODO_STRIPE_PRICE_SNP_IMPUTED",
   },
-  "wgs-1x": {
-    slug: "wgs-1x",
-    name: "Whole genome, 1x",
-    priceCents: 19900,
-    priceLabel: "$199",
-    description:
-      "Low-coverage whole genome sequencing. Designed for imputation and broad variant discovery. Delivered as a VCF file in 1 week.",
-    stripePriceId: process.env.STRIPE_PRICE_WGS_1X ?? "TODO_STRIPE_PRICE_WGS_1X",
-  },
   "wgs-30x": {
     slug: "wgs-30x",
     name: "Whole genome, 30x",
-    priceCents: 27900,
-    priceLabel: "$279",
+    priceCents: 54900,
+    priceLabel: "$549",
     description:
       "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Delivered as a VCF file in 1 week. BAM and FASTQ available on request.",
     stripePriceId:
@@ -68,7 +58,6 @@ export const PRODUCTS: Record<TierSlug, Product> = {
 export const PRODUCT_LIST: Product[] = [
   PRODUCTS["snp"],
   PRODUCTS["snp-imputed"],
-  PRODUCTS["wgs-1x"],
   PRODUCTS["wgs-30x"],
   PRODUCTS["wgs-100x"],
 ];
