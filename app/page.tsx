@@ -24,10 +24,15 @@ export default function Home() {
         </h1>
       </div>
 
-      <section className="flex flex-col gap-3">
-        {PRODUCT_LIST.map((product) => (
-          <TierCard key={product.slug} product={product} />
-        ))}
+      <section>
+        <h2 className="m-0 mb-6 text-center text-[22px] font-semibold tracking-[-0.02em] sm:text-[24px]">
+          Order now
+        </h2>
+        <div className="flex flex-col gap-3">
+          {PRODUCT_LIST.map((product) => (
+            <TierCard key={product.slug} product={product} />
+          ))}
+        </div>
       </section>
 
       <section className="mt-16 sm:mt-20">
