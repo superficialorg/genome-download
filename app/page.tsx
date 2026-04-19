@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SiteShell, SiteHeader } from "@/components/site-shell";
 import { TierCard } from "@/components/tier-card";
 import { Faq } from "@/components/faq";
@@ -8,6 +9,16 @@ export default function Home() {
     <SiteShell>
       <SiteHeader />
       <div className="mb-12 flex flex-col items-center text-center sm:mb-16">
+        <div className="mb-8 w-full overflow-hidden rounded-[var(--radius-lg)]">
+          <Image
+            src="/Hero.jpg"
+            alt=""
+            width={1000}
+            height={679}
+            priority
+            className="h-auto w-full"
+          />
+        </div>
         <p className="m-0 font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
           The fastest, cheapest way to get your raw genome as a VCF file
         </p>
