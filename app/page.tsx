@@ -9,7 +9,7 @@ export default function Home() {
     <SiteShell>
       <SiteHeader />
       <div className="mb-12 flex flex-col items-center text-center sm:mb-16">
-        <div className="mb-8 w-full overflow-hidden rounded-[var(--radius-lg)]">
+        <div className="mb-8 w-1/2 overflow-hidden rounded-[var(--radius-lg)]">
           <Image
             src="/Hero.jpg"
             alt=""
