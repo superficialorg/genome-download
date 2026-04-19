@@ -11,7 +11,7 @@ export default function Home() {
       <div className="mb-12 flex flex-col items-center text-center sm:mb-16">
         <div className="mb-8 w-1/2 overflow-hidden rounded-[var(--radius-lg)]">
           <Image
-            src="/Hero.jpg"
+            src="/Hero.png"
             alt=""
             width={1000}
             height={679}
