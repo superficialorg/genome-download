@@ -28,7 +28,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "Is the lab real?",
-    a: "Samples are processed through CLIA-accredited and CAP-accredited clinical laboratory infrastructure on Illumina platforms.",
+    a: "Samples are processed through CLIA-accredited and CAP-accredited clinical laboratory infrastructure based inside the USA.",
   },
   {
     q: "What about privacy?",
@@ -37,10 +37,6 @@ const ITEMS: FaqItem[] = [
   {
     q: "Can I use this for medical decisions?",
     a: "No. This is raw data, not a medical test. For clinical interpretation, take the file to a physician or clinical genetics service.",
-  },
-  {
-    q: "What if the sample fails QC?",
-    a: "Free replacement kit. If the second sample fails, full refund.",
   },
   {
     q: "Do you ship internationally?",
