@@ -46,8 +46,8 @@ export const PRODUCTS: Record<TierSlug, Product> = {
   "wgs-100x": {
     slug: "wgs-100x",
     name: "Whole genome, 100x",
-    priceCents: 59900,
-    priceLabel: "$599",
+    priceCents: 109900,
+    priceLabel: "$1,099",
     description:
       "High-depth sequencing for research and advanced use cases. Higher confidence for low-frequency and structural variants. Delivered as a VCF file. BAM and FASTQ available.",
     stripePriceId:
