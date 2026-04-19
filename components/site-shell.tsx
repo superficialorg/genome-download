@@ -31,7 +31,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
         rel="noopener noreferrer"
         className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
       >
-        Contact
+        contact@genome.download
       </a>
     </header>
   );
