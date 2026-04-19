@@ -9,7 +9,7 @@ export default function Home() {
     <SiteShell>
       <SiteHeader />
       <div className="mb-12 flex flex-col items-center text-center sm:mb-16">
-        <div className="mb-8 w-1/2 overflow-hidden rounded-[var(--radius-lg)]">
+        <div className="mb-8 w-full overflow-hidden rounded-[var(--radius-lg)]">
           <Image
             src="/Hero.png"
             alt=""
@@ -20,7 +20,7 @@ export default function Home() {
           />
         </div>
         <h1 className="m-0 text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
-          The fastest, cheapest way to get your raw genome as a VCF file.
+          The fastest and cheapest way to get your raw genome as a VCF file.
         </h1>
       </div>
 
@@ -28,6 +28,19 @@ export default function Home() {
         {PRODUCT_LIST.map((product) => (
           <TierCard key={product.slug} product={product} />
         ))}
+      </section>
+
+      <section className="mt-16 sm:mt-20">
+        <div className="rounded-[var(--radius-lg)] border border-border bg-muted px-6 py-6 text-center sm:px-8 sm:py-8">
+          <p className="m-0 text-[17px] font-medium tracking-[-0.01em] text-foreground sm:text-[18px]">
+            Your DNA stays private and remains in your full control.
+          </p>
+          <p className="m-0 mt-3 text-[15px] leading-[1.55] text-muted-foreground sm:text-[16px]">
+            We&apos;re part of Humankind, a Public Benefit Corporation. We&apos;re
+            legally bound to never sell or license your individual genetic
+            data. It&apos;s your data and always will be.
+          </p>
+        </div>
       </section>
 
       <section className="mt-24 sm:mt-28">

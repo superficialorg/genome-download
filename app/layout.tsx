@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 const TITLE = "genome.download — Download your genome file.";
 const DESCRIPTION =
-  "The fastest, cheapest way to get your raw genome as a VCF file.";
+  "The fastest and cheapest way to get your raw genome as a VCF file.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://genome.download"),
