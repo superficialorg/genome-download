@@ -2,11 +2,27 @@
 
 import { useEffect, useState } from "react";
 
+const MIN = 401;
+const MAX = 1999;
+
+// Deterministic per UTC day — same number for all visitors on a given
+// day, rolls over at 00:00 UTC.
+function dailyGenomeCount(): number {
+  const now = new Date();
+  const dayKey =
+    now.getUTCFullYear() * 10000 +
+    (now.getUTCMonth() + 1) * 100 +
+    now.getUTCDate();
+  // Knuth multiplicative hash, masked to unsigned 32-bit.
+  const hash = (Math.imul(dayKey, 2654435761) >>> 0);
+  return MIN + (hash % (MAX - MIN + 1));
+}
+
 export function GenomeCount() {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    setCount(Math.floor(Math.random() * (1999 - 401 + 1)) + 401);
+    setCount(dailyGenomeCount());
   }, []);
 
   return (
