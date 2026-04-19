@@ -69,8 +69,9 @@ function SiteFooter() {
         </a>
       </div>
       <div>
-        CLIA, CAP, and NATA accredited. ISO 15189 certified. San Francisco, CA
-        🇺🇸, Brisbane, QLD 🇦🇺. · © Humankind Bio, Inc.
+        <div>CLIA, CAP, and NATA accredited. ISO 15189 certified.</div>
+        <div>San Francisco, CA 🇺🇸, Brisbane, QLD 🇦🇺.</div>
+        <div>© Humankind Bio, Inc.</div>
       </div>
     </footer>
   );
