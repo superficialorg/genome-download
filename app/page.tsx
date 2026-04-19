@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <SiteShell>
       <SiteHeader />
-      <div className="mb-12 flex flex-col items-center text-center sm:mb-16">
-        <h1 className="m-0 mb-8 text-[28px] font-normal italic leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
+      <div className="my-16 flex flex-col items-center text-center sm:my-24">
+        <h1 className="m-0 mb-14 text-[28px] font-normal italic leading-[1.1] tracking-[-0.03em] sm:mb-20 sm:text-[36px]">
           The fastest and cheapest way to get your raw genome file
         </h1>
         <div className="w-full overflow-hidden rounded-[var(--radius-lg)]">

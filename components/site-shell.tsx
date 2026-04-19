@@ -38,8 +38,8 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
 
 function SiteFooter() {
   return (
-    <footer className="mt-20 flex flex-col items-start gap-4 border-t border-border pt-6 text-[13px] text-muted-foreground sm:mt-24 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-      <div className="flex gap-5">
+    <footer className="mt-20 flex flex-col items-start gap-4 text-[13px] text-muted-foreground sm:mt-24 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+      <div className="flex flex-wrap gap-x-5 gap-y-2">
         <a
           href="mailto:contact@genome.download"
           className="text-muted-foreground transition-colors hover:text-foreground"
