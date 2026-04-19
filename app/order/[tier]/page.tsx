@@ -1,0 +1,57 @@
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { SiteShell, SiteHeader } from "@/components/site-shell";
+import { OrderForm } from "@/components/order-form";
+import { PRODUCTS, isTierSlug } from "@/lib/products";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ tier: string }>;
+}): Promise<Metadata> {
+  const { tier } = await params;
+  if (!isTierSlug(tier)) return { title: "Order — genome.download" };
+  const product = PRODUCTS[tier];
+  return { title: `Order ${product.name} — genome.download` };
+}
+
+export default async function OrderPage({
+  params,
+}: {
+  params: Promise<{ tier: string }>;
+}) {
+  const { tier } = await params;
+  if (!isTierSlug(tier)) notFound();
+  const product = PRODUCTS[tier];
+
+  return (
+    <SiteShell>
+      <SiteHeader compact />
+      <div className="mb-8">
+        <p className="m-0 font-mono text-[13px] text-muted-foreground">
+          Order
+        </p>
+        <h1 className="m-0 mt-2 text-[24px] font-semibold leading-[1.2] tracking-[-0.02em] sm:text-[28px]">
+          {product.name}
+        </h1>
+        <p className="m-0 mt-2 text-[15px] text-muted-foreground">
+          {product.description}
+        </p>
+        <p className="m-0 mt-3 font-mono text-[15px] text-foreground">
+          {product.priceLabel}
+        </p>
+      </div>
+
+      <OrderForm product={product} />
+
+      <p className="mt-8 text-xs text-muted-foreground">
+        Shipping available in the United States only. By placing an order you
+        agree to our{" "}
+        <a href="/terms" className="underline underline-offset-2">
+          Terms
+        </a>
+        .
+      </p>
+    </SiteShell>
+  );
+}

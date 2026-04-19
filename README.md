@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# genome.download
 
-## Getting Started
+Direct-to-consumer genomic data landing + checkout site for
+**Humankind Bio, Inc.** Customers order a sequencing kit and receive their
+raw genome as a VCF file.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript
+- Tailwind CSS v4 + shadcn-style HSL tokens in `app/globals.css`
+- Geist + Geist Mono via `next/font`
+- Stripe PaymentIntent + PaymentElement for checkout
+- Supabase for order persistence
+- Resend for transactional order-confirmation emails
+- Deploy target: Vercel (domain: `genome.download`)
+
+Mirrors the commerce stack used by the Humankind Website repo.
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+cp .env.example .env.local   # fill in real values for live commerce
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without env vars the landing page, privacy, terms, and thanks pages all render.
+The order flow renders but checkout will fail until Stripe keys are set.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See `.env.example`. Vars are grouped by purpose:
 
-## Learn More
+| Purpose | Vars |
+| --- | --- |
+| Stripe (required for checkout) | `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_PRICE_*` |
+| Supabase (required for order records) | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` |
+| Resend (required for confirmation emails) | `RESEND_API_KEY`, `RESEND_FROM` |
 
-To learn more about Next.js, take a look at the following resources:
+## Routes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/` — landing page (5 product tiers + FAQ + footer)
+- `/order/[tier]` — checkout form per tier (`snp`, `snp-imputed`, `wgs-1x`, `wgs-30x`, `wgs-100x`)
+- `/thanks?order=...` — post-purchase confirmation
+- `/privacy` — draft privacy policy (pending counsel review)
+- `/terms` — draft terms of service (pending counsel review)
+- `POST /api/create-payment-intent` — mints a Stripe PaymentIntent for a tier
+- `POST /api/save-order` — verifies PaymentIntent status on Stripe, persists to Supabase, sends Resend confirmation email
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Supabase schema
 
-## Deploy on Vercel
+Run `supabase/schema.sql` against your Supabase project to create the `orders` table.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Pre-launch TODOs
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Before the site can take real orders:
+
+- [ ] Create 5 Stripe products + prices in Stripe Dashboard; paste price IDs into Vercel env (`STRIPE_PRICE_SNP`, etc.)
+- [ ] Finalize the **1x whole-genome tier price** (currently $99 placeholder in `lib/products.ts`)
+- [ ] Create Supabase project and run `supabase/schema.sql`; paste URL + keys into Vercel env
+- [ ] Verify `genome.download` sender domain in Resend; paste API key into Vercel env
+- [ ] Design + upload `og-image.png` (1200×630) to `public/`
+- [ ] Generate + upload favicon PNGs from https://favicon.io/emoji-favicons/dna to `public/`
+- [ ] Counsel review + finalize `/privacy` and `/terms` copy
+- [ ] Attach `genome.download` custom domain in Vercel project settings
+
+## License
+
+© Humankind Bio, Inc.
