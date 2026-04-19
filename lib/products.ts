@@ -11,6 +11,7 @@ export type Product = {
   priceLabel: string;
   description: string;
   stripePriceId: string;
+  popular?: boolean;
 };
 
 export const PRODUCTS: Record<TierSlug, Product> = {
@@ -42,6 +43,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
       "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Delivered as a VCF file in 1 week. BAM and FASTQ available on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_30X ?? "TODO_STRIPE_PRICE_WGS_30X",
+    popular: true,
   },
   "wgs-100x": {
     slug: "wgs-100x",
