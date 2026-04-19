@@ -41,10 +41,10 @@ const ITEMS: FaqItem[] = [
         Currently US only. International shipping coming soon. Add your name to
         the waitlist at{" "}
         <a
-          href="mailto:waitlist@genome.download"
+          href="mailto:waitlist@genome.computer"
           className="text-foreground underline underline-offset-[3px] decoration-1 hover:decoration-2"
         >
-          waitlist@genome.download
+          waitlist@genome.computer
         </a>
         .
       </>

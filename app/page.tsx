@@ -65,9 +65,9 @@ export default function Home() {
             Your DNA stays private and remains in your full control.
           </p>
           <p className="m-0 mt-3 text-[15px] leading-[1.55] text-muted-foreground sm:text-[16px]">
-            We&apos;re a Public Benefit Corporation and we&apos;re legally
-            bound to never sell or license your individual genetic data.
-            It&apos;s your data and always will be.
+            We&apos;re a Public Benefit Corporation legally bound to never
+            sell or license your individual genetic data. It&apos;s your data
+            and always will be.
           </p>
         </div>
       </section>
