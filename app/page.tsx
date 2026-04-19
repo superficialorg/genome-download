@@ -12,7 +12,7 @@ export default function Home() {
         <h1 className="m-0 mb-14 text-[28px] font-normal italic leading-[1.1] tracking-[-0.03em] sm:mb-20 sm:text-[36px]">
           The fastest and cheapest way to get your raw genome file
         </h1>
-        <div className="w-full overflow-hidden rounded-[var(--radius-lg)]">
+        <div className="w-full">
           <Image
             src="/Hero.png"
             alt=""
@@ -20,6 +20,12 @@ export default function Home() {
             height={679}
             priority
             className="h-auto w-full"
+            style={{
+              maskImage:
+                "radial-gradient(ellipse at center, black 55%, transparent 100%)",
+              WebkitMaskImage:
+                "radial-gradient(ellipse at center, black 55%, transparent 100%)",
+            }}
           />
         </div>
       </div>
