@@ -10,9 +10,9 @@ export async function generateMetadata({
   params: Promise<{ tier: string }>;
 }): Promise<Metadata> {
   const { tier } = await params;
-  if (!isTierSlug(tier)) return { title: "Order — The Human Genome Company" };
+  if (!isTierSlug(tier)) return { title: "Order — genome.download" };
   const product = PRODUCTS[tier];
-  return { title: `Order ${product.name} — The Human Genome Company` };
+  return { title: `Order ${product.name} — genome.download` };
 }
 
 export default async function OrderPage({
