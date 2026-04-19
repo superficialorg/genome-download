@@ -32,7 +32,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "What about privacy?",
-    a: 'We don\'t sell your data, share it with researchers, or use it to train models. There is no "optional research program." You can request sample and data deletion after your file is delivered.',
+    a: 'We don\'t sell your data, share it with researchers, or use it to train models. There is no "optional research program." You can request sample and data deletion after your file is delivered. All samples are deleted by our lab within 30 days. Our lab never holds PII.',
   },
   {
     q: "Can I use this for medical decisions?",
@@ -44,7 +44,19 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "Do you ship internationally?",
-    a: "Currently US only. International shipping coming soon.",
+    a: (
+      <>
+        Currently US only. International shipping coming soon. Add your name to
+        the waitlist at{" "}
+        <a
+          href="mailto:waitlist@genome.download"
+          className="text-foreground underline underline-offset-[3px] decoration-1 hover:decoration-2"
+        >
+          waitlist@genome.download
+        </a>
+        .
+      </>
+    ),
   },
   {
     q: "Who built this?",

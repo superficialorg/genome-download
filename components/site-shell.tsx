@@ -39,7 +39,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
 
 function SiteFooter() {
   return (
-    <footer className="mt-auto flex flex-col items-start gap-4 border-t border-border pt-6 text-[13px] text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+    <footer className="mt-20 flex flex-col items-start gap-4 border-t border-border pt-6 text-[13px] text-muted-foreground sm:mt-24 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
       <div className="flex gap-5">
         <a
           href="mailto:contact@genome.download"
@@ -60,7 +60,7 @@ function SiteFooter() {
           Terms
         </Link>
       </div>
-      <div>Made in 🇺🇸 USA · © Humankind Bio, Inc.</div>
+      <div>🇺🇸 Made &amp; Sequenced in the USA · © Humankind Bio, Inc.</div>
     </footer>
   );
 }
