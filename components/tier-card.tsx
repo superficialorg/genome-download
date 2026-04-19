@@ -9,8 +9,9 @@ export function TierCard({ product }: { product: Product }) {
           <h3 className="m-0 text-[15px] font-semibold tracking-[-0.01em]">
             {product.name}
           </h3>
-          <span className="font-mono text-[13px] font-medium text-muted-foreground">
-            {product.priceLabel}
+          <span className="text-[13px] text-muted-foreground">
+            <span className="font-mono font-medium">{product.priceLabel}</span>
+            <span> + Shipping</span>
           </span>
         </div>
         <p className="m-0 text-sm leading-[1.45] text-muted-foreground">
