@@ -21,8 +21,10 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
         className="inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
       >
         <span className="text-2xl leading-none">🧬</span>
-        <span className="text-[15px] font-normal tracking-[-0.01em] sm:text-[16px]">
-          The Genome Computer Company
+        <span className="text-[15px] font-normal leading-[1.2] tracking-[-0.01em] sm:text-[16px]">
+          The Genome
+          <br />
+          Computer Company
         </span>
       </Link>
       <a
