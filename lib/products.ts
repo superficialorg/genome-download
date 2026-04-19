@@ -43,7 +43,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 59900,
     priceLabel: "$599",
     description:
-      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Delivered as a VCF file in 1 week. BAM and FASTQ available on request.",
+      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Delivered as a VCF file in 3-4 weeks. BAM and FASTQ available on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_30X ?? "TODO_STRIPE_PRICE_WGS_30X",
     stripeProductId: "prod_UMaosHtOSO6ATY",
@@ -55,7 +55,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 99900,
     priceLabel: "$999",
     description:
-      "High-depth sequencing for research and advanced use cases. Higher confidence for low-frequency and structural variants. Delivered as a VCF file. BAM and FASTQ available.",
+      "High-depth sequencing for research and advanced use cases. Higher confidence for low-frequency and structural variants. Delivered as a VCF file in 3-4 weeks. BAM and FASTQ available.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_100X ?? "TODO_STRIPE_PRICE_WGS_100X",
     stripeProductId: "prod_UMaoDyJYIUROWI",
