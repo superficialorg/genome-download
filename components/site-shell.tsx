@@ -18,11 +18,12 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
       <Link
         href="/"
         aria-label="The Human Genome Company home"
-        className="inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
+        className="inline-flex items-center text-foreground transition-opacity hover:opacity-80"
       >
-        <span className="text-2xl leading-none">🧬</span>
-        <span className="text-[15px] font-medium tracking-[-0.01em] sm:text-[16px]">
-          The Human Genome Company
+        <span className="text-[15px] font-medium leading-[1.2] tracking-[-0.01em] sm:text-[16px]">
+          The Human Genome
+          <br />
+          Company
         </span>
       </Link>
       <a
@@ -59,6 +60,14 @@ function SiteFooter() {
         >
           Terms
         </Link>
+        <a
+          href="https://x.com/genomedownload"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          @genome.download
+        </a>
       </div>
       <div>🇺🇸 Made &amp; Sequenced in the USA · © Humankind Bio, Inc.</div>
     </footer>
