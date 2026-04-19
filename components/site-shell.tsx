@@ -68,7 +68,7 @@ function SiteFooter() {
           @genomedownload
         </a>
       </div>
-      <div>🇺🇸 CLIA/CAP-accredited in the USA · © Humankind Bio, Inc.</div>
+      <div>CLIA/CAP-accredited in the USA 🇺🇸 · © Humankind Bio, Inc.</div>
     </footer>
   );
 }
