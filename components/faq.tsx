@@ -15,10 +15,6 @@ const ITEMS: FaqItem[] = [
     a: "Whatever you want. We don't interpret your data and we don't tell you where to take it. VCF is a standard format accepted by most genomics tools and services.",
   },
   {
-    q: "How is this different from 23andMe?",
-    a: "They sell interpretation bundled with the sample, and your data stays inside their platform. We sell you the file.",
-  },
-  {
     q: "How long does it take?",
     a: "One week from when the lab receives your sample.",
   },
