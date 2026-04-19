@@ -18,17 +18,7 @@ export default function PrivacyPage() {
           </p>
         </div>
 
-        <div className="rounded-[var(--radius-lg)] border border-border bg-muted px-4 py-3 text-[13px] text-muted-foreground">
-          <strong className="text-foreground">Draft — pending counsel review.</strong>{" "}
-          This page describes our intended data practices. It is not yet a
-          reviewed legal document. Email{" "}
-          <a href="mailto:contact@genome.download" className="underline underline-offset-2">
-            contact@genome.download
-          </a>{" "}
-          with questions.
-        </div>
-
-        <section className="flex flex-col gap-3">
+<section className="flex flex-col gap-3">
           <h2 className="m-0 text-[18px] font-semibold tracking-[-0.01em]">
             What we collect
           </h2>

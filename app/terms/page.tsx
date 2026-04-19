@@ -18,13 +18,7 @@ export default function TermsPage() {
           </p>
         </div>
 
-        <div className="rounded-[var(--radius-lg)] border border-border bg-muted px-4 py-3 text-[13px] text-muted-foreground">
-          <strong className="text-foreground">Draft — pending counsel review.</strong>{" "}
-          These terms describe our intended commercial and legal relationship
-          with customers. They are not yet a reviewed legal document.
-        </div>
-
-        <section className="flex flex-col gap-3">
+<section className="flex flex-col gap-3">
           <h2 className="m-0 text-[18px] font-semibold tracking-[-0.01em]">
             What you are buying
           </h2>
