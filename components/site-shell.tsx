@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -18,17 +17,13 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
     >
       <Link
         href="/"
-        aria-label="The Human Genome Company home"
-        className="inline-flex items-center transition-opacity hover:opacity-80"
+        aria-label="genome.download home"
+        className="inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
       >
-        <Image
-          src="/logo.png"
-          alt="The Human Genome Company"
-          width={3888}
-          height={1024}
-          priority
-          className="h-7 w-auto sm:h-8"
-        />
+        <span className="text-2xl leading-none">🧬</span>
+        <span className="text-[15px] font-normal tracking-[-0.01em] sm:text-[16px]">
+          genome.download
+        </span>
       </Link>
       <a
         href="mailto:contact@genome.download"

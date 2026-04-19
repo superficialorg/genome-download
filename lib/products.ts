@@ -21,45 +21,45 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 6900,
     priceLabel: "$69",
     description:
-      "700K variants. Comparable to 23andMe coverage. Delivered as a VCF file.",
+      "~700K measured variants. Comparable to consumer genotyping kits. Delivered as a VCF file in 1 week.",
     stripePriceId: process.env.STRIPE_PRICE_SNP ?? "TODO_STRIPE_PRICE_SNP",
   },
   "snp-imputed": {
     slug: "snp-imputed",
     name: "SNP + imputed genome",
-    priceCents: 8900,
-    priceLabel: "$89",
+    priceCents: 9900,
+    priceLabel: "$99",
     description:
-      "23M variants via statistical imputation. Delivered as a VCF file.",
+      "~23M variants via statistical imputation from your SNP data. Expanded coverage beyond standard genotyping. Delivered as a VCF file in 1 week.",
     stripePriceId:
       process.env.STRIPE_PRICE_SNP_IMPUTED ?? "TODO_STRIPE_PRICE_SNP_IMPUTED",
   },
   "wgs-1x": {
     slug: "wgs-1x",
     name: "Whole genome, 1x",
-    priceCents: 9900,
-    priceLabel: "$99",
+    priceCents: 19900,
+    priceLabel: "$199",
     description:
-      "Low-coverage whole genome sequencing. Imputation-friendly. Delivered as a VCF file.",
+      "Low-coverage whole genome sequencing. Designed for imputation and broad variant discovery. Delivered as a VCF file in 1 week.",
     stripePriceId: process.env.STRIPE_PRICE_WGS_1X ?? "TODO_STRIPE_PRICE_WGS_1X",
   },
   "wgs-30x": {
     slug: "wgs-30x",
     name: "Whole genome, 30x",
-    priceCents: 14900,
-    priceLabel: "$149",
+    priceCents: 27900,
+    priceLabel: "$279",
     description:
-      "Full genome sequencing. Delivered as a VCF file — BAM and FASTQ available on request.",
+      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Delivered as a VCF file in 1 week. BAM and FASTQ available on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_30X ?? "TODO_STRIPE_PRICE_WGS_30X",
   },
   "wgs-100x": {
     slug: "wgs-100x",
     name: "Whole genome, 100x",
-    priceCents: 19900,
-    priceLabel: "$199",
+    priceCents: 59900,
+    priceLabel: "$599",
     description:
-      "Research-grade depth. Delivered as a VCF file — BAM and FASTQ available on request.",
+      "High-depth sequencing for research and advanced use cases. Higher confidence for low-frequency and structural variants. Delivered as a VCF file. BAM and FASTQ available.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_100X ?? "TODO_STRIPE_PRICE_WGS_100X",
   },
