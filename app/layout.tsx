@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 const TITLE = "genome.download";
 const DESCRIPTION =
-  "The fastest, cheapest way to download your genome file.";
+  "The fastest, cheapest way to download your genome.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://genome.download"),
