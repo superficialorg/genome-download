@@ -6,6 +6,7 @@ const libreBaskerville = Libre_Baskerville({
   variable: "--font-baskerville",
   subsets: ["latin"],
   weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 const geistMono = Geist_Mono({
