@@ -19,7 +19,7 @@ const DESCRIPTION =
   "The fastest, cheapest way to download your genome.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://genome.download"),
+  metadataBase: new URL("https://genome.computer"),
   title: TITLE,
   description: DESCRIPTION,
   icons: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://genome.download",
+    url: "https://genome.computer",
     title: TITLE,
     description: DESCRIPTION,
     siteName: "The Genome Computer Company",
