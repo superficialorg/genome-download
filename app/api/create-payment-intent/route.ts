@@ -34,6 +34,9 @@ export async function POST(request: Request) {
       metadata: {
         tier: product.slug,
         product_name: product.name,
+        ...(product.stripeProductId
+          ? { stripe_product_id: product.stripeProductId }
+          : {}),
       },
     });
     return NextResponse.json({

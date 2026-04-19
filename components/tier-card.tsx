@@ -15,12 +15,11 @@ export function TierCard({ product }: { product: Product }) {
           <h3 className="m-0 text-[15px] font-semibold tracking-[-0.01em]">
             {product.name}
           </h3>
-          <span className="text-[13px] text-muted-foreground">
-            <span className="font-mono font-medium">{product.priceLabel}</span>
-            <span> + Shipping</span>
+          <span className="font-mono text-[13px] font-medium text-muted-foreground">
+            {product.priceLabel}
           </span>
           {product.popular ? (
-            <span className="inline-flex items-center rounded-full bg-foreground px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-primary-foreground">
+            <span className="inline-flex items-center rounded-full bg-border px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-foreground">
               Most popular
             </span>
           ) : null}
