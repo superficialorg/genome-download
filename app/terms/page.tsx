@@ -1,7 +1,7 @@
 import { SiteShell, SiteHeader } from "@/components/site-shell";
 
 export const metadata = {
-  title: "Terms — genome.download",
+  title: "Terms — The Human Genome Company",
 };
 
 export default function TermsPage() {
@@ -23,7 +23,7 @@ export default function TermsPage() {
             What you are buying
           </h2>
           <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
-            genome.download sells a sequencing service and delivery of the
+            The Human Genome Company sells a sequencing service and delivery of the
             resulting raw data as a VCF file. This is raw genomic data, not a
             medical test and not a diagnosis. No clinical interpretation is
             provided. For medical decisions, take your file to a physician or a
@@ -74,7 +74,7 @@ export default function TermsPage() {
           </h2>
           <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
             These terms are governed by the laws of the State of Delaware,
-            United States. genome.download is operated by Humankind Bio, Inc., a
+            United States. The Human Genome Company is operated by Humankind Bio, Inc., a
             Delaware public benefit corporation.
           </p>
         </section>

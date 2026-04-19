@@ -9,7 +9,10 @@ export default function Home() {
     <SiteShell>
       <SiteHeader />
       <div className="mb-12 flex flex-col items-center text-center sm:mb-16">
-        <div className="mb-8 w-full overflow-hidden rounded-[var(--radius-lg)]">
+        <h1 className="m-0 mb-8 text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
+          The fastest and cheapest way to get your raw genome as a VCF file.
+        </h1>
+        <div className="w-full overflow-hidden rounded-[var(--radius-lg)]">
           <Image
             src="/Hero.png"
             alt=""
@@ -19,9 +22,6 @@ export default function Home() {
             className="h-auto w-full"
           />
         </div>
-        <h1 className="m-0 text-[28px] font-semibold leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
-          The fastest and cheapest way to get your raw genome as a VCF file.
-        </h1>
       </div>
 
       <section>

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const TITLE = "genome.download — Download your genome file.";
+const TITLE = "The Human Genome Company — Download your genome file.";
 const DESCRIPTION =
   "The fastest and cheapest way to get your raw genome as a VCF file.";
 
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     url: "https://genome.download",
     title: TITLE,
     description: DESCRIPTION,
-    siteName: "genome.download",
+    siteName: "The Human Genome Company",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "genome.download",
+        alt: "The Human Genome Company",
       },
     ],
   },

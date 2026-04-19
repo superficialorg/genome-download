@@ -1,7 +1,7 @@
 import { SiteShell, SiteHeader } from "@/components/site-shell";
 
 export const metadata = {
-  title: "Privacy — genome.download",
+  title: "Privacy — The Human Genome Company",
 };
 
 export default function PrivacyPage() {
