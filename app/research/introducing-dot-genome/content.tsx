@@ -298,14 +298,7 @@ function Overview() {
       <p>
         The consumer genomics file format is about to matter more than it
         has in fifteen years, because for the first time the primary reader
-        is not a specialist. We have designed the file that reader needs. We
-        have released it publicly because a file format is only useful if
-        others can read and write it. And we are inviting the critique that
-        turns a proposal into a standard.
-      </p>
-      <p>
-        Your genome will be read by an AI in your lifetime. It should be in
-        a file designed for that.
+        is not a specialist. It&rsquo;s a machine.
       </p>
 
       <p className="pt-2 text-[13px]">

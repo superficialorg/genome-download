@@ -8,7 +8,7 @@ type FaqItem = {
 const ITEMS: FaqItem[] = [
   {
     q: "What do I get?",
-    a: "A VCF file — the standard format used in clinical genomics and bioinformatics. Yours to keep, use, or archive.",
+    a: "A .genome bundle — the open, AI-ready format we developed for consumer genome files. Your VCF is available on request. Yours to keep, use, or archive.",
   },
   {
     q: "Can I get my VCF?",
