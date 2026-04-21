@@ -15,7 +15,7 @@ export default function Home() {
       <div className="my-16 flex flex-col items-center text-center sm:my-24">
         <Link
           href={`/research/${featuredPost.slug}`}
-          className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-background py-1 pl-1 pr-3 text-[12px] text-muted-foreground no-underline transition-colors hover:border-foreground/20 hover:text-foreground sm:text-[13px]"
+          className="mb-10 inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-background py-1 pl-1 pr-3 text-[12px] text-muted-foreground no-underline transition-colors hover:border-foreground/20 hover:text-foreground sm:mb-12 sm:text-[13px]"
         >
           <span className="inline-flex shrink-0 items-center rounded-full bg-border px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-foreground">
             New
