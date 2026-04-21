@@ -22,7 +22,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 9900,
     priceLabel: "$99",
     description:
-      "~700K measured variants. Comparable to consumer genotyping kits. Delivered as a VCF file in 1 week.",
+      "~700K measured variants. Comparable to consumer genotyping kits. Ships as a .genome bundle with the readmygenome.md Claude skill. 1 week lab turnaround. VCF on request.",
     stripePriceId: process.env.STRIPE_PRICE_SNP ?? "TODO_STRIPE_PRICE_SNP",
     stripeProductId: "prod_UMadBTHvuZE0Ta",
   },
@@ -32,7 +32,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 12900,
     priceLabel: "$129",
     description:
-      "~23M variants via statistical imputation from your SNP data. Expanded coverage beyond standard genotyping. Delivered as a VCF file in 1 week.",
+      "~23M variants via statistical imputation from your SNP data. Expanded coverage beyond standard genotyping. Ships as a .genome bundle with the readmygenome.md Claude skill. 1 week lab turnaround. VCF on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_SNP_IMPUTED ?? "TODO_STRIPE_PRICE_SNP_IMPUTED",
     stripeProductId: "prod_UMakmwJOGjbHuZ",
@@ -43,7 +43,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 59900,
     priceLabel: "$599",
     description:
-      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Delivered as a VCF file in 3-4 weeks. BAM and FASTQ available on request.",
+      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Ships as a .genome bundle with the readmygenome.md Claude skill. 4 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_30X ?? "TODO_STRIPE_PRICE_WGS_30X",
     stripeProductId: "prod_UMaosHtOSO6ATY",
@@ -55,7 +55,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 149900,
     priceLabel: "$1,499",
     description:
-      "High-depth sequencing for research and advanced use cases. Higher confidence for low-frequency and structural variants. Delivered as a VCF file in 3-4 weeks. BAM and FASTQ available.",
+      "High-depth sequencing. Higher confidence for low-frequency and structural variants. Suitable for research workflows. Ships as a .genome bundle with the readmygenome.md Claude skill. 4 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_100X ?? "TODO_STRIPE_PRICE_WGS_100X",
     stripeProductId: "prod_UMaoDyJYIUROWI",
