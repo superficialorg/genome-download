@@ -11,6 +11,30 @@ const ITEMS: FaqItem[] = [
     a: "A VCF file — the standard format used in clinical genomics and bioinformatics. Yours to keep, use, or archive.",
   },
   {
+    q: "Can I get my VCF?",
+    a: "Yes. Every genome.computer download ships as a .genome bundle because it's what works best with AI tools — but your VCF is yours and available on request.",
+  },
+  {
+    q: "What is a .genome file?",
+    a: (
+      <div className="flex flex-col gap-3">
+        <p className="m-0">
+          .genome is an open specification we developed for consumer genome
+          files that are designed to be read by an AI. Your .genome bundle
+          contains the same underlying variant data as a VCF, but structured
+          so that an AI assistant can actually answer questions about it
+          correctly, with provenance, without guessing, and without the
+          errors that happen when a language model tries to parse a file
+          format designed for bioinformaticians.
+        </p>
+        <p className="m-0">
+          We&apos;ve open-sourced the standard and the Claude skill that
+          reads it. Anyone can implement them.
+        </p>
+      </div>
+    ),
+  },
+  {
     q: "What can I do with it?",
     a: "Whatever you want. We don't interpret your data and we don't tell you where to take it. VCF is a standard format accepted by most genomics tools and services.",
   },
