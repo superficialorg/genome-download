@@ -27,14 +27,22 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
           Computer Company
         </span>
       </Link>
-      <a
-        href="mailto:contact@genome.computer"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
-      >
-        Contact
-      </a>
+      <nav className="flex items-center gap-5">
+        <Link
+          href="/research"
+          className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Research
+        </Link>
+        <a
+          href="mailto:contact@genome.computer"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Contact
+        </a>
+      </nav>
     </header>
   );
 }
@@ -49,6 +57,12 @@ function SiteFooter() {
         >
           contact@genome.computer
         </a>
+        <Link
+          href="/research"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Research
+        </Link>
         <Link
           href="/privacy"
           className="text-muted-foreground transition-colors hover:text-foreground"
