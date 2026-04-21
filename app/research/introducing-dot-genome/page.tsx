@@ -1,5 +1,6 @@
 import { SiteShell, SiteHeader } from "@/components/site-shell";
 import { getPost } from "@/lib/posts";
+import { PostContent } from "./content";
 
 const SLUG = "introducing-dot-genome";
 const post = getPost(SLUG)!;
@@ -26,10 +27,7 @@ export default function IntroducingDotGenomePage() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-5 text-[15px] leading-[1.7] text-muted-foreground">
-        {/* Body content TK — will be supplied by author. */}
-        <p className="m-0">Content coming soon.</p>
-      </div>
+      <PostContent />
     </SiteShell>
   );
 }
