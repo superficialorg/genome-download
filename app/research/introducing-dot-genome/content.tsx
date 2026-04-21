@@ -8,9 +8,11 @@ export function PostContent() {
   const [tab, setTab] = useState<Tab>("overview");
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col">
       <TabToggle value={tab} onChange={setTab} />
-      {tab === "overview" ? <Overview /> : <Technical />}
+      <div className="mt-14">
+        {tab === "overview" ? <Overview /> : <Technical />}
+      </div>
     </div>
   );
 }
