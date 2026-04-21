@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <SiteShell>
       <SiteHeader />
-      <div className="my-16 flex flex-col items-center text-center sm:my-24">
+      <div className="mb-16 mt-6 flex flex-col items-center text-center sm:mb-24 sm:mt-10">
         <Link
           href={`/research/${featuredPost.slug}`}
           className="mb-10 inline-flex max-w-full items-center gap-2 rounded-[20px] border border-border bg-background py-1 pl-1 pr-3 text-left text-[12px] leading-[1.35] text-muted-foreground no-underline transition-colors hover:border-foreground/20 hover:text-foreground sm:mb-12 sm:rounded-full sm:text-[13px]"
@@ -28,7 +28,7 @@ export default function Home() {
           The fastest, safest way to download and read your genome.
         </h1>
         <GenomeCount />
-        <div className="mt-10 w-full sm:mt-14">
+        <div className="mt-4 w-full sm:mt-6">
           <Image
             src="/Hero.png"
             alt=""

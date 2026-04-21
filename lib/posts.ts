@@ -7,7 +7,7 @@ export type Post = {
 export const POSTS: Post[] = [
   {
     slug: "introducing-dot-genome",
-    title: "Introducing .genome, the genome file designed for AI.",
+    title: "Introducing .genome, the genome file designed for AI",
     date: "April 2026",
   },
 ];
