@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 
 const TITLE = "The Genome Computer Company";
 const TWITTER_TITLE =
-  "The Genome Computer Company - The fastest, cheapest way to download your genome.";
+  "The Genome Computer Company - The fastest, safest way to download and read your genome.";
 const DESCRIPTION =
-  "The fastest, cheapest way to download your genome. CLIA-, CAP-, and NATA-accredited sequencing. Delivered as a VCF file in 1 week.";
+  "The fastest, safest way to download and read your genome. CLIA-, CAP-, and NATA-accredited sequencing. Delivered as a VCF file in 1 week.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://genome.computer"),

@@ -11,7 +11,7 @@ export default function Home() {
       <SiteHeader />
       <div className="my-16 flex flex-col items-center text-center sm:my-24">
         <h1 className="m-0 mb-6 text-[28px] font-normal italic leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
-          The fastest, cheapest way to download your genome
+          The fastest, safest way to download and read your genome.
         </h1>
         <GenomeCount />
         <div className="mt-10 w-full sm:mt-14">
