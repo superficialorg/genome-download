@@ -57,7 +57,7 @@ export default function Home() {
             <TierCard key={product.slug} product={product} />
           ))}
         </div>
-        <p className="mt-4 text-center text-[14px] leading-[1.55] text-muted-foreground">
+        <p className="mt-10 text-center text-[14px] leading-[1.55] text-muted-foreground sm:mt-12">
           Already have a DNA file from a legacy provider?{" "}
           <a
             href="mailto:contact@genome.computer"
@@ -65,7 +65,7 @@ export default function Home() {
           >
             Contact us
           </a>{" "}
-          to convert it to .genome.
+          to convert it to a .genome bundle.
         </p>
       </section>
 
