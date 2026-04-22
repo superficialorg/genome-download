@@ -36,7 +36,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "What can I do with it?",
-    a: "Whatever you want. We don't interpret your data and we don't tell you where to take it. VCF is a standard format accepted by most genomics tools and services.",
+    a: "Whatever you want. We don't interpret your data and we don't tell you where to take it.",
   },
   {
     q: "How long does it take?",
