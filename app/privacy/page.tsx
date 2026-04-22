@@ -31,8 +31,9 @@ export default function PrivacyPage() {
             or store your card details). When you return a sample, our
             CLIA/CAP-accredited clinical laboratory partner generates
             genomic data from your sample, which is delivered to you as a
-            VCF file and retained by us for up to 12 months to support
-            redelivery and customer service. The biological sample itself
+            .genome bundle (with a VCF file available on request) and
+            retained by us for up to 12 months to support redelivery and
+            customer service. The biological sample itself
             is handled separately — see{" "}
             <em className="italic">Data retention and deletion</em> below.
           </p>

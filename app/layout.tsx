@@ -18,7 +18,7 @@ const TITLE = "The Genome Computer Company";
 const TWITTER_TITLE =
   "The Genome Computer Company - The fastest, safest way to download and read your genome.";
 const DESCRIPTION =
-  "The fastest, safest way to download and read your genome. CLIA-, CAP-, and NATA-accredited sequencing. Delivered as a VCF file in 1 week.";
+  "The fastest, safest way to download and read your genome. CLIA-, CAP-, and NATA-accredited sequencing. Delivered as a .genome bundle with the readmygenome.md Claude skill; VCF on request.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://genome.computer"),

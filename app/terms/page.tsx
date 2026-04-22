@@ -42,10 +42,12 @@ export default function TermsPage() {
           </h2>
           <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
             The Genome Computer Company sells a sequencing service and
-            delivery of the resulting raw data as a VCF file. This is raw
-            genomic data, not a medical test and not a diagnosis. No
-            clinical interpretation is provided. For medical decisions,
-            take your file to a physician or a clinical genetics service.
+            delivery of the resulting raw data. Your data is delivered as
+            a .genome bundle (an open, AI-ready format we developed), with
+            a VCF file available on request. This is raw genomic data, not
+            a medical test and not a diagnosis. No clinical interpretation
+            is provided. For medical decisions, take your file to a
+            physician or a clinical genetics service.
           </p>
         </section>
 
@@ -122,8 +124,8 @@ export default function TermsPage() {
               a new kit at the standard price.
             </li>
             <li className="m-0">
-              We do not provide refunds after a valid VCF file has been
-              delivered.
+              We do not provide refunds after a valid .genome bundle has
+              been delivered.
             </li>
           </ul>
           <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
@@ -151,7 +153,7 @@ export default function TermsPage() {
           </h2>
           <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
             If you request deletion of your data under our Privacy Policy
-            before your VCF file has been delivered, we will honour the
+            before your data has been delivered, we will honour the
             request. Because laboratory costs have already been incurred,
             no refund is provided for deletion requests made after your
             sample has been received by the laboratory.
@@ -177,15 +179,15 @@ export default function TermsPage() {
 
         <section className="flex flex-col gap-3">
           <h2 className="m-0 text-[18px] font-semibold tracking-[-0.01em]">
-            Use of your VCF file
+            Use of your genome data
           </h2>
           <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
-            Once your VCF file is delivered, it is yours. You may use,
-            upload, share, or analyse it however you wish. You are
-            responsible for any subsequent use, upload, or sharing of your
-            VCF file. Humankind Bio, Inc. has no control over, and
-            accepts no liability for, actions you or any third party take
-            with your data after delivery, including any identification,
+            Once your data is delivered, it is yours. You may use, upload,
+            share, or analyse it however you wish. You are responsible for
+            any subsequent use, upload, or sharing of your genome data.
+            Humankind Bio, Inc. has no control over, and accepts no
+            liability for, actions you or any third party take with your
+            data after delivery, including any identification,
             re-identification, or inference about you or your biological
             relatives that results from such use.
           </p>
