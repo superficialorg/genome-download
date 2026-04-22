@@ -37,7 +37,7 @@ export async function sendOrderConfirmation(params: {
         <ul style="font-size: 15px; color: #171717; line-height: 1.6; padding-left: 20px; margin: 0 0 20px;">
           <li>Your sample kit ships within 1 business day.</li>
           <li>Return it in the prepaid envelope.</li>
-          <li>We'll email your VCF file one week after the lab receives your sample.</li>
+          <li>We'll email your .genome bundle and the readmygenome.md Claude skill one week after the lab receives your sample (4–6 weeks for whole genome sequencing). VCF available on request.</li>
         </ul>
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 24px 0;" />
         <p style="font-size: 13px; color: #737373; margin: 0 0 4px;">Order <strong style="color: #171717; font-family: monospace;">${orderId}</strong></p>
