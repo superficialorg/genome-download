@@ -31,7 +31,7 @@ export default async function OrderPage({
       </div>
       <div className="mb-8 mt-6 flex flex-col items-center text-center sm:mt-10">
         <p className="m-0 font-mono text-[13px] text-muted-foreground">
-          Order
+          Order your kit
         </p>
         <h1 className="m-0 mt-2 text-[24px] font-semibold leading-[1.2] tracking-[-0.02em] sm:text-[28px]">
           {product.name}

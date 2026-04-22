@@ -170,11 +170,13 @@ function PayAndSave({
   product,
   shipping,
   paymentIntentId,
+  amountCents,
   onComplete,
 }: {
   product: Product;
   shipping: Shipping;
   paymentIntentId: string;
+  amountCents: number;
   onComplete: (orderId: string) => void;
 }) {
   const stripe = useStripe();
@@ -238,11 +240,187 @@ function PayAndSave({
         disabled={!stripe || submitting}
         className="inline-flex h-11 items-center justify-center rounded-[calc(var(--radius-lg)-2px)] bg-primary px-4 text-sm font-medium tracking-[-0.01em] text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
       >
-        {submitting ? "Processing…" : `Pay ${product.priceLabel}`}
+        {submitting
+          ? "Processing…"
+          : `Pay ${
+              amountCents === product.priceCents
+                ? product.priceLabel
+                : formatUsd(amountCents)
+            }`}
       </button>
     </form>
   );
 }
+
+function formatUsd(amountCents: number): string {
+  if (amountCents % 100 === 0) return `$${amountCents / 100}`;
+  return `$${(amountCents / 100).toFixed(2)}`;
+}
+
+function CouponField({
+  product,
+  applied,
+  onApply,
+  disabled,
+}: {
+  product: Product;
+  applied: AppliedCoupon | null;
+  onApply: (c: AppliedCoupon | null) => void;
+  disabled: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const [code, setCode] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [validating, setValidating] = useState(false);
+
+  async function apply() {
+    const trimmed = code.trim();
+    if (!trimmed) {
+      setError("Enter a coupon code.");
+      return;
+    }
+    setValidating(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/validate-coupon", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tier: product.slug, code: trimmed }),
+      });
+      const body = await res.json();
+      if (!res.ok || !body.ok) {
+        throw new Error(body.error ?? "Could not validate coupon.");
+      }
+      onApply({
+        code: body.code as string,
+        discountCents: body.discountCents as number,
+        finalAmountCents: body.finalAmountCents as number,
+        description: body.description as string,
+      });
+      setCode("");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Could not validate coupon."
+      );
+    } finally {
+      setValidating(false);
+    }
+  }
+
+  function remove() {
+    onApply(null);
+    setError(null);
+  }
+
+  if (applied) {
+    return (
+      <div className="flex items-center justify-between gap-3 rounded-[calc(var(--radius-lg)-2px)] border border-border bg-muted px-3 py-2">
+        <div className="min-w-0 text-sm">
+          <span className="font-medium text-foreground">{applied.code}</span>{" "}
+          <span className="text-muted-foreground">
+            — {applied.description}
+          </span>
+        </div>
+        <button
+          type="button"
+          onClick={remove}
+          disabled={disabled}
+          className="shrink-0 text-[13px] font-medium text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground disabled:opacity-50"
+        >
+          Remove
+        </button>
+      </div>
+    );
+  }
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="self-start text-[13px] font-medium text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground"
+      >
+        Have a coupon?
+      </button>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="coupon">Coupon code</Label>
+      <div className="flex gap-2">
+        <input
+          id="coupon"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              apply();
+            }
+          }}
+          autoCapitalize="characters"
+          autoComplete="off"
+          spellCheck={false}
+          placeholder="e.g. GENOME20"
+          className="h-10 w-full rounded-[calc(var(--radius-lg)-2px)] border border-input bg-background px-3 text-sm tracking-[-0.01em] text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/40 focus:ring-2 focus:ring-foreground/10"
+        />
+        <button
+          type="button"
+          onClick={apply}
+          disabled={validating || disabled || !code.trim()}
+          className="inline-flex h-10 shrink-0 items-center justify-center rounded-[calc(var(--radius-lg)-2px)] border border-border bg-background px-4 text-sm font-medium tracking-[-0.01em] text-foreground transition-colors hover:border-foreground/20 disabled:opacity-60"
+        >
+          {validating ? "Checking…" : "Apply"}
+        </button>
+      </div>
+      {error ? (
+        <p role="alert" className="text-sm text-red-600">
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function OrderTotal({
+  product,
+  coupon,
+}: {
+  product: Product;
+  coupon: AppliedCoupon | null;
+}) {
+  if (!coupon) return null;
+  return (
+    <dl className="flex flex-col gap-1 text-sm">
+      <div className="flex items-center justify-between">
+        <dt className="text-muted-foreground">Subtotal</dt>
+        <dd className="font-mono text-foreground">{product.priceLabel}</dd>
+      </div>
+      <div className="flex items-center justify-between">
+        <dt className="text-muted-foreground">
+          Discount ({coupon.description})
+        </dt>
+        <dd className="font-mono text-foreground">
+          −{formatUsd(coupon.discountCents)}
+        </dd>
+      </div>
+      <div className="mt-1 flex items-center justify-between border-t border-border pt-2">
+        <dt className="font-medium text-foreground">Total</dt>
+        <dd className="font-mono font-medium text-foreground">
+          {formatUsd(coupon.finalAmountCents)}
+        </dd>
+      </div>
+    </dl>
+  );
+}
+
+type AppliedCoupon = {
+  code: string;
+  discountCents: number;
+  finalAmountCents: number;
+  description: string;
+};
 
 export function OrderForm({ product }: { product: Product }) {
   const router = useRouter();
@@ -252,6 +430,7 @@ export function OrderForm({ product }: { product: Product }) {
   const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
   const [intentError, setIntentError] = useState<string | null>(null);
   const [intentLoading, setIntentLoading] = useState(false);
+  const [coupon, setCoupon] = useState<AppliedCoupon | null>(null);
 
   async function startPayment() {
     setIntentLoading(true);
@@ -260,7 +439,10 @@ export function OrderForm({ product }: { product: Product }) {
       const res = await fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tier: product.slug }),
+        body: JSON.stringify({
+          tier: product.slug,
+          couponCode: coupon?.code ?? null,
+        }),
       });
       const body = await res.json();
       if (!res.ok || !body.clientSecret) {
@@ -302,7 +484,14 @@ export function OrderForm({ product }: { product: Product }) {
       <ShippingForm value={shipping} onChange={setShipping} />
 
       {!clientSecret ? (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
+          <CouponField
+            product={product}
+            applied={coupon}
+            onApply={setCoupon}
+            disabled={intentLoading}
+          />
+          <OrderTotal product={product} coupon={coupon} />
           <button
             type="button"
             onClick={startPayment}
@@ -331,6 +520,7 @@ export function OrderForm({ product }: { product: Product }) {
             product={product}
             shipping={shipping}
             paymentIntentId={paymentIntentId!}
+            amountCents={coupon?.finalAmountCents ?? product.priceCents}
             onComplete={(orderId) =>
               router.push(`/thanks?order=${encodeURIComponent(orderId)}`)
             }

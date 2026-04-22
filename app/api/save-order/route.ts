@@ -103,6 +103,7 @@ export async function POST(request: Request) {
   const product = PRODUCTS[tier];
 
   // Verify payment actually succeeded on Stripe — never trust client.
+  let chargedAmount = product.priceCents;
   try {
     const stripe = getStripe();
     const intent = await stripe.paymentIntents.retrieve(paymentIntentId);
@@ -112,12 +113,16 @@ export async function POST(request: Request) {
         { status: 402 }
       );
     }
-    if (intent.amount !== product.priceCents) {
+    // Accept the intent's amount as long as it doesn't exceed the list price.
+    // A discount is allowed (coupon applied at intent creation), but the
+    // customer must never have paid more than the list price.
+    if (intent.amount > product.priceCents) {
       return NextResponse.json(
-        { ok: false, error: "Payment amount does not match product price." },
+        { ok: false, error: "Payment amount exceeds product price." },
         { status: 400 }
       );
     }
+    chargedAmount = intent.amount;
   } catch (err) {
     const message =
       err instanceof Error ? err.message : "Could not verify payment.";
@@ -134,7 +139,7 @@ export async function POST(request: Request) {
     city: shipping.value.city,
     state: shipping.value.state,
     postal_code: shipping.value.postalCode,
-    amount_cents: product.priceCents,
+    amount_cents: chargedAmount,
     payment_intent_id: paymentIntentId,
   });
 
