@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { PRODUCTS, isTierSlug } from "@/lib/products";
 import { saveOrder } from "@/lib/supabase";
-import { sendOrderConfirmation } from "@/lib/resend";
+import {
+  sendOrderConfirmation,
+  sendOrderNotification,
+  type AppliedCouponSummary,
+} from "@/lib/resend";
 
 export const runtime = "nodejs";
 
@@ -104,6 +108,7 @@ export async function POST(request: Request) {
 
   // Verify payment actually succeeded on Stripe — never trust client.
   let chargedAmount = product.priceCents;
+  let coupon: AppliedCouponSummary | null = null;
   try {
     const stripe = getStripe();
     const intent = await stripe.paymentIntents.retrieve(paymentIntentId);
@@ -123,6 +128,15 @@ export async function POST(request: Request) {
       );
     }
     chargedAmount = intent.amount;
+    // Pull coupon context off the intent metadata if present. The intent is
+    // the source of truth — what we saved at creation time, authoritatively.
+    const md = intent.metadata ?? {};
+    const metaCode = typeof md.coupon_code === "string" ? md.coupon_code : null;
+    const metaDiscount =
+      typeof md.discount_cents === "string" ? Number(md.discount_cents) : NaN;
+    if (metaCode && Number.isFinite(metaDiscount) && metaDiscount > 0) {
+      coupon = { code: metaCode, discountCents: metaDiscount };
+    }
   } catch (err) {
     const message =
       err instanceof Error ? err.message : "Could not verify payment.";
@@ -154,17 +168,37 @@ export async function POST(request: Request) {
     orderId = paymentIntentId;
   }
 
-  // Best-effort confirmation email. Don't block on failure.
+  // Best-effort emails. Don't block on failure.
+  const emailPayload = {
+    orderId,
+    productName: product.name,
+    listPriceCents: product.priceCents,
+    amountPaidCents: chargedAmount,
+    coupon,
+    shipping: {
+      name: shipping.value.name,
+      email: shipping.value.email,
+      line1: shipping.value.line1,
+      line2: shipping.value.line2,
+      city: shipping.value.city,
+      state: shipping.value.state,
+      postalCode: shipping.value.postalCode,
+    },
+    paymentIntentId,
+  };
+
   try {
-    const result = await sendOrderConfirmation({
-      to: shipping.value.email,
-      orderId,
-      productName: product.name,
-      amountLabel: product.priceLabel,
-    });
+    const result = await sendOrderConfirmation(emailPayload);
     if (!result.ok) console.warn("sendOrderConfirmation:", result.reason);
   } catch (err) {
     console.warn("sendOrderConfirmation error:", err);
+  }
+
+  try {
+    const result = await sendOrderNotification(emailPayload);
+    if (!result.ok) console.info("sendOrderNotification:", result.reason);
+  } catch (err) {
+    console.warn("sendOrderNotification error:", err);
   }
 
   return NextResponse.json({ ok: true, orderId });
