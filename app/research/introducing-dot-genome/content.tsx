@@ -84,25 +84,6 @@ function Overview() {
         exists. It is a different category. Here is why.
       </p>
 
-      <h2>What you can do with it</h2>
-      <p>
-        You upload your <code>.genome</code> bundle to an AI assistant. You
-        ask: am I a slow caffeine metaboliser? do I carry anything I should
-        tell my doctor about? how should I think about this medication my GP
-        just prescribed?
-      </p>
-      <p>
-        The AI gives you an answer. And for the questions the bundle is
-        designed to answer, the answer cannot be silently wrong in the ways
-        it used to be. The AI is not parsing a file it was never designed to
-        read. It is reading a file designed for it.
-      </p>
-      <p>
-        The hard part of AI genomics stops being whether the AI parsed the
-        file correctly. It starts being whether it reasoned about your life
-        correctly — which is a solvable problem, not a hidden one.
-      </p>
-
       <h2>Why a new file was necessary</h2>
       <p>
         The file your genome currently lives in — VCF, Variant Call Format —
