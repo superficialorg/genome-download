@@ -40,7 +40,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "How long does it take?",
-    a: "One week from when the lab receives your sample.",
+    a: "Raw SNP genotype and SNP + imputed genome take one week from when the lab receives your sample. Whole genome sequencing (30x, 100x) take 4-6 weeks.",
   },
   {
     q: "Which reference genome?",
