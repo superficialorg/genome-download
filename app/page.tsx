@@ -57,6 +57,16 @@ export default function Home() {
             <TierCard key={product.slug} product={product} />
           ))}
         </div>
+        <p className="mt-4 text-center text-[14px] leading-[1.55] text-muted-foreground">
+          Already have a DNA file from a legacy provider?{" "}
+          <a
+            href="mailto:contact@genome.computer"
+            className="text-foreground underline underline-offset-2"
+          >
+            Contact us
+          </a>{" "}
+          to convert it to .genome.
+        </p>
       </section>
 
       <section className="mt-16 sm:mt-20">
