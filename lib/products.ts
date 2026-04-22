@@ -43,7 +43,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 59900,
     priceLabel: "$599",
     description:
-      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Ships as a .genome bundle with the readmygenome.md Claude skill. 4 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
+      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Ships as a .genome bundle with the readmygenome.md Claude skill. 4-6 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_30X ?? "TODO_STRIPE_PRICE_WGS_30X",
     stripeProductId: "prod_UMaosHtOSO6ATY",
@@ -55,7 +55,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 149900,
     priceLabel: "$1,499",
     description:
-      "High-depth sequencing. Higher confidence for low-frequency and structural variants. Suitable for research workflows. Ships as a .genome bundle with the readmygenome.md Claude skill. 4 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
+      "High-depth sequencing. Higher confidence for low-frequency and structural variants. Suitable for research workflows. Ships as a .genome bundle with the readmygenome.md Claude skill. 4-6 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_100X ?? "TODO_STRIPE_PRICE_WGS_100X",
     stripeProductId: "prod_UMaoDyJYIUROWI",
