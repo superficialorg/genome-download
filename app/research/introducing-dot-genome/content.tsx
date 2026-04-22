@@ -190,7 +190,7 @@ function Overview() {
         supported.
       </p>
 
-      <h2>What this means, concretely</h2>
+      <h2>What this enables</h2>
       <p>
         <strong>If you want to ask an AI about your genome:</strong> your AI
         can finally answer without silently getting the file wrong. Ask
