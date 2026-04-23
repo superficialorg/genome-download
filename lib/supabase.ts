@@ -18,12 +18,15 @@ export type OrderRecord = {
   tier: TierSlug;
   email: string;
   name: string;
+  phone?: string | null;
   address_line1: string;
   address_line2?: string | null;
   city: string;
   state: string;
   postal_code: string;
+  country_code: string;
   amount_cents: number;
+  shipping_fee_cents: number;
   payment_intent_id: string;
 };
 
@@ -79,11 +82,12 @@ export async function saveOrder(
     order_number,
     status: "paid" as const,
     currency: "usd" as const,
-    country_code: "US" as const,
+    country_code: order.country_code.toUpperCase(),
     form_type: "order_kit_form" as const,
     email: order.email,
     first_name,
     last_name,
+    phone: order.phone ?? null,
     amount: order.amount_cents,
     stripe_payment_intent_id: order.payment_intent_id,
     // Genome-specific fields (columns we added to the table)
@@ -95,6 +99,7 @@ export async function saveOrder(
     state: order.state,
     postal_code: order.postal_code,
     amount_cents: order.amount_cents,
+    shipping_fee_cents: order.shipping_fee_cents,
     payment_intent_id: order.payment_intent_id,
   };
 

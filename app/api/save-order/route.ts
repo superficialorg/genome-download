@@ -7,17 +7,20 @@ import {
   sendOrderNotification,
   type AppliedCouponSummary,
 } from "@/lib/resend";
+import { isSupportedCountry } from "@/lib/shipping";
 
 export const runtime = "nodejs";
 
 type ShippingPayload = {
   name?: unknown;
   email?: unknown;
+  phone?: unknown;
   line1?: unknown;
   line2?: unknown;
   city?: unknown;
   state?: unknown;
   postalCode?: unknown;
+  countryCode?: unknown;
 };
 
 function parseShipping(raw: unknown): {
@@ -25,11 +28,13 @@ function parseShipping(raw: unknown): {
   value: {
     name: string;
     email: string;
+    phone: string | null;
     line1: string;
     line2: string | null;
     city: string;
     state: string;
     postalCode: string;
+    countryCode: string;
   };
 } | { ok: false; reason: string } {
   if (!raw || typeof raw !== "object") {
@@ -49,20 +54,36 @@ function parseShipping(raw: unknown): {
     ["city", s.city],
     ["state", s.state],
     ["postalCode", s.postalCode],
+    ["countryCode", s.countryCode],
   ] as const) {
     const err = requiredStr(v, k);
     if (err) return { ok: false, reason: err };
+  }
+  const countryCode = (s.countryCode as string).trim().toUpperCase();
+  if (!isSupportedCountry(countryCode)) {
+    return {
+      ok: false,
+      reason: `We don't ship to ${countryCode} yet.`,
+    };
   }
   return {
     ok: true,
     value: {
       name: (s.name as string).trim(),
       email: (s.email as string).trim(),
+      phone:
+        typeof s.phone === "string" && s.phone.trim()
+          ? (s.phone as string).trim()
+          : null,
       line1: (s.line1 as string).trim(),
-      line2: typeof s.line2 === "string" && s.line2.trim() ? (s.line2 as string).trim() : null,
+      line2:
+        typeof s.line2 === "string" && s.line2.trim()
+          ? (s.line2 as string).trim()
+          : null,
       city: (s.city as string).trim(),
       state: (s.state as string).trim(),
       postalCode: (s.postalCode as string).trim(),
+      countryCode,
     },
   };
 }
@@ -107,7 +128,10 @@ export async function POST(request: Request) {
   const product = PRODUCTS[tier];
 
   // Verify payment actually succeeded on Stripe — never trust client.
+  // Compute the expected max amount = list price + shipping fee as recorded
+  // on the PaymentIntent at creation time (server-authoritative).
   let chargedAmount = product.priceCents;
+  let shippingFeeCents = 0;
   let coupon: AppliedCouponSummary | null = null;
   try {
     const stripe = getStripe();
@@ -118,19 +142,20 @@ export async function POST(request: Request) {
         { status: 402 }
       );
     }
-    // Accept the intent's amount as long as it doesn't exceed the list price.
-    // A discount is allowed (coupon applied at intent creation), but the
-    // customer must never have paid more than the list price.
-    if (intent.amount > product.priceCents) {
+    const md = intent.metadata ?? {};
+    const metaShipping =
+      typeof md.shipping_fee_cents === "string"
+        ? Number(md.shipping_fee_cents)
+        : 0;
+    shippingFeeCents = Number.isFinite(metaShipping) ? metaShipping : 0;
+    const maxAllowed = product.priceCents + shippingFeeCents;
+    if (intent.amount > maxAllowed) {
       return NextResponse.json(
-        { ok: false, error: "Payment amount exceeds product price." },
+        { ok: false, error: "Payment amount exceeds expected total." },
         { status: 400 }
       );
     }
     chargedAmount = intent.amount;
-    // Pull coupon context off the intent metadata if present. The intent is
-    // the source of truth — what we saved at creation time, authoritatively.
-    const md = intent.metadata ?? {};
     const metaCode = typeof md.coupon_code === "string" ? md.coupon_code : null;
     const metaDiscount =
       typeof md.discount_cents === "string" ? Number(md.discount_cents) : NaN;
@@ -148,12 +173,15 @@ export async function POST(request: Request) {
     tier,
     email: shipping.value.email,
     name: shipping.value.name,
+    phone: shipping.value.phone,
     address_line1: shipping.value.line1,
     address_line2: shipping.value.line2,
     city: shipping.value.city,
     state: shipping.value.state,
     postal_code: shipping.value.postalCode,
+    country_code: shipping.value.countryCode,
     amount_cents: chargedAmount,
+    shipping_fee_cents: shippingFeeCents,
     payment_intent_id: paymentIntentId,
   });
 
@@ -174,15 +202,18 @@ export async function POST(request: Request) {
     productName: product.name,
     listPriceCents: product.priceCents,
     amountPaidCents: chargedAmount,
+    shippingFeeCents,
     coupon,
     shipping: {
       name: shipping.value.name,
       email: shipping.value.email,
+      phone: shipping.value.phone,
       line1: shipping.value.line1,
       line2: shipping.value.line2,
       city: shipping.value.city,
       state: shipping.value.state,
       postalCode: shipping.value.postalCode,
+      countryCode: shipping.value.countryCode,
     },
     paymentIntentId,
   };

@@ -10,6 +10,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import type { Product } from "@/lib/products";
+import { SUPPORTED_COUNTRIES, getCountry } from "@/lib/shipping";
 
 const PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
@@ -23,21 +24,25 @@ function getStripePromise() {
 type Shipping = {
   name: string;
   email: string;
+  phone: string;
   line1: string;
   line2: string;
   city: string;
   state: string;
   postalCode: string;
+  countryCode: string;
 };
 
 const EMPTY_SHIPPING: Shipping = {
   name: "",
   email: "",
+  phone: "",
   line1: "",
   line2: "",
   city: "",
   state: "",
   postalCode: "",
+  countryCode: "US",
 };
 
 function isShippingComplete(s: Shipping) {
@@ -47,7 +52,8 @@ function isShippingComplete(s: Shipping) {
     s.line1.trim() &&
     s.city.trim() &&
     s.state.trim() &&
-    s.postalCode.trim()
+    s.postalCode.trim() &&
+    s.countryCode.trim()
   );
 }
 
@@ -86,6 +92,7 @@ function ShippingForm({
 }) {
   const set = <K extends keyof Shipping>(k: K, v: Shipping[K]) =>
     onChange({ ...value, [k]: v });
+  const isUS = value.countryCode === "US";
   return (
     <div className="flex flex-col gap-4">
       <div>
@@ -110,6 +117,40 @@ function ShippingForm({
         />
       </div>
       <div>
+        <Label htmlFor="phone">Phone{isUS ? " (optional)" : ""}</Label>
+        <Input
+          id="phone"
+          type="tel"
+          value={value.phone}
+          onChange={(e) => set("phone", e.target.value)}
+          autoComplete="tel"
+          placeholder={isUS ? "+1 (555) 555-5555" : "+country code"}
+          required={!isUS}
+        />
+        {!isUS ? (
+          <p className="mt-1 text-[12px] text-muted-foreground">
+            Required by the courier for international customs clearance.
+          </p>
+        ) : null}
+      </div>
+      <div>
+        <Label htmlFor="countryCode">Country</Label>
+        <select
+          id="countryCode"
+          value={value.countryCode}
+          onChange={(e) => set("countryCode", e.target.value)}
+          autoComplete="country"
+          required
+          className="h-10 w-full rounded-[calc(var(--radius-lg)-2px)] border border-input bg-background px-3 text-sm tracking-[-0.01em] text-foreground outline-none ring-offset-background transition-colors focus:border-foreground/40 focus:ring-2 focus:ring-foreground/10 disabled:opacity-50"
+        >
+          {SUPPORTED_COUNTRIES.map((c) => (
+            <option key={c.code} value={c.code}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
         <Label htmlFor="line1">Address</Label>
         <Input
           id="line1"
@@ -128,7 +169,7 @@ function ShippingForm({
           autoComplete="address-line2"
         />
       </div>
-      <div className="grid gap-4 sm:grid-cols-[1fr_120px_140px]">
+      <div className="grid gap-4 sm:grid-cols-[1fr_140px_140px]">
         <div>
           <Label htmlFor="city">City</Label>
           <Input
@@ -140,19 +181,23 @@ function ShippingForm({
           />
         </div>
         <div>
-          <Label htmlFor="state">State</Label>
+          <Label htmlFor="state">
+            {isUS ? "State" : "State / Region"}
+          </Label>
           <Input
             id="state"
             value={value.state}
             onChange={(e) => set("state", e.target.value)}
             autoComplete="address-level1"
-            maxLength={2}
-            placeholder="CA"
+            maxLength={isUS ? 2 : undefined}
+            placeholder={isUS ? "CA" : undefined}
             required
           />
         </div>
         <div>
-          <Label htmlFor="postalCode">ZIP</Label>
+          <Label htmlFor="postalCode">
+            {isUS ? "ZIP" : "Postal code"}
+          </Label>
           <Input
             id="postalCode"
             value={value.postalCode}
@@ -386,29 +431,47 @@ function CouponField({
 function OrderTotal({
   product,
   coupon,
+  shippingFeeCents,
 }: {
   product: Product;
   coupon: AppliedCoupon | null;
+  shippingFeeCents: number;
 }) {
-  if (!coupon) return null;
+  const hasDiscount = !!coupon;
+  const hasShipping = shippingFeeCents > 0;
+  if (!hasDiscount && !hasShipping) return null;
+  const productAfterDiscount = coupon
+    ? coupon.finalAmountCents
+    : product.priceCents;
+  const total = productAfterDiscount + shippingFeeCents;
   return (
     <dl className="flex flex-col gap-1 text-sm">
       <div className="flex items-center justify-between">
         <dt className="text-muted-foreground">Subtotal</dt>
         <dd className="font-mono text-foreground">{product.priceLabel}</dd>
       </div>
-      <div className="flex items-center justify-between">
-        <dt className="text-muted-foreground">
-          Discount ({coupon.description})
-        </dt>
-        <dd className="font-mono text-foreground">
-          −{formatUsd(coupon.discountCents)}
-        </dd>
-      </div>
+      {hasDiscount ? (
+        <div className="flex items-center justify-between">
+          <dt className="text-muted-foreground">
+            Discount ({coupon.description})
+          </dt>
+          <dd className="font-mono text-foreground">
+            −{formatUsd(coupon.discountCents)}
+          </dd>
+        </div>
+      ) : null}
+      {hasShipping ? (
+        <div className="flex items-center justify-between">
+          <dt className="text-muted-foreground">International shipping</dt>
+          <dd className="font-mono text-foreground">
+            {formatUsd(shippingFeeCents)}
+          </dd>
+        </div>
+      ) : null}
       <div className="mt-1 flex items-center justify-between border-t border-border pt-2">
         <dt className="font-medium text-foreground">Total</dt>
         <dd className="font-mono font-medium text-foreground">
-          {formatUsd(coupon.finalAmountCents)}
+          {formatUsd(total)}
         </dd>
       </div>
     </dl>
@@ -432,6 +495,9 @@ export function OrderForm({ product }: { product: Product }) {
   const [intentLoading, setIntentLoading] = useState(false);
   const [coupon, setCoupon] = useState<AppliedCoupon | null>(null);
 
+  const shippingFeeCents =
+    getCountry(shipping.countryCode)?.shippingFeeCents ?? 0;
+
   async function startPayment() {
     setIntentLoading(true);
     setIntentError(null);
@@ -442,6 +508,7 @@ export function OrderForm({ product }: { product: Product }) {
         body: JSON.stringify({
           tier: product.slug,
           couponCode: coupon?.code ?? null,
+          countryCode: shipping.countryCode,
         }),
       });
       const body = await res.json();
@@ -491,7 +558,11 @@ export function OrderForm({ product }: { product: Product }) {
             onApply={setCoupon}
             disabled={intentLoading}
           />
-          <OrderTotal product={product} coupon={coupon} />
+          <OrderTotal
+            product={product}
+            coupon={coupon}
+            shippingFeeCents={shippingFeeCents}
+          />
           <button
             type="button"
             onClick={startPayment}
@@ -520,7 +591,10 @@ export function OrderForm({ product }: { product: Product }) {
             product={product}
             shipping={shipping}
             paymentIntentId={paymentIntentId!}
-            amountCents={coupon?.finalAmountCents ?? product.priceCents}
+            amountCents={
+              (coupon?.finalAmountCents ?? product.priceCents) +
+              shippingFeeCents
+            }
             onComplete={(orderId) =>
               router.push(`/thanks?order=${encodeURIComponent(orderId)}`)
             }

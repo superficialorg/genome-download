@@ -56,11 +56,33 @@ export default function TermsPage() {
             Eligibility and shipping
           </h2>
           <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
-            Service is available to customers in the United States only.
-            You must be 18 years of age or older to purchase. Sample kits
-            typically ship within 1 business day of your order. Turnaround
-            is typically one week from when the laboratory receives your
-            returned sample. These timings are estimates, not guarantees.
+            Service is available in the countries listed on our FAQ. You
+            must be 18 years of age or older to purchase. Sample kits
+            typically ship within 1 business day of your order. Lab
+            turnaround is typically one week for Raw SNP and SNP +
+            imputed orders and 4–6 weeks for whole genome sequencing from
+            when the laboratory receives your returned sample.
+            International shipping typically adds 1–2 weeks in each
+            direction on top of the lab turnaround. These timings are
+            estimates, not guarantees.
+          </p>
+        </section>
+
+        <section className="flex flex-col gap-3">
+          <h2 className="m-0 text-[18px] font-semibold tracking-[-0.01em]">
+            Customs, duties, and taxes
+          </h2>
+          <p className="m-0 text-[15px] leading-[1.6] text-muted-foreground">
+            For orders shipped outside the United States and Australia,
+            our flat international shipping fee covers courier transit
+            only. Any customs duties, import taxes, or local VAT/GST
+            charged on receipt by the courier or customs authority are the
+            customer&apos;s responsibility and are not included in the
+            prices shown at checkout. Where legally permitted, we ship
+            Delivered Duty Unpaid (DDU). Refusal to pay duties on delivery
+            may result in the parcel being abandoned or returned, and does
+            not entitle the customer to a refund of product or shipping
+            charges.
           </p>
         </section>
 
@@ -246,7 +268,10 @@ export default function TermsPage() {
             principles. Any dispute arising out of or related to these
             terms or the service shall be brought exclusively in the state
             or federal courts located in Delaware, and you consent to the
-            personal jurisdiction of those courts.
+            personal jurisdiction of those courts. Nothing in this clause
+            limits mandatory consumer-protection rights that you have
+            under the law of your country of residence and that cannot be
+            waived by contract.
           </p>
         </section>
 

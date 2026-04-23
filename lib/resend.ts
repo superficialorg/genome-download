@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { getCountry } from "./shipping";
 
 let resendClient: Resend | null = null;
 
@@ -13,11 +14,13 @@ function getResend(): Resend | null {
 export type ShippingAddress = {
   name: string;
   email: string;
+  phone: string | null;
   line1: string;
   line2: string | null;
   city: string;
   state: string;
   postalCode: string;
+  countryCode: string;
 };
 
 export type AppliedCouponSummary = {
@@ -31,6 +34,7 @@ export type OrderEmailParams = {
   productName: string;
   listPriceCents: number;
   amountPaidCents: number;
+  shippingFeeCents: number;
   coupon: AppliedCouponSummary | null;
   shipping: ShippingAddress;
   paymentIntentId: string;
@@ -51,18 +55,29 @@ function escapeHtml(s: string): string {
 }
 
 function renderAddressLines(s: ShippingAddress): string {
+  const country = getCountry(s.countryCode);
+  const countryName = country?.name ?? s.countryCode;
   const lines = [
     s.name,
     s.line1,
     ...(s.line2 ? [s.line2] : []),
     `${s.city}, ${s.state} ${s.postalCode}`,
+    countryName,
+    ...(s.phone ? [s.phone] : []),
   ];
   return lines.map((l) => escapeHtml(l)).join("<br />");
 }
 
 function renderOrderSummaryTable(params: OrderEmailParams): string {
-  const { productName, listPriceCents, amountPaidCents, coupon } = params;
+  const {
+    productName,
+    listPriceCents,
+    amountPaidCents,
+    shippingFeeCents,
+    coupon,
+  } = params;
   const hasDiscount = coupon && coupon.discountCents > 0;
+  const hasShipping = shippingFeeCents > 0;
   const discountLabel = coupon?.description
     ? `Discount (${escapeHtml(coupon.code)} — ${escapeHtml(coupon.description)})`
     : `Discount (${escapeHtml(coupon?.code ?? "")})`;
@@ -77,6 +92,14 @@ function renderOrderSummaryTable(params: OrderEmailParams): string {
           ? `<tr>
               <td style="padding: 6px 0; color: #737373;">${discountLabel}</td>
               <td style="padding: 6px 0; text-align: right; font-family: monospace;">−${formatUsd(coupon.discountCents)}</td>
+            </tr>`
+          : ""
+      }
+      ${
+        hasShipping
+          ? `<tr>
+              <td style="padding: 6px 0; color: #737373;">International shipping</td>
+              <td style="padding: 6px 0; text-align: right; font-family: monospace;">${formatUsd(shippingFeeCents)}</td>
             </tr>`
           : ""
       }
@@ -168,7 +191,7 @@ export async function sendOrderNotification(
     ? `${escapeHtml(coupon.code)} — −${formatUsd(coupon.discountCents)}${coupon.description ? ` (${escapeHtml(coupon.description)})` : ""}`
     : "—";
 
-  const subject = `🧬 New order · ${productName} · ${formatUsd(amountPaidCents)} · ${shipping.name}`;
+  const subject = `🧬 New order · ${productName} · ${formatUsd(amountPaidCents)} · ${shipping.name} · ${shipping.countryCode}`;
   const { error } = await client.emails.send({
     from,
     to,

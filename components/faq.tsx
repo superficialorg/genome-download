@@ -40,7 +40,7 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "How long does it take?",
-    a: "Raw SNP genotype and SNP + imputed genome take one week from when the lab receives your sample. Whole genome sequencing (30x, 100x) take 4-6 weeks.",
+    a: "Raw SNP genotype and SNP + imputed genome take one week from when the lab receives your sample. Whole genome sequencing (30x, 100x) takes 4–6 weeks. For international orders, allow 1–2 weeks of shipping in each direction on top of the lab turnaround.",
   },
   {
     q: "Which reference genome?",
@@ -62,15 +62,23 @@ const ITEMS: FaqItem[] = [
     q: "Do you ship internationally?",
     a: (
       <>
-        Currently US only. International shipping coming soon. Add your name to
-        the waitlist at{" "}
+        Yes. We currently ship to the United States, Australia, Canada, the
+        United Kingdom, Ireland, New Zealand, Singapore, Hong Kong, Japan,
+        and most of Western Europe (Austria, Belgium, Denmark, Finland,
+        France, Germany, Iceland, Italy, Luxembourg, Netherlands, Norway,
+        Portugal, Spain, Sweden, Switzerland). Shipping is free within the
+        United States and Australia (we have a lab in each). For all other
+        countries there is a flat $40 international shipping fee covering
+        round-trip courier from our lab. Any customs duties or local
+        VAT/GST charged on receipt by the courier are the customer&apos;s
+        responsibility. If you don&apos;t see your country listed, email{" "}
         <a
-          href="mailto:waitlist@genome.computer"
+          href="mailto:contact@genome.computer"
           className="text-foreground underline underline-offset-[3px] decoration-1 hover:decoration-2"
         >
-          waitlist@genome.computer
-        </a>
-        .
+          contact@genome.computer
+        </a>{" "}
+        to join the waitlist.
       </>
     ),
   },

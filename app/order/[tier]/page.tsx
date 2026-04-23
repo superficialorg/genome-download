@@ -47,8 +47,9 @@ export default async function OrderPage({
       <OrderForm product={product} />
 
       <p className="mt-8 text-xs text-muted-foreground">
-        Available in the United States only. By placing an order you
-        agree to our{" "}
+        Available worldwide. $40 international shipping on orders outside
+        the United States and Australia. By placing an order you agree to
+        our{" "}
         <a href="/terms" className="underline underline-offset-2">
           Terms
         </a>

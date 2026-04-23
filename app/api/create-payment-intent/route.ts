@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { PRODUCTS, isTierSlug } from "@/lib/products";
 import { resolvePromotionCode } from "@/lib/coupons";
+import { getCountry, isSupportedCountry } from "@/lib/shipping";
 
 export const runtime = "nodejs";
 
@@ -29,14 +30,30 @@ export async function POST(request: Request) {
       ? couponCodeRaw.trim()
       : null;
 
+  const countryRaw = (body as { countryCode?: unknown })?.countryCode;
+  const countryCode =
+    typeof countryRaw === "string" ? countryRaw.trim().toUpperCase() : "";
+  if (!countryCode || !isSupportedCountry(countryCode)) {
+    return NextResponse.json(
+      {
+        error:
+          "Sorry, we don't ship to that country yet. Email contact@genome.computer to be added to the waitlist.",
+      },
+      { status: 400 }
+    );
+  }
+
   const product = PRODUCTS[tier];
+  const country = getCountry(countryCode)!;
+  const shippingFeeCents = country.shippingFeeCents;
 
   try {
     const stripe = getStripe();
 
-    // Re-validate the coupon at intent-creation time; never trust the client
-    // to have told us the correct discount.
-    let amount = product.priceCents;
+    // Coupon discounts the product price. Shipping is added on top —
+    // never discounted by coupons.
+    let productAmount = product.priceCents;
+    let discountCents = 0;
     let couponMeta: {
       coupon_code: string;
       coupon_id: string;
@@ -56,7 +73,8 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       }
-      amount = resolved.finalAmountCents;
+      productAmount = resolved.finalAmountCents;
+      discountCents = resolved.discountCents;
       couponMeta = {
         coupon_code: resolved.code,
         coupon_id: resolved.couponId,
@@ -66,6 +84,8 @@ export async function POST(request: Request) {
       couponDescription = resolved.description;
     }
 
+    const amount = productAmount + shippingFeeCents;
+
     const intent = await stripe.paymentIntents.create({
       amount,
       currency: "usd",
@@ -74,18 +94,22 @@ export async function POST(request: Request) {
         tier: product.slug,
         product_name: product.name,
         list_price_cents: String(product.priceCents),
+        shipping_country: countryCode,
+        shipping_fee_cents: String(shippingFeeCents),
         ...(product.stripeProductId
           ? { stripe_product_id: product.stripeProductId }
           : {}),
         ...(couponMeta ?? {}),
       },
     });
+
     return NextResponse.json({
       clientSecret: intent.client_secret,
       paymentIntentId: intent.id,
       amount,
       originalAmount: product.priceCents,
-      discountCents: couponMeta ? Number(couponMeta.discount_cents) : 0,
+      discountCents,
+      shippingFeeCents,
       couponCode: couponMeta?.coupon_code ?? null,
       couponDescription,
     });
