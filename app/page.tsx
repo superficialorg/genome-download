@@ -63,7 +63,8 @@ export default function Home() {
         <div className="rounded-[var(--radius-lg)] bg-foreground p-6 text-background sm:p-8">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
             <h3 className="m-0 text-[17px] font-semibold tracking-[-0.01em] sm:text-[18px]">
-              Already have a DNA file? Convert it.
+              Already have a DNA file? Convert it to{" "}
+              <span className="font-mono">.genome</span>.
             </h3>
             <span className="font-mono text-[13px] font-medium text-background/70">
               $59
