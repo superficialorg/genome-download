@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { SiteShell, SiteHeader } from "@/components/site-shell";
 import { getPost } from "@/lib/posts";
 import { PostContent } from "./content";
@@ -5,8 +6,37 @@ import { PostContent } from "./content";
 const SLUG = "introducing-dot-genome";
 const post = getPost(SLUG)!;
 
-export const metadata = {
+const POST_DESCRIPTION =
+  "A new open specification for consumer genome files designed to be read by an AI — with a Claude skill that reads them correctly, with provenance, out of the box.";
+const POST_URL = `https://genome.computer/research/${SLUG}`;
+
+export const metadata: Metadata = {
   title: `${post.title} — The Genome Computer Company`,
+  description: POST_DESCRIPTION,
+  alternates: { canonical: POST_URL },
+  openGraph: {
+    type: "article",
+    url: POST_URL,
+    title: post.title,
+    description: POST_DESCRIPTION,
+    siteName: "The Genome Computer Company",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "The Genome Computer Company",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@genomecomputer",
+    creator: "@genomecomputer",
+    title: post.title,
+    description: POST_DESCRIPTION,
+    images: [{ url: "/og-image.png", alt: "The Genome Computer Company" }],
+  },
 };
 
 export default function IntroducingDotGenomePage() {
