@@ -72,20 +72,17 @@ export default function Home() {
           </div>
 
           <p className="m-0 mt-3 max-w-2xl text-[14px] leading-[1.55] text-background/80 sm:text-[15px]">
-            Send us a VCF from any sequencing provider — 23andMe, Ancestry,
-            Nebula, MyHeritage — and we&apos;ll return a fully-annotated{" "}
-            <span className="font-mono text-background">.genome/1.0</span>{" "}
-            bundle within 48 hours. Imputed, VEP-annotated, PharmCAT-called,
-            PGS-scored. Every conversion is hand-processed.
+            Send us your VCF file from any legacy sequencing provider and
+            we&apos;ll return a fully-annotated{" "}
+            <span className="font-mono text-background">.genome</span> bundle
+            within 48 hours. Imputed, VEP-annotated, PharmCAT-called,
+            PGS-scored.
           </p>
 
           <p className="m-0 mt-3 max-w-2xl text-[14px] leading-[1.55] text-background/80 sm:text-[15px]">
-            You&apos;ll also get the{" "}
-            <span className="font-mono text-background">readmygenome</span>{" "}
-            Claude Code skill. Install it into{" "}
-            <span className="font-mono text-background">~/.claude/skills/</span>{" "}
-            and your terminal can query your bundle with real SQL every time —
-            no guessing, no hallucinated findings.
+            <span className="font-mono text-background">.genome</span> files
+            use 3–10× fewer tokens and are 10–20× more accurate when
+            interpreted by AI, compared with VCF.
           </p>
 
           <div className="mt-6">
