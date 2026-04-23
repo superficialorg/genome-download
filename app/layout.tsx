@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Libre_Baskerville } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const libreBaskerville = Libre_Baskerville({
@@ -68,7 +69,10 @@ export default function RootLayout({
       lang="en"
       className={`${libreBaskerville.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
