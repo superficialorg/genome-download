@@ -98,7 +98,9 @@ export async function sendOrderConfirmation(
       reason: "Resend not configured (RESEND_API_KEY missing).",
     };
   }
-  const from = (process.env.RESEND_FROM ?? "contact@genome.computer").trim();
+  const from = (
+    process.env.RESEND_FROM ?? "Genome Computer <contact@genome.computer>"
+  ).trim();
   const { orderId, shipping } = params;
   const { error } = await client.emails.send({
     from,
@@ -156,7 +158,9 @@ export async function sendOrderNotification(
     return { ok: false, reason: "ORDER_NOTIFY_EMAIL is empty." };
   }
 
-  const from = (process.env.RESEND_FROM ?? "contact@genome.computer").trim();
+  const from = (
+    process.env.RESEND_FROM ?? "Genome Computer <contact@genome.computer>"
+  ).trim();
   const { orderId, productName, amountPaidCents, coupon, shipping, paymentIntentId } =
     params;
   const stripeUrl = `https://dashboard.stripe.com/payments/${encodeURIComponent(paymentIntentId)}`;
