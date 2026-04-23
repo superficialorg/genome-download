@@ -33,7 +33,7 @@ See `.env.example`. Vars are grouped by purpose:
 
 | Purpose | Vars |
 | --- | --- |
-| Stripe (required for checkout) | `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_PRICE_*` |
+| Stripe (required for checkout) | `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` |
 | Supabase (required for order records) | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` |
 | Resend (required for confirmation emails) | `RESEND_API_KEY`, `RESEND_FROM` |
 
@@ -55,7 +55,10 @@ Run `supabase/schema.sql` against your Supabase project to create the `orders` t
 
 Before the site can take real orders:
 
-- [ ] Create 5 Stripe products + prices in Stripe Dashboard; paste price IDs into Vercel env (`STRIPE_PRICE_SNP`, etc.)
+- [ ] Create Stripe products in Stripe Dashboard (one per tier). Price IDs are
+      not needed by the app — amounts come from `lib/products.ts` — but creating
+      the products lets you track conversion in Stripe's UI. Paste the product
+      IDs into `stripeProductId` in `lib/products.ts`.
 - [ ] Finalize the **1x whole-genome tier price** (currently $99 placeholder in `lib/products.ts`)
 - [ ] Create Supabase project and run `supabase/schema.sql`; paste URL + keys into Vercel env
 - [ ] Verify `genome.download` sender domain in Resend; paste API key into Vercel env

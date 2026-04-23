@@ -11,7 +11,6 @@ export type Product = {
   priceCents: number;
   priceLabel: string;
   description: string;
-  stripePriceId: string;
   stripeProductId?: string;
   popular?: boolean;
   /**
@@ -28,7 +27,6 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceLabel: "$99",
     description:
       "~700K measured variants. Comparable to consumer genotyping kits. Ships as a .genome bundle with the readmygenome.md Claude skill. 1 week lab turnaround. VCF on request.",
-    stripePriceId: process.env.STRIPE_PRICE_SNP ?? "TODO_STRIPE_PRICE_SNP",
     stripeProductId: "prod_UMadBTHvuZE0Ta",
   },
   "snp-imputed": {
@@ -38,8 +36,6 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceLabel: "$129",
     description:
       "~23M variants via statistical imputation from your SNP data. Expanded coverage beyond standard genotyping. Ships as a .genome bundle with the readmygenome.md Claude skill. 1 week lab turnaround. VCF on request.",
-    stripePriceId:
-      process.env.STRIPE_PRICE_SNP_IMPUTED ?? "TODO_STRIPE_PRICE_SNP_IMPUTED",
     stripeProductId: "prod_UMakmwJOGjbHuZ",
   },
   "wgs-30x": {
@@ -49,8 +45,6 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceLabel: "$599",
     description:
       "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Ships as a .genome bundle with the readmygenome.md Claude skill. 4-6 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
-    stripePriceId:
-      process.env.STRIPE_PRICE_WGS_30X ?? "TODO_STRIPE_PRICE_WGS_30X",
     stripeProductId: "prod_UMaosHtOSO6ATY",
     popular: true,
   },
@@ -61,8 +55,6 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceLabel: "$1,499",
     description:
       "High-depth sequencing. Higher confidence for low-frequency and structural variants. Suitable for research workflows. Ships as a .genome bundle with the readmygenome.md Claude skill. 4-6 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
-    stripePriceId:
-      process.env.STRIPE_PRICE_WGS_100X ?? "TODO_STRIPE_PRICE_WGS_100X",
     stripeProductId: "prod_UMaoDyJYIUROWI",
   },
   convert: {
@@ -72,8 +64,6 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceLabel: "$59",
     description:
       "Convert any existing DNA file into a .genome/1.0 bundle. Send a VCF or 23andMe / Ancestry txt; we hand-process it through imputation, VEP + CADD annotation, PharmCAT, and polygenic scoring. Delivered by email within 48 hours with the readmygenome Claude Code skill. Personal & research use.",
-    stripePriceId:
-      process.env.STRIPE_PRICE_CONVERT ?? "TODO_STRIPE_PRICE_CONVERT",
     stripeProductId: "prod_UOJNA3QUw0tYXk",
     kind: "digital",
   },
