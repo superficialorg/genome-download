@@ -975,32 +975,6 @@ function Technical() {
         the case for them depends on evidence we have not yet gathered.
       </p>
 
-      <h3>7.4 Expected correctness improvement</h3>
-      <p>
-        We are deliberately not quoting a measured percentage for
-        hallucination reduction in this post. A rigorous evaluation — a
-        canonical question set scored against ground truth across
-        multiple models and baselines — is planned and will be
-        published separately, with the evaluation methodology and
-        question set released first so the community can critique them
-        before numbers are generated.
-      </p>
-      <p>
-        Our reasoned expectation, documented for transparency and not
-        for citation: a consequential-error rate reduction in the range
-        of 3× to 5× on a realistic query mix, with the largest gains on
-        PGx and GWAS-style questions (where reference-frame ambiguity
-        dominates) and the smallest gains on simple rs-number lookups
-        (which are close to solved on VCF already). We publish this
-        prediction to be falsified, not to be cited.
-      </p>
-      <p>
-        What we claim formally, independent of measurement, is only the
-        structural guarantee of §4.2: for any query expressible as a
-        predicate over the pre-computed fields, format-induced error is
-        zero.
-      </p>
-
       <h2>8. Open problems</h2>
       <p>v1.0 does not address, and we are explicit about this:</p>
       <ul>
