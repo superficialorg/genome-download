@@ -2,7 +2,8 @@ export type TierSlug =
   | "snp"
   | "snp-imputed"
   | "wgs-30x"
-  | "wgs-100x";
+  | "wgs-100x"
+  | "convert";
 
 export type Product = {
   slug: TierSlug;
@@ -13,6 +14,10 @@ export type Product = {
   stripePriceId: string;
   stripeProductId?: string;
   popular?: boolean;
+  /**
+   * Digital products skip shipping address collection and deliver by email.
+   */
+  kind?: "kit" | "digital";
 };
 
 export const PRODUCTS: Record<TierSlug, Product> = {
@@ -59,6 +64,18 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     stripePriceId:
       process.env.STRIPE_PRICE_WGS_100X ?? "TODO_STRIPE_PRICE_WGS_100X",
     stripeProductId: "prod_UMaoDyJYIUROWI",
+  },
+  convert: {
+    slug: "convert",
+    name: ".genome conversion",
+    priceCents: 5900,
+    priceLabel: "$59",
+    description:
+      "Convert any existing DNA file into a .genome/1.0 bundle. Send a VCF or 23andMe / Ancestry txt; we hand-process it through imputation, VEP + CADD annotation, PharmCAT, and polygenic scoring. Delivered by email within 48 hours with the readmygenome Claude Code skill. Personal & research use.",
+    stripePriceId:
+      process.env.STRIPE_PRICE_CONVERT ?? "TODO_STRIPE_PRICE_CONVERT",
+    stripeProductId: "prod_UOJNA3QUw0tYXk",
+    kind: "digital",
   },
 };
 

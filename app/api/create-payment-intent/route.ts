@@ -30,10 +30,15 @@ export async function POST(request: Request) {
       ? couponCodeRaw.trim()
       : null;
 
+  const product = PRODUCTS[tier];
+  const isDigital = product.kind === "digital";
+
   const countryRaw = (body as { countryCode?: unknown })?.countryCode;
   const countryCode =
     typeof countryRaw === "string" ? countryRaw.trim().toUpperCase() : "";
-  if (!countryCode || !isSupportedCountry(countryCode)) {
+
+  // Digital products have no shipping; physical kits require a supported country.
+  if (!isDigital && (!countryCode || !isSupportedCountry(countryCode))) {
     return NextResponse.json(
       {
         error:
@@ -43,9 +48,9 @@ export async function POST(request: Request) {
     );
   }
 
-  const product = PRODUCTS[tier];
-  const country = getCountry(countryCode)!;
-  const shippingFeeCents = country.shippingFeeCents;
+  const shippingFeeCents = isDigital
+    ? 0
+    : getCountry(countryCode)!.shippingFeeCents;
 
   try {
     const stripe = getStripe();
@@ -94,8 +99,9 @@ export async function POST(request: Request) {
         tier: product.slug,
         product_name: product.name,
         list_price_cents: String(product.priceCents),
-        shipping_country: countryCode,
+        shipping_country: isDigital ? "N/A" : countryCode,
         shipping_fee_cents: String(shippingFeeCents),
+        ...(isDigital ? { deliverable: "digital" } : {}),
         ...(product.stripeProductId
           ? { stripe_product_id: product.stripeProductId }
           : {}),

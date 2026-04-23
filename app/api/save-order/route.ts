@@ -23,7 +23,10 @@ type ShippingPayload = {
   countryCode?: unknown;
 };
 
-function parseShipping(raw: unknown): {
+function parseShipping(
+  raw: unknown,
+  opts: { digital: boolean } = { digital: false }
+): {
   ok: true;
   value: {
     name: string;
@@ -47,6 +50,33 @@ function parseShipping(raw: unknown): {
     }
     return null;
   };
+
+  // Digital products: only name + email are required. Return stub strings
+  // for the physical-address fields so downstream storage stays compatible.
+  if (opts.digital) {
+    for (const [k, v] of [
+      ["name", s.name],
+      ["email", s.email],
+    ] as const) {
+      const err = requiredStr(v, k);
+      if (err) return { ok: false, reason: err };
+    }
+    return {
+      ok: true,
+      value: {
+        name: (s.name as string).trim(),
+        email: (s.email as string).trim(),
+        phone: null,
+        line1: "N/A (digital delivery)",
+        line2: null,
+        city: "N/A",
+        state: "N/A",
+        postalCode: "N/A",
+        countryCode: "US",
+      },
+    };
+  }
+
   for (const [k, v] of [
     ["name", s.name],
     ["email", s.email],
@@ -117,7 +147,10 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
-  const shipping = parseShipping(body.shipping);
+  const productForShipping = PRODUCTS[tier];
+  const shipping = parseShipping(body.shipping, {
+    digital: productForShipping.kind === "digital",
+  });
   if (!shipping.ok) {
     return NextResponse.json(
       { ok: false, error: shipping.reason },

@@ -57,6 +57,58 @@ function isShippingComplete(s: Shipping) {
   );
 }
 
+function isDigitalContactComplete(s: Shipping) {
+  return Boolean(s.name.trim() && s.email.trim());
+}
+
+function DigitalContactForm({
+  value,
+  onChange,
+}: {
+  value: Shipping;
+  onChange: (v: Shipping) => void;
+}) {
+  const set = <K extends keyof Shipping>(k: K, v: Shipping[K]) =>
+    onChange({ ...value, [k]: v });
+  return (
+    <div className="flex flex-col gap-4 rounded-[var(--radius-lg)] border border-border bg-background p-5">
+      <p className="m-0 text-sm text-muted-foreground">
+        Where should we email your{" "}
+        <span className="font-mono text-foreground">.genome</span> bundle and{" "}
+        <span className="font-mono text-foreground">readmygenome</span> skill?
+      </p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <label className="flex flex-col gap-1.5">
+          <span className="text-xs font-medium text-muted-foreground">
+            Full name
+          </span>
+          <input
+            type="text"
+            autoComplete="name"
+            value={value.name}
+            onChange={(e) => set("name", e.target.value)}
+            required
+            className="h-10 rounded-[calc(var(--radius-lg)-4px)] border border-border bg-background px-3 text-sm"
+          />
+        </label>
+        <label className="flex flex-col gap-1.5">
+          <span className="text-xs font-medium text-muted-foreground">
+            Email
+          </span>
+          <input
+            type="email"
+            autoComplete="email"
+            value={value.email}
+            onChange={(e) => set("email", e.target.value)}
+            required
+            className="h-10 rounded-[calc(var(--radius-lg)-4px)] border border-border bg-background px-3 text-sm"
+          />
+        </label>
+      </div>
+    </div>
+  );
+}
+
 function Label({
   htmlFor,
   children,
@@ -495,8 +547,10 @@ export function OrderForm({ product }: { product: Product }) {
   const [intentLoading, setIntentLoading] = useState(false);
   const [coupon, setCoupon] = useState<AppliedCoupon | null>(null);
 
-  const shippingFeeCents =
-    getCountry(shipping.countryCode)?.shippingFeeCents ?? 0;
+  const isDigital = product.kind === "digital";
+  const shippingFeeCents = isDigital
+    ? 0
+    : getCountry(shipping.countryCode)?.shippingFeeCents ?? 0;
 
   async function startPayment() {
     setIntentLoading(true);
@@ -531,7 +585,9 @@ export function OrderForm({ product }: { product: Product }) {
     if (clientSecret) return;
   }, [clientSecret]);
 
-  const canStartPayment = isShippingComplete(shipping);
+  const canStartPayment = isDigital
+    ? isDigitalContactComplete(shipping)
+    : isShippingComplete(shipping);
 
   if (!PUBLISHABLE_KEY) {
     return (
@@ -548,7 +604,11 @@ export function OrderForm({ product }: { product: Product }) {
 
   return (
     <div className="flex flex-col gap-8">
-      <ShippingForm value={shipping} onChange={setShipping} />
+      {isDigital ? (
+        <DigitalContactForm value={shipping} onChange={setShipping} />
+      ) : (
+        <ShippingForm value={shipping} onChange={setShipping} />
+      )}
 
       {!clientSecret ? (
         <div className="flex flex-col gap-4">
@@ -578,7 +638,9 @@ export function OrderForm({ product }: { product: Product }) {
           ) : null}
           {!canStartPayment ? (
             <p className="text-xs text-muted-foreground">
-              Fill in the shipping fields above to continue.
+              {isDigital
+                ? "Fill in your name and email above to continue."
+                : "Fill in the shipping fields above to continue."}
             </p>
           ) : null}
         </div>

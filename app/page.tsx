@@ -57,16 +57,48 @@ export default function Home() {
             <TierCard key={product.slug} product={product} />
           ))}
         </div>
-        <p className="mt-10 text-center text-[14px] leading-[1.55] text-muted-foreground sm:mt-12">
-          Already have a DNA file from a legacy provider?{" "}
-          <a
-            href="mailto:contact@genome.computer"
-            className="text-foreground underline underline-offset-2"
-          >
-            Contact us
-          </a>{" "}
-          to convert it to a .genome bundle.
-        </p>
+      </section>
+
+      <section className="mt-10 sm:mt-12">
+        <div className="rounded-[var(--radius-lg)] bg-foreground p-6 text-background sm:p-8">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
+            <h3 className="m-0 text-[17px] font-semibold tracking-[-0.01em] sm:text-[18px]">
+              Already have a DNA file? Convert it.
+            </h3>
+            <span className="font-mono text-[13px] font-medium text-background/70">
+              $59
+            </span>
+          </div>
+
+          <p className="m-0 mt-3 max-w-2xl text-[14px] leading-[1.55] text-background/80 sm:text-[15px]">
+            Send us a VCF from any sequencing provider — 23andMe, Ancestry,
+            Nebula, MyHeritage — and we&apos;ll return a fully-annotated{" "}
+            <span className="font-mono text-background">.genome/1.0</span>{" "}
+            bundle within 48 hours. Imputed, VEP-annotated, PharmCAT-called,
+            PGS-scored. Every conversion is hand-processed.
+          </p>
+
+          <p className="m-0 mt-3 max-w-2xl text-[14px] leading-[1.55] text-background/80 sm:text-[15px]">
+            You&apos;ll also get the{" "}
+            <span className="font-mono text-background">readmygenome</span>{" "}
+            Claude Code skill. Install it into{" "}
+            <span className="font-mono text-background">~/.claude/skills/</span>{" "}
+            and your terminal can query your bundle with real SQL every time —
+            no guessing, no hallucinated findings.
+          </p>
+
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <Link
+              href="/order/convert"
+              className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-[calc(var(--radius-lg)-2px)] bg-background px-5 text-sm font-medium tracking-[-0.01em] text-foreground transition-colors hover:bg-background/90 sm:h-9"
+            >
+              Convert my file →
+            </Link>
+            <span className="font-mono text-[12px] text-background/60">
+              one-time · delivered by email
+            </span>
+          </div>
+        </div>
       </section>
 
       <section className="mt-16 sm:mt-20">
