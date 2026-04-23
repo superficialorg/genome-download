@@ -157,13 +157,13 @@ export async function POST(request: Request) {
     payment_intent_id: paymentIntentId,
   });
 
+  // Prefer the friendly `order_number` (e.g. GC-ABC123…) for customer-facing
+  // display; fall back to the Supabase UUID, and finally to the Stripe
+  // PaymentIntent id if the DB insert failed entirely.
   let orderId: string;
   if (save.ok) {
-    orderId = save.order.id;
+    orderId = save.order.order_number || save.order.id;
   } else {
-    // Supabase not configured or insert failed — fall back to payment intent id
-    // so the user still gets a confirmation number; log the reason for the
-    // operator.
     console.error("saveOrder failed:", save.reason);
     orderId = paymentIntentId;
   }
