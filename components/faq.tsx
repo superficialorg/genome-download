@@ -48,11 +48,11 @@ const ITEMS: FaqItem[] = [
   },
   {
     q: "Is the lab real?",
-    a: "Samples are processed through CLIA-accredited and CAP-accredited clinical laboratory infrastructure based inside the USA.",
+    a: "Yes. Samples from customers in the United States (and most international customers) are processed through CLIA- and CAP-accredited clinical laboratory infrastructure inside the USA. Samples from customers in Australia are processed through a NATA-accredited, ISO 15189-certified clinical laboratory inside Australia.",
   },
   {
     q: "What about privacy?",
-    a: 'We don\'t sell your data, share it with researchers, or use it to train models. There is no "optional research program." You can request sample and data deletion after your file is delivered. All samples are deleted by our lab within 30 days. Our lab never holds PII.',
+    a: 'Humankind Bio, Inc. is a Delaware Public Benefit Corporation — legally bound by its charter to never sell or license your individual genetic data. We don\'t sell your data, share it with researchers, or use it to train models. There is no "optional research program." You can request sample and data deletion after your file is delivered. All samples are deleted by our lab within 30 days. Our lab never holds PII.',
   },
   {
     q: "Can I use this for medical decisions?",
