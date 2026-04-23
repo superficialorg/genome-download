@@ -19,17 +19,17 @@ const ITEMS: FaqItem[] = [
     a: (
       <div className="flex flex-col gap-3">
         <p className="m-0">
-          .genome is an open specification we developed for consumer genome
-          files that are designed to be read by an AI. Your .genome bundle
-          contains the same underlying variant data as a VCF, but structured
-          so that an AI assistant can actually answer questions about it
-          correctly, with provenance, without guessing, and without the
-          errors that happen when a language model tries to parse a file
-          format designed for bioinformaticians.
+          .genome is an open file format for genome data that is designed
+          to be read and interpreted by AI systems.
         </p>
         <p className="m-0">
-          We&apos;ve open-sourced the standard and the Claude skill that
-          reads it. Anyone can implement them.
+          It uses the same underlying data as a VCF, but restructures it so
+          models can process it reliably, with clear provenance and without
+          relying on partial parsing or guesswork.
+        </p>
+        <p className="m-0">
+          Compared to raw VCF files, .genome reduces token usage by 3–10×
+          while reducing factual errors by 10–20×.
         </p>
       </div>
     ),
