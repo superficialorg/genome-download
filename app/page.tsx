@@ -88,16 +88,13 @@ export default function Home() {
             no guessing, no hallucinated findings.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-4">
+          <div className="mt-6">
             <Link
               href="/order/convert"
               className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-[calc(var(--radius-lg)-2px)] bg-background px-5 text-sm font-medium tracking-[-0.01em] text-foreground transition-colors hover:bg-background/90 sm:h-9"
             >
               Convert my file →
             </Link>
-            <span className="font-mono text-[12px] text-background/60">
-              one-time · delivered by email
-            </span>
           </div>
         </div>
       </section>
