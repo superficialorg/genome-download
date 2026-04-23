@@ -73,10 +73,10 @@ const ITEMS: FaqItem[] = [
         VAT/GST charged on receipt by the courier are the customer&apos;s
         responsibility. If you don&apos;t see your country listed, email{" "}
         <a
-          href="mailto:contact@genome.computer"
+          href="mailto:waitlist@genome.computer"
           className="text-foreground underline underline-offset-[3px] decoration-1 hover:decoration-2"
         >
-          contact@genome.computer
+          waitlist@genome.computer
         </a>{" "}
         to join the waitlist.
       </>
