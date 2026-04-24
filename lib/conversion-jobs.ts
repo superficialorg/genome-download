@@ -33,6 +33,7 @@ export type ConversionJob = {
   started_at: string | null;
   created_at: string;
   uploaded_at: string | null;
+  approved_at: string | null;
   ready_at: string | null;
   failed_at: string | null;
   delivered_at: string | null;
@@ -197,6 +198,40 @@ export async function markJobPending(params: {
 }
 
 /**
+ * Approve a pending job for the annotator poller to process. Operator
+ * clicks "Process" in /admin/conversions — this marks approved_at and
+ * the background poller (on Render) picks it up within ~15 seconds.
+ *
+ * Only valid on jobs in 'pending' status with a real input_key. Refuses
+ * duplicate approvals (if already approved, returns the existing row
+ * without changing anything).
+ */
+export async function approveJob(orderId: string): Promise<ConversionJob> {
+  const job = await loadJob(orderId);
+  if (!job) throw new Error("job not found");
+  if (!job.input_key) {
+    throw new Error("cannot approve — customer hasn't uploaded yet");
+  }
+  if (job.status !== "pending") {
+    throw new Error(
+      `cannot approve — job status is '${job.status}', must be 'pending'`
+    );
+  }
+  if (job.approved_at) {
+    return job; // already approved; idempotent
+  }
+  const { data, error } = await supabaseAdmin()
+    .from("conversion_jobs")
+    .update({ approved_at: new Date().toISOString() })
+    .eq("id", orderId)
+    .eq("status", "pending")
+    .select("*")
+    .single();
+  if (error) throw error;
+  return data as ConversionJob;
+}
+
+/**
  * Flip a failed (or stuck) job back to `pending` so the annotator worker
  * picks it up on the next poll cycle. Clears the worker-claim fields and
  * the previous error so the audit trail is clean.
@@ -215,6 +250,8 @@ export async function retryJob(orderId: string): Promise<ConversionJob> {
     throw new Error("cannot retry — job already completed");
   }
 
+  // Retry counts as re-approval — operator explicitly asked for this run,
+  // no reason to require another "Process" click.
   const { data, error } = await supabaseAdmin()
     .from("conversion_jobs")
     .update({
@@ -224,6 +261,7 @@ export async function retryJob(orderId: string): Promise<ConversionJob> {
       started_at: null,
       error_message: null,
       failed_at: null,
+      approved_at: new Date().toISOString(),
     })
     .eq("id", orderId)
     .select("*")

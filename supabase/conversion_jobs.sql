@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS conversion_jobs (
 
   created_at TIMESTAMPTZ DEFAULT now(),
   uploaded_at TIMESTAMPTZ,
+  approved_at TIMESTAMPTZ,
   ready_at TIMESTAMPTZ,
   failed_at TIMESTAMPTZ,
   delivered_at TIMESTAMPTZ

@@ -6,6 +6,7 @@ import {
   type ConversionJob,
 } from "@/lib/conversion-jobs";
 import { RetryButton } from "./retry-button";
+import { ApproveButton } from "./approve-button";
 
 export const metadata: Metadata = {
   title: "Admin · Conversions",
@@ -167,6 +168,12 @@ export default async function ConversionsAdmin() {
                 <td className="px-3 py-2">
                   {j.status === "failed" && j.input_key ? (
                     <RetryButton jobId={j.id} />
+                  ) : j.status === "pending" && j.input_key && !j.approved_at ? (
+                    <ApproveButton jobId={j.id} />
+                  ) : j.status === "pending" && j.approved_at ? (
+                    <span className="font-mono text-[10px] text-neutral-500">
+                      queued
+                    </span>
                   ) : (
                     <span className="text-neutral-400">—</span>
                   )}
@@ -178,9 +185,16 @@ export default async function ConversionsAdmin() {
       </div>
 
       <p className="mt-8 text-xs text-neutral-500">
-        Bundle links are signed for 24 hours. Refresh the page to mint a fresh
-        one. Failed jobs stay here for manual review; no auto-refund is
-        issued — refund from the Stripe Dashboard if appropriate.
+        Manual-approval mode: pending jobs wait for you to click{" "}
+        <strong>process</strong>. The annotator picks up approved jobs
+        within ~15 seconds and runs imputation → VEP → PharmCAT → bundle
+        → email. Failed jobs stay here for manual review with a{" "}
+        <strong>retry</strong> button; no auto-refund is issued — refund
+        from the Stripe Dashboard if appropriate. Bundle links are signed
+        for 24 hours; refresh the page to mint a fresh one. If you need
+        to skip the approval UI entirely, SSH into{" "}
+        <code className="font-mono">humankind-pipeline</code> and run{" "}
+        <code className="font-mono">python -m annotator.worker --once</code>.
       </p>
     </div>
   );
