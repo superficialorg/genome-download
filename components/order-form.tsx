@@ -561,6 +561,10 @@ export function OrderForm({ product }: { product: Product }) {
           tier: product.slug,
           couponCode: coupon?.code ?? null,
           countryCode: shipping.countryCode,
+          // Customer email — lands on the PaymentIntent metadata so the
+          // Stripe webhook can email the upload link for digital orders.
+          email: shipping.email,
+          customerName: shipping.name,
         }),
       });
       const body = await res.json();

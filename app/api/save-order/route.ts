@@ -251,18 +251,26 @@ export async function POST(request: Request) {
     paymentIntentId,
   };
 
-  try {
-    const result = await sendOrderConfirmation(emailPayload);
-    if (!result.ok) console.warn("sendOrderConfirmation:", result.reason);
-  } catch (err) {
-    console.warn("sendOrderConfirmation error:", err);
-  }
+  // Kit-oriented confirmation + operator-notification emails.
+  // DIGITAL (.genome conversion) orders are emailed separately by the
+  // Stripe webhook handler (sendConversionUploadLink +
+  // sendConversionOperatorAlert) — those emails include the upload link.
+  // Firing the kit templates here would send a second, confusingly-wrong
+  // "your kit ships in 1 business day" email to conversion customers.
+  if (product.kind !== "digital") {
+    try {
+      const result = await sendOrderConfirmation(emailPayload);
+      if (!result.ok) console.warn("sendOrderConfirmation:", result.reason);
+    } catch (err) {
+      console.warn("sendOrderConfirmation error:", err);
+    }
 
-  try {
-    const result = await sendOrderNotification(emailPayload);
-    if (!result.ok) console.info("sendOrderNotification:", result.reason);
-  } catch (err) {
-    console.warn("sendOrderNotification error:", err);
+    try {
+      const result = await sendOrderNotification(emailPayload);
+      if (!result.ok) console.info("sendOrderNotification:", result.reason);
+    } catch (err) {
+      console.warn("sendOrderNotification error:", err);
+    }
   }
 
   return NextResponse.json({ ok: true, orderId });

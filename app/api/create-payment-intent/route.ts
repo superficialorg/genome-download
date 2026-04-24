@@ -30,6 +30,17 @@ export async function POST(request: Request) {
       ? couponCodeRaw.trim()
       : null;
 
+  // Customer email + name — stamped onto PaymentIntent metadata so the
+  // Stripe webhook (app/api/stripe/webhook) can look them up when it
+  // processes payment_intent.succeeded for a .genome conversion order.
+  // Without these, the webhook can't email the customer their upload link.
+  const rawEmail = (body as { email?: unknown })?.email;
+  const customerEmail =
+    typeof rawEmail === "string" && rawEmail.trim() ? rawEmail.trim() : null;
+  const rawName = (body as { customerName?: unknown })?.customerName;
+  const customerName =
+    typeof rawName === "string" && rawName.trim() ? rawName.trim() : null;
+
   const product = PRODUCTS[tier];
   const isDigital = product.kind === "digital";
 
@@ -102,6 +113,8 @@ export async function POST(request: Request) {
         shipping_country: isDigital ? "N/A" : countryCode,
         shipping_fee_cents: String(shippingFeeCents),
         ...(isDigital ? { deliverable: "digital" } : {}),
+        ...(customerEmail ? { email: customerEmail } : {}),
+        ...(customerName ? { customer_name: customerName } : {}),
         ...(product.stripeProductId
           ? { stripe_product_id: product.stripeProductId }
           : {}),

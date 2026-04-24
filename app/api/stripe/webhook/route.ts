@@ -60,15 +60,19 @@ export async function POST(request: Request) {
   // Idempotency: if we've already created a job for this intent, the unique
   // constraint on payment_intent_id prevents duplicates. We swallow that
   // specific error and return 200 so Stripe doesn't retry.
-  const email =
-    intent.receipt_email ??
-    intent.metadata?.email ??
-    intent.shipping?.name ?? // fallback safety net
-    null;
+  //
+  // Email is stamped on metadata.email by create-payment-intent when the
+  // customer fills the digital order form. receipt_email is a secondary
+  // source (set if we ever move to Stripe Checkout Sessions or Payment
+  // Links which capture email automatically).
+  const email = intent.metadata?.email ?? intent.receipt_email ?? null;
   if (!email) {
-    // Shouldn't happen — checkout collected email — but we guard anyway.
     return NextResponse.json(
-      { ok: false, error: "no email on PaymentIntent" },
+      {
+        ok: false,
+        error:
+          "no email on PaymentIntent metadata — create-payment-intent must pass customer email",
+      },
       { status: 400 }
     );
   }
@@ -77,7 +81,8 @@ export async function POST(request: Request) {
     const job = await createConversionJob({
       paymentIntentId: intent.id,
       email,
-      customerName: intent.shipping?.name ?? intent.metadata?.customer_name ?? null,
+      customerName:
+        intent.metadata?.customer_name ?? intent.shipping?.name ?? null,
     });
 
     // Email the customer the upload link. Parallelise with the operator alert.
