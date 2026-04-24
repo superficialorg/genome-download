@@ -1,8 +1,12 @@
-# genome.download
+# genome.computer
 
-Direct-to-consumer genomic data landing + checkout site for
-**Humankind Bio, Inc.** Customers order a sequencing kit and receive their
-raw genome as a VCF file.
+Direct-to-consumer landing + checkout site for **Humankind Bio, Inc.**
+Customers order a sequencing kit (or pay for a `.genome` conversion of an
+existing DNA file) and receive their data as a `.genome/1.0` bundle plus
+the `readmygenome.md` Claude skill.
+
+Note: the repo directory name is `genome-download` for historical
+reasons; the actual production domain is `genome.computer`.
 
 ## Stack
 
@@ -10,9 +14,9 @@ raw genome as a VCF file.
 - Tailwind CSS v4 + shadcn-style HSL tokens in `app/globals.css`
 - Geist + Geist Mono via `next/font`
 - Stripe PaymentIntent + PaymentElement for checkout
-- Supabase for order persistence
-- Resend for transactional order-confirmation emails
-- Deploy target: Vercel (domain: `genome.download`)
+- Supabase for order persistence, conversion-job tracking, and file storage
+- Resend for transactional order-confirmation + conversion-delivery emails
+- Deploy target: Vercel (domain: `genome.computer`)
 
 Mirrors the commerce stack used by the Humankind Website repo.
 
@@ -61,11 +65,11 @@ Before the site can take real orders:
       IDs into `stripeProductId` in `lib/products.ts`.
 - [ ] Finalize the **1x whole-genome tier price** (currently $99 placeholder in `lib/products.ts`)
 - [ ] Create Supabase project and run `supabase/schema.sql`; paste URL + keys into Vercel env
-- [ ] Verify `genome.download` sender domain in Resend; paste API key into Vercel env
+- [ ] Verify `genome.computer` sender domain in Resend; paste API key into Vercel env
 - [ ] Design + upload `og-image.png` (1200×630) to `public/`
 - [ ] Generate + upload favicon PNGs from https://favicon.io/emoji-favicons/dna to `public/`
 - [ ] Counsel review + finalize `/privacy` and `/terms` copy
-- [ ] Attach `genome.download` custom domain in Vercel project settings
+- [ ] Attach `genome.computer` custom domain in Vercel project settings
 
 ## License
 
