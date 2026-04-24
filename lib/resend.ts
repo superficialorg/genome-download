@@ -223,3 +223,162 @@ export async function sendOrderNotification(
   if (error) return { ok: false, reason: error.message };
   return { ok: true };
 }
+
+
+// ---------- .genome conversion service ----------
+
+function getResendFrom(): string {
+  return (
+    process.env.RESEND_FROM ?? "Genome Computer <contact@genome.computer>"
+  ).trim();
+}
+
+function getConvertBaseUrl(): string {
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://genome.computer"
+  ).replace(/\/$/, "");
+}
+
+export async function sendConversionUploadLink(params: {
+  orderId: string;
+  email: string;
+  uploadToken: string;
+  expiresAt: string;
+  customerName?: string | null;
+}): Promise<{ ok: boolean; reason?: string }> {
+  const client = getResend();
+  if (!client) {
+    return { ok: false, reason: "Resend not configured (RESEND_API_KEY missing)." };
+  }
+  const url = `${getConvertBaseUrl()}/upload/${encodeURIComponent(
+    params.orderId
+  )}?t=${encodeURIComponent(params.uploadToken)}`;
+  const greeting = params.customerName
+    ? `Hi ${escapeHtml(params.customerName.split(" ")[0] ?? "")},`
+    : "Hi,";
+  const { error } = await client.emails.send({
+    from: getResendFrom(),
+    to: params.email,
+    subject: "Upload your DNA file for .genome conversion",
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #171717;">
+        <p style="font-size: 32px; margin: 0 0 16px;">🧬</p>
+        <h1 style="font-size: 20px; font-weight: 600; margin: 0 0 12px;">You're in the queue.</h1>
+        <p style="font-size: 15px; line-height: 1.55; margin: 0 0 16px;">${greeting}</p>
+        <p style="font-size: 15px; line-height: 1.55; margin: 0 0 16px;">Thanks for your order. Upload your DNA file using the link below. It's encrypted in transit and at rest; nobody sees it but you and us.</p>
+        <p style="margin: 24px 0;">
+          <a href="${url}" style="display: inline-block; padding: 12px 18px; border-radius: 8px; background: #171717; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500;">Upload your file →</a>
+        </p>
+        <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0 0 12px;">The link expires ${new Date(params.expiresAt).toUTCString()}. If it expires, reply to this email and we'll send a fresh one.</p>
+        <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0 0 8px;">Accepted formats: <code style="font-family: monospace;">.txt</code> (23andMe, Ancestry, MyHeritage), <code style="font-family: monospace;">.vcf</code>, <code style="font-family: monospace;">.vcf.gz</code>. Up to 25 GB.</p>
+        <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0;">You'll hear back within 48 hours with your .genome bundle and the <code style="font-family: monospace;">readmygenome</code> Claude skill.</p>
+        <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 24px 0;" />
+        <p style="font-size: 12px; color: #a3a3a3; margin: 0;">Order <strong style="color: #737373; font-family: monospace;">${escapeHtml(params.orderId)}</strong></p>
+      </div>
+    `,
+  });
+  if (error) return { ok: false, reason: error.message };
+  return { ok: true };
+}
+
+export async function sendConversionReady(params: {
+  orderId: string;
+  email: string;
+  bundleUrl: string;
+  customerName?: string | null;
+  counts?: {
+    totalVariants?: number;
+    actionable?: number;
+    consensusDamaging?: number;
+    pgsTraits?: number;
+  };
+}): Promise<{ ok: boolean; reason?: string }> {
+  const client = getResend();
+  if (!client) {
+    return { ok: false, reason: "Resend not configured." };
+  }
+  const greeting = params.customerName
+    ? `Hi ${escapeHtml(params.customerName.split(" ")[0] ?? "")},`
+    : "Hi,";
+  const counts = params.counts;
+  const countsBlock = counts
+    ? `
+      <h2 style="font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #737373; margin: 24px 0 8px;">What's in your bundle</h2>
+      <ul style="font-size: 14px; color: #171717; line-height: 1.7; padding-left: 20px; margin: 0 0 16px;">
+        ${typeof counts.totalVariants === "number" ? `<li>${counts.totalVariants.toLocaleString()} variant calls</li>` : ""}
+        ${typeof counts.actionable === "number" ? `<li>${counts.actionable} ACMG-SF actionable variant${counts.actionable === 1 ? "" : "s"}</li>` : ""}
+        ${typeof counts.consensusDamaging === "number" ? `<li>${counts.consensusDamaging} consensus-damaging missense</li>` : ""}
+        ${typeof counts.pgsTraits === "number" ? `<li>${counts.pgsTraits} polygenic scores across traits</li>` : ""}
+      </ul>
+    `
+    : "";
+  const { error } = await client.emails.send({
+    from: getResendFrom(),
+    to: params.email,
+    subject: "Your .genome bundle is ready",
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #171717;">
+        <p style="font-size: 32px; margin: 0 0 16px;">🧬</p>
+        <h1 style="font-size: 20px; font-weight: 600; margin: 0 0 12px;">Your .genome bundle is ready.</h1>
+        <p style="font-size: 15px; line-height: 1.55; margin: 0 0 16px;">${greeting}</p>
+        <p style="font-size: 15px; line-height: 1.55; margin: 0 0 16px;">Your conversion is done. The link below opens a signed download of your <code style="font-family: monospace;">.genome.tar.gz</code> bundle. It includes the <code style="font-family: monospace;">readmygenome</code> Claude skill and a <code style="font-family: monospace;">README.md</code> with DuckDB queries you can run right away.</p>
+        <p style="margin: 24px 0;">
+          <a href="${params.bundleUrl}" style="display: inline-block; padding: 12px 18px; border-radius: 8px; background: #171717; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500;">Download your bundle →</a>
+        </p>
+        <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0 0 16px;">This link expires in 24 hours. If it expires, reply to this email and we'll send a fresh one.</p>
+        ${countsBlock}
+        <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 16px 0 0;">Everything in the bundle is data, not a diagnosis. Statistical flags like <code style="font-family: monospace;">is_actionable</code> or <code style="font-family: monospace;">consensus_damaging</code> warrant confirmation with a clinician before acting.</p>
+        <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 24px 0;" />
+        <p style="font-size: 12px; color: #a3a3a3; margin: 0;">Order <strong style="color: #737373; font-family: monospace;">${escapeHtml(params.orderId)}</strong></p>
+      </div>
+    `,
+  });
+  if (error) return { ok: false, reason: error.message };
+  return { ok: true };
+}
+
+export async function sendConversionOperatorAlert(params: {
+  orderId: string;
+  email: string;
+  reason: "new_job" | "upload_ready" | "failed";
+  error?: string;
+}): Promise<{ ok: boolean; reason?: string }> {
+  const notify = process.env.ORDER_NOTIFY_EMAIL;
+  if (!notify) {
+    return { ok: false, reason: "ORDER_NOTIFY_EMAIL not set." };
+  }
+  const client = getResend();
+  if (!client) {
+    return { ok: false, reason: "Resend not configured." };
+  }
+  const subjects = {
+    new_job: `🧬 .genome conversion paid · ${params.email}`,
+    upload_ready: `🧬 .genome conversion ready to process · ${params.email}`,
+    failed: `⚠️ .genome conversion failed · ${params.email}`,
+  };
+  const body = {
+    new_job: "Customer paid; upload link emailed. No action needed yet.",
+    upload_ready:
+      "Customer finished their upload. The Render annotator will pick it up automatically.",
+    failed: `Conversion failed. Review the job in the admin dashboard.${
+      params.error ? `<br /><br /><pre style="font-size: 12px; background: #f5f5f5; padding: 12px; border-radius: 6px; white-space: pre-wrap;">${escapeHtml(params.error.slice(0, 1500))}</pre>` : ""
+    }`,
+  };
+  const to = notify
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const { error } = await client.emails.send({
+    from: getResendFrom(),
+    to,
+    subject: subjects[params.reason],
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #171717;">
+        <p style="margin: 0 0 12px;">${body[params.reason]}</p>
+        <p style="font-size: 13px; color: #737373; margin: 0;">Order <strong style="color: #171717; font-family: monospace;">${escapeHtml(params.orderId)}</strong><br />Customer: <a href="mailto:${escapeHtml(params.email)}" style="color: #171717;">${escapeHtml(params.email)}</a></p>
+      </div>
+    `,
+  });
+  if (error) return { ok: false, reason: error.message };
+  return { ok: true };
+}
