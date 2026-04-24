@@ -654,7 +654,9 @@ export function OrderForm({ product }: { product: Product }) {
               shippingFeeCents
             }
             onComplete={(orderId) =>
-              router.push(`/thanks?order=${encodeURIComponent(orderId)}`)
+              router.push(
+                `/thanks?order=${encodeURIComponent(orderId)}&tier=${encodeURIComponent(product.slug)}`
+              )
             }
           />
         </Elements>
