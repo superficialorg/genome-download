@@ -73,9 +73,7 @@ function DigitalContactForm({
   return (
     <div className="flex flex-col gap-4 rounded-[var(--radius-lg)] border border-border bg-background p-5">
       <p className="m-0 text-sm text-muted-foreground">
-        Where should we email your{" "}
-        <span className="font-mono text-foreground">.genome</span> bundle and{" "}
-        <span className="font-mono text-foreground">readmygenome</span> skill?
+        Enter your name and email to get started.
       </p>
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5">
@@ -636,11 +634,9 @@ export function OrderForm({ product }: { product: Product }) {
               {intentError}
             </p>
           ) : null}
-          {!canStartPayment ? (
+          {!canStartPayment && !isDigital ? (
             <p className="text-xs text-muted-foreground">
-              {isDigital
-                ? "Fill in your name and email above to continue."
-                : "Fill in the shipping fields above to continue."}
+              Fill in the shipping fields above to continue.
             </p>
           ) : null}
         </div>

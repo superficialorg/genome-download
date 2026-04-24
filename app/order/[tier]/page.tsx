@@ -23,6 +23,7 @@ export default async function OrderPage({
   const { tier } = await params;
   if (!isTierSlug(tier)) notFound();
   const product = PRODUCTS[tier];
+  const isDigital = product.kind === "digital";
 
   return (
     <SiteShell>
@@ -31,7 +32,7 @@ export default async function OrderPage({
       </div>
       <div className="mb-8 mt-6 flex flex-col items-center text-center sm:mt-10">
         <p className="m-0 font-mono text-[13px] text-muted-foreground">
-          Order your kit
+          {isDigital ? "Order" : "Order your kit"}
         </p>
         <h1 className="m-0 mt-2 text-[24px] font-semibold leading-[1.2] tracking-[-0.02em] sm:text-[28px]">
           {product.name}
@@ -47,9 +48,15 @@ export default async function OrderPage({
       <OrderForm product={product} />
 
       <p className="mt-8 text-xs text-muted-foreground">
-        Available worldwide. $40 international shipping on orders outside
-        the United States and Australia. By placing an order you agree to
-        our{" "}
+        {isDigital ? (
+          <>By placing an order you agree to our </>
+        ) : (
+          <>
+            Available worldwide. $40 international shipping on orders
+            outside the United States and Australia. By placing an order
+            you agree to our{" "}
+          </>
+        )}
         <a href="/terms" className="underline underline-offset-2">
           Terms
         </a>

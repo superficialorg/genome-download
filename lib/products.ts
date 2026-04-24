@@ -63,7 +63,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 5900,
     priceLabel: "$59",
     description:
-      "Convert any existing DNA file into a .genome/1.0 bundle. Send a VCF or 23andMe / Ancestry txt; we hand-process it through imputation, VEP + CADD annotation, PharmCAT, and polygenic scoring. Delivered by email within 48 hours with the readmygenome Claude Code skill. Personal & research use.",
+      "Convert any existing DNA file into a .genome bundle. We'll send you a secure upload link after order and deliver your .genome bundle and readmygenome.md file within 48 hours.",
     stripeProductId: "prod_UOJNA3QUw0tYXk",
     kind: "digital",
   },
