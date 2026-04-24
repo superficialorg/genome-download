@@ -196,6 +196,42 @@ export async function markJobPending(params: {
   return data as ConversionJob;
 }
 
+/**
+ * Flip a failed (or stuck) job back to `pending` so the annotator worker
+ * picks it up on the next poll cycle. Clears the worker-claim fields and
+ * the previous error so the audit trail is clean.
+ *
+ * Only works when `input_key` is populated (i.e. the customer actually
+ * uploaded). Won't touch `ready` jobs — regenerating a bundle the
+ * customer already has is a separate, costlier operation.
+ */
+export async function retryJob(orderId: string): Promise<ConversionJob> {
+  const job = await loadJob(orderId);
+  if (!job) throw new Error("job not found");
+  if (!job.input_key) {
+    throw new Error("cannot retry — customer hasn't uploaded yet");
+  }
+  if (job.status === "ready") {
+    throw new Error("cannot retry — job already completed");
+  }
+
+  const { data, error } = await supabaseAdmin()
+    .from("conversion_jobs")
+    .update({
+      status: "pending",
+      worker_id: null,
+      claimed_at: null,
+      started_at: null,
+      error_message: null,
+      failed_at: null,
+    })
+    .eq("id", orderId)
+    .select("*")
+    .single();
+  if (error) throw error;
+  return data as ConversionJob;
+}
+
 export async function listRecentJobs(limit = 100): Promise<ConversionJob[]> {
   const { data, error } = await supabaseAdmin()
     .from("conversion_jobs")

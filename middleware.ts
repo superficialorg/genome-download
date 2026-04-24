@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * Simple HTTP Basic Auth gate for /admin/*. Set ADMIN_USER + ADMIN_PASSWORD
- * in Vercel env. If either is unset, /admin/* is blocked entirely (so a
- * misconfigured deploy can't leak the dashboard).
+ * Simple HTTP Basic Auth gate for /admin/* and /api/admin/*. Set
+ * ADMIN_USER + ADMIN_PASSWORD in Vercel env. If either is unset the
+ * admin surface is blocked entirely (so a misconfigured deploy can't
+ * leak the dashboard).
+ *
+ * Both the admin pages and the admin-only API routes share the same
+ * gate. Browsers cache Basic Auth credentials per-origin, so fetch()
+ * calls from the admin page to /api/admin/* automatically include the
+ * same Authorization header and the same credentials pass the check.
  */
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  if (!pathname.startsWith("/admin")) return NextResponse.next();
+  const isAdmin =
+    pathname.startsWith("/admin") || pathname.startsWith("/api/admin");
+  if (!isAdmin) return NextResponse.next();
 
   const user = process.env.ADMIN_USER;
   const pass = process.env.ADMIN_PASSWORD;
@@ -40,5 +48,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };

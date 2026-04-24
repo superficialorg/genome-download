@@ -5,6 +5,7 @@ import {
   signBundleDownloadUrl,
   type ConversionJob,
 } from "@/lib/conversion-jobs";
+import { RetryButton } from "./retry-button";
 
 export const metadata: Metadata = {
   title: "Admin · Conversions",
@@ -95,13 +96,14 @@ export default async function ConversionsAdmin() {
               <th className="px-3 py-2">Input size</th>
               <th className="px-3 py-2">Ready</th>
               <th className="px-3 py-2">Bundle</th>
+              <th className="px-3 py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {jobs.length === 0 ? (
               <tr>
                 <td
-                  colSpan={8}
+                  colSpan={9}
                   className="px-3 py-6 text-center text-neutral-500"
                 >
                   No conversions yet.
@@ -160,6 +162,13 @@ export default async function ConversionsAdmin() {
                     </Link>
                   ) : (
                     "—"
+                  )}
+                </td>
+                <td className="px-3 py-2">
+                  {j.status === "failed" && j.input_key ? (
+                    <RetryButton jobId={j.id} />
+                  ) : (
+                    <span className="text-neutral-400">—</span>
                   )}
                 </td>
               </tr>
