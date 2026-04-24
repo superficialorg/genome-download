@@ -356,11 +356,12 @@ export async function sendConversionOperatorAlert(params: {
     upload_ready: `🧬 .genome conversion ready to process · ${params.email}`,
     failed: `⚠️ .genome conversion failed · ${params.email}`,
   };
+  const adminUrl = `${getConvertBaseUrl()}/admin/conversions`;
   const body = {
     new_job: "Customer paid; upload link emailed. No action needed yet.",
     upload_ready:
-      "Customer finished their upload. The Render annotator will pick it up automatically.",
-    failed: `Conversion failed. Review the job in the admin dashboard.${
+      `Customer finished their upload. Go to <a href="${adminUrl}" style="color: #171717;">the admin dashboard</a> and click <strong>Process</strong> on the pending row to approve the conversion. The annotator picks it up within ~15 seconds.`,
+    failed: `Conversion failed. Review in <a href="${adminUrl}" style="color: #171717;">admin</a>; click <strong>retry</strong> or refund via Stripe.${
       params.error ? `<br /><br /><pre style="font-size: 12px; background: #f5f5f5; padding: 12px; border-radius: 6px; white-space: pre-wrap;">${escapeHtml(params.error.slice(0, 1500))}</pre>` : ""
     }`,
   };
