@@ -85,8 +85,8 @@ export default function ApiPage() {
             The Genome API makes the genome itself a primitive. Whole-genome
             30x, whole-genome 100x, SNP genotyping, and SNP with imputation
             are all orderable through one endpoint &mdash; the same vertical
-            pipeline we run for our direct customers, wholesale-priced and
-            programmatically accessible.
+            pipeline we run for our direct customers, available
+            programmatically.
           </p>
         </section>
 
@@ -110,7 +110,7 @@ export default function ApiPage() {
             />
             <Bullet
               title="Clinical-grade infrastructure"
-              body="Sequencing in CLIA-, CAP-, and NATA-accredited, ISO 15189-certified laboratories. HIPAA-aligned controls. Every bundle pins lab, pipeline version, reference build (GRCh38), and guideline snapshots. Reproducibility is a property of the format."
+              body="Sequencing in CLIA-, CAP-, and NATA-accredited, ISO 15189-certified laboratories. HIPAA-aligned controls. Every bundle pins pipeline version, reference build (GRCh38), and guideline snapshots. Reproducibility is a property of the format."
             />
             <Bullet
               title="Built on a Public Benefit Corporation"

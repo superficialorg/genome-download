@@ -48,8 +48,8 @@ export function PostContent() {
         Whole genome 30x, whole genome 100x, SNP genotyping, and imputed SNP
         panels are all orderable through the same endpoint. The same
         vertically integrated pipeline we run for direct customers is now
-        available programmatically, at wholesale pricing, with no lab
-        negotiations and no bespoke integrations. You receive the data, you
+        available programmatically, with no lab negotiations and no bespoke
+        integrations. You receive the data, you
         control the interpretation, and the format you receive it in is open
         and durable.
       </p>
@@ -59,7 +59,7 @@ export function PostContent() {
         Sequencing is performed in <strong>CLIA-, CAP-, and NATA-accredited</strong>,{" "}
         <strong>ISO 15189-certified</strong> laboratories. Data handling
         aligns with HIPAA controls. Every bundle includes a manifest pinning
-        the lab, the pipeline version, the reference build (GRCh38), and the
+        the pipeline version, the reference build (GRCh38), and the
         guideline snapshots used at interpretation time, so every result is
         auditable and every claim traces back to a versioned source.
       </p>
