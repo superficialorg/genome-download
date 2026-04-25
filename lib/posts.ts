@@ -6,6 +6,11 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "introducing-the-genome-api",
+    title: "It's time to build bio: introducing the Genome API",
+    date: "April 2026",
+  },
+  {
     slug: "introducing-dot-genome",
     title: "Introducing .genome, the genome file designed for AI",
     date: "April 2026",

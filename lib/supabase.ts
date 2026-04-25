@@ -117,3 +117,37 @@ export async function saveOrder(
     },
   };
 }
+
+// ---------- Genome API: partner access requests ----------
+
+export type ApiAccessRequestRecord = {
+  name: string;
+  email: string;
+  company: string;
+  website: string | null;
+  use_case: string;
+  volume: string;
+  description: string;
+  source_ip: string | null;
+  user_agent: string | null;
+};
+
+export async function saveApiAccessRequest(
+  req: ApiAccessRequestRecord
+): Promise<{ ok: true; id: string } | { ok: false; reason: string }> {
+  const client = getAdminClient();
+  if (!client) {
+    return {
+      ok: false,
+      reason:
+        "Supabase not configured (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY missing).",
+    };
+  }
+  const { data, error } = await client
+    .from("api_access_requests")
+    .insert(req)
+    .select("id")
+    .single();
+  if (error) return { ok: false, reason: error.message };
+  return { ok: true, id: String(data.id) };
+}

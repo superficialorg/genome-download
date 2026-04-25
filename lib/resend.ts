@@ -337,6 +337,81 @@ export async function sendConversionReady(params: {
   return { ok: true };
 }
 
+// ---------- Genome API: partner access requests ----------
+
+export type ApiAccessRequestEmailParams = {
+  requestId: string;
+  name: string;
+  email: string;
+  company: string;
+  website: string | null;
+  useCase: string;
+  volume: string;
+  description: string;
+};
+
+export async function sendApiAccessRequestNotification(
+  params: ApiAccessRequestEmailParams
+): Promise<{ ok: boolean; reason?: string }> {
+  const notify = process.env.API_ACCESS_NOTIFY_EMAIL ?? process.env.ORDER_NOTIFY_EMAIL;
+  if (!notify) {
+    return {
+      ok: false,
+      reason: "Neither API_ACCESS_NOTIFY_EMAIL nor ORDER_NOTIFY_EMAIL set.",
+    };
+  }
+  const client = getResend();
+  if (!client) {
+    return { ok: false, reason: "Resend not configured (RESEND_API_KEY missing)." };
+  }
+  const to = notify
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const { error } = await client.emails.send({
+    from: getResendFrom(),
+    to,
+    replyTo: params.email,
+    subject: `🧬 Genome API access request · ${params.company}`,
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #171717;">
+        <h1 style="font-size: 18px; font-weight: 600; margin: 0 0 16px;">🧬 New API access request</h1>
+
+        <h2 style="font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #737373; margin: 0 0 8px;">Contact</h2>
+        <p style="font-size: 14px; line-height: 1.55; color: #171717; margin: 0 0 16px;">
+          <strong>${escapeHtml(params.name)}</strong><br />
+          <a href="mailto:${escapeHtml(params.email)}" style="color: #171717;">${escapeHtml(params.email)}</a>
+        </p>
+
+        <h2 style="font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #737373; margin: 0 0 8px;">Company</h2>
+        <p style="font-size: 14px; line-height: 1.55; color: #171717; margin: 0 0 16px;">
+          <strong>${escapeHtml(params.company)}</strong>${
+            params.website
+              ? `<br /><a href="${escapeHtml(params.website)}" style="color: #171717;">${escapeHtml(params.website)}</a>`
+              : ""
+          }
+        </p>
+
+        <h2 style="font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #737373; margin: 0 0 8px;">Use case</h2>
+        <p style="font-size: 14px; line-height: 1.55; color: #171717; margin: 0 0 4px;">
+          ${escapeHtml(params.useCase)}
+        </p>
+        <p style="font-size: 13px; color: #737373; margin: 0 0 16px;">
+          Expected volume: ${escapeHtml(params.volume)}
+        </p>
+
+        <h2 style="font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #737373; margin: 0 0 8px;">What they're building</h2>
+        <p style="font-size: 14px; line-height: 1.6; color: #171717; margin: 0 0 16px; white-space: pre-wrap;">${escapeHtml(params.description)}</p>
+
+        <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 24px 0;" />
+        <p style="font-size: 12px; color: #a3a3a3; margin: 0;">Request <strong style="color: #737373; font-family: monospace;">${escapeHtml(params.requestId)}</strong></p>
+      </div>
+    `,
+  });
+  if (error) return { ok: false, reason: error.message };
+  return { ok: true };
+}
+
 export async function sendConversionOperatorAlert(params: {
   orderId: string;
   email: string;

@@ -58,6 +58,12 @@ function SiteFooter() {
           contact@genome.computer
         </a>
         <Link
+          href="/api"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          API
+        </Link>
+        <Link
           href="/research"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
