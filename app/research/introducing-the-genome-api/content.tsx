@@ -10,78 +10,58 @@ export function PostContent() {
   return (
     <Prose>
       <p>
-        Genome Computer is opening early access to the Genome API. Partners
-        can place sequencing orders programmatically, track them through the
-        lab, and receive a complete <code>.genome/1.0</code> bundle and VCF
-        as soon as results are ready.
+        For the last decade, the consumer genome has been locked behind apps,
+        PDFs, and proprietary pipelines. Companies sequenced genomes, packaged
+        the results into closed reports, and treated the underlying data as
+        an asset to protect rather than a foundation to build on. Builders
+        outside those companies were left to consume what they were given.
       </p>
 
-      <p>
-        A single HTTPS endpoint between your application and a person&rsquo;s
-        genome.
-      </p>
+      <p>This was a choice, not a constraint. We can choose differently.</p>
 
       <p>
-        For the last decade, the genome has been locked behind apps, PDFs, and
-        proprietary pipelines. Builders couldn&rsquo;t access it. They could
-        only consume it.
+        Today, Genome Computer is opening early access to the Genome API.
+        Partners can place sequencing orders programmatically, track them
+        through the lab, and receive a complete <code>.genome/1.0</code>{" "}
+        bundle and VCF as soon as results are ready. It is a single HTTPS
+        endpoint between an application and a person&rsquo;s genome.
       </p>
 
-      <p>That model is over.</p>
-
+      <h2>What the API does</h2>
       <p>
-        It&rsquo;s time to build bio.
-        <br />
-        Not on reports. Not on SDKs. On the genome itself.
-      </p>
-
-      <h2>What&rsquo;s actually new</h2>
-      <p>
-        For the first time, the entire pipeline &mdash; wet lab, sequencing,
-        annotation, interpretation, and packaging into an AI-native file
-        format &mdash; happens behind a single API call.
-      </p>
-      <p>
-        Kit ships to your customer. Sample comes back to our accredited labs.
-        Sequencing, variant calling, annotation, and interpretation all
-        happen under one roof. What lands in your application is a{" "}
-        <code>.genome</code> bundle and a VCF &mdash; consumable genomic data,
-        formatted for the readers that matter today: software, agents, and
-        language models.
+        The Genome API exposes the entire stack &mdash; sample collection,
+        sequencing, annotation, interpretation, and AI-native packaging
+        &mdash; behind one API call. The kit ships to your customer. The
+        sample comes back to our accredited labs. Sequencing, variant calling,
+        annotation, and interpretation happen under one roof. What lands in
+        your application is a <code>.genome</code> bundle and a VCF, formatted
+        for the readers that matter today: software, agents, and language
+        models.
       </p>
       <p>
         Until now, building on genomic data meant choosing between three bad
-        options: scraping reports from consumer tests, integrating vendor SDKs
-        that abstract away the raw genome, or standing up your own lab. Each
-        approach trades away access to the genome itself.
-      </p>
-      <p>
-        The Genome API makes the genome a first-class primitive.
+        options: scraping reports from consumer tests, integrating vendor
+        SDKs that abstract away the raw genome, or standing up your own lab.
+        Each of those approaches trades away access to the genome itself.
       </p>
       <p>
         Whole genome 30x, whole genome 100x, SNP genotyping, and imputed SNP
-        panels are all orderable through a single endpoint. No lab
-        negotiations. No bespoke integrations. The same vertically integrated
-        pipeline we run for direct customers, exposed programmatically at
-        wholesale pricing.
-      </p>
-      <p>
-        You receive the data. You control the interpretation. The format
-        outlives the contract.
+        panels are all orderable through the same endpoint. The same
+        vertically integrated pipeline we run for direct customers is now
+        available programmatically, at wholesale pricing, with no lab
+        negotiations and no bespoke integrations. You receive the data, you
+        control the interpretation, and the format you receive it in is open
+        and durable.
       </p>
 
       <h2>Clinical-grade infrastructure</h2>
-      <p>This is not a layer where corners can be cut.</p>
       <p>
         Sequencing is performed in <strong>CLIA-, CAP-, and NATA-accredited</strong>,{" "}
         <strong>ISO 15189-certified</strong> laboratories. Data handling
         aligns with HIPAA controls. Every bundle includes a manifest pinning
-        the lab, pipeline version, reference build (GRCh38), and guideline
-        snapshots used at interpretation time.
-      </p>
-      <p>
-        Every result is auditable. Every claim is traceable. Reproducibility
-        is not a feature. It is a property of the system.
+        the lab, the pipeline version, the reference build (GRCh38), and the
+        guideline snapshots used at interpretation time, so every result is
+        auditable and every claim traces back to a versioned source.
       </p>
 
       <h2>A Public Benefit Corporation</h2>
@@ -94,13 +74,11 @@ export function PostContent() {
         >
           Humankind
         </a>
-        , a Delaware Public Benefit Corporation.
-      </p>
-      <p>This is structural, not rhetorical.</p>
-      <p>
-        Traditional corporations are obligated to maximise shareholder value.
-        A PBC is required to balance shareholder interests with a defined
-        public benefit and the interests of affected stakeholders.
+        , a Delaware Public Benefit Corporation. A PBC restructures corporate
+        purpose: a traditional corporation is obligated to maximise
+        shareholder value, while a PBC is required to balance shareholder
+        interests with a defined public benefit and the interests of
+        affected stakeholders.
       </p>
       <p>Humankind&rsquo;s charter is explicit:</p>
       <blockquote>
@@ -111,121 +89,120 @@ export function PostContent() {
       </blockquote>
       <p>
         The genomics industry has repeatedly failed at this boundary. User
-        data sold to pharma. Databases accessed without consent. Privacy terms
-        rewritten under financial pressure.
+        data has been sold to pharmaceutical companies. Genetic databases
+        have been handed to law enforcement without consent. Privacy terms
+        have been rewritten retroactively when revenue ran short. When
+        genomes are the most valuable asset on a balance sheet, the
+        incentive to monetise them becomes inevitable under a standard
+        corporate structure.
       </p>
       <p>
-        When genomes are the most valuable asset on the balance sheet, the
-        incentive to monetise them is inevitable under a standard structure.
+        A PBC changes that constraint. Selling identifiable genetic data
+        would violate fiduciary duty rather than fulfil it, and that
+        commitment is embedded in legal documents that survive leadership
+        transitions, financial crises, and acquisitions &mdash; the exact
+        moments at which privacy promises have historically failed.
       </p>
       <p>
-        A PBC changes that constraint. Selling identifiable genetic data would
-        violate fiduciary duty, not fulfil it.
+        For an API that other companies build on top of, this matters more
+        than for a direct-to-consumer service. Two operating commitments
+        follow from the charter:
       </p>
-      <p>
-        For an API that other companies build on, this matters. You are not
-        depending on a layer that can quietly pivot into a data brokerage
-        model.
-      </p>
-      <p>Two commitments follow:</p>
       <p>
         <strong>Open, durable formats.</strong> <code>.genome/1.0</code> is
-        Apache-licensed and will remain so. The format is designed to outlive
-        the company. What you ship today remains parseable and usable in the
-        future.
+        Apache-licensed and will remain so. The format is designed to
+        outlive the company, and a bundle a partner ships today will still
+        be parseable in 2030 regardless of what happens to us.
       </p>
       <p>
-        <strong>Transparent science.</strong> Interpretation logic is embedded
-        in the bundle, not hidden behind an API. Results can be audited,
-        recomputed, and challenged.
+        <strong>Transparent science.</strong> Interpretation logic is
+        embedded in the bundle, not hidden behind an API. Results can be
+        audited, recomputed, and challenged.
       </p>
 
       <h2>
         Why <code>.genome</code> matters
       </h2>
-      <p>Every order returns two artifacts.</p>
       <p>
-        The VCF provides compatibility.
-        <br />
-        The <code>.genome</code> bundle provides leverage.
+        Every order returns two artifacts: a VCF for compatibility with
+        existing bioinformatics pipelines, and a <code>.genome</code> bundle
+        for everything else.
       </p>
       <p>
-        <code>.genome/1.0</code> is designed for AI and software systems, not
-        human specialists. The gains are measurable.
+        <code>.genome/1.0</code> is designed for AI and software systems
+        rather than human specialists. The gains over reading the equivalent
+        annotated VCF are measurable: an LLM uses{" "}
+        <strong>3&ndash;7&times; fewer tokens</strong> of context, and
+        produces <strong>10&ndash;20&times; better interpretive accuracy</strong>{" "}
+        on standard genomic-reasoning evaluations. Four properties of the
+        format account for this.
       </p>
       <p>
-        <strong>3&ndash;7&times; fewer tokens. 10&ndash;20&times; better
-        interpretive accuracy.</strong> Compared to the equivalent annotated
-        VCF, an LLM reading a <code>.genome</code> bundle uses a fraction of
-        its context window and produces dramatically more reliable answers on
-        standard genomic-reasoning evaluations. Cheaper and right, on both
-        axes the agent cares about.
-      </p>
-      <p>The four properties below are why.</p>
-      <p>
-        <strong>AI-readable by construction.</strong> Variant data,
+        <strong>It is AI-readable by construction.</strong> Variant data,
         interpretations, and rules are explicitly structured and versioned.
-        No ambiguous encodings. No inference required.
+        There are no ambiguous encodings and no inferred meanings.
       </p>
       <p>
-        <strong>Deterministic outputs.</strong> PharmGKB metabolizer status,
-        ClinVar pathogenicity, and ACMG actionability are computed at pipeline
-        time against pinned guideline versions. No runtime guessing.
+        <strong>It is deterministic.</strong> PharmGKB metabolizer status,
+        ClinVar pathogenicity, and ACMG actionability are computed at
+        pipeline time against pinned guideline versions, so there is no
+        runtime guessing.
       </p>
       <p>
-        <strong>Queryable in milliseconds.</strong> Gene-level queries reduce
-        to simple columnar reads. No indexing complexity. No specialised
-        tooling.
+        <strong>It is queryable in milliseconds.</strong> Gene-level
+        questions reduce to simple columnar reads, with no indexing
+        complexity or specialised tooling required.
       </p>
       <p>
-        <strong>Versioned end-to-end.</strong> Each bundle pins guideline
-        versions and timestamps, enabling clean diffs across time as
-        interpretations evolve.
-      </p>
-      <p>
-        The VCF is sovereignty.
-        <br />
-        The <code>.genome</code> bundle is usability.
+        <strong>It is versioned end-to-end.</strong> Each bundle pins
+        guideline versions and timestamps, so a result re-interpreted next
+        year produces a clean diff against the version generated this year.
       </p>
 
       <h2>What you can build</h2>
+      <p>Real things that should exist and don&rsquo;t yet:</p>
+      <ul>
+        <li>An agent that blocks the wrong drug before it is prescribed.</li>
+        <li>
+          A nutrition system that adjusts a user&rsquo;s diet based on how
+          they actually metabolise food.
+        </li>
+        <li>
+          A longevity coach grounded in the user&rsquo;s own genome rather
+          than population averages.
+        </li>
+        <li>
+          A research platform where consented genomes flow into cohorts in
+          minutes instead of months.
+        </li>
+        <li>
+          An assistant that grounds its advice in the user&rsquo;s biology,
+          not in self-reported answers and survey data.
+        </li>
+      </ul>
       <p>
-        An agent that blocks the wrong drug before it&rsquo;s prescribed.
-        <br />
-        A system that adjusts diet based on how a user actually metabolises
-        food.
-        <br />
-        Cohorts that assemble themselves in minutes, not months.
-        <br />
-        An AI that doesn&rsquo;t just remember what you say, but how
-        you&rsquo;re built.
+        Each of these requires direct application-layer access to genomic
+        data formatted for a software reader. Each one is now possible.
       </p>
       <p>
-        Software that knows you biologically. Not inferred. Not self-reported.
-        Read directly from your genome.
+        We are not going to build all of these. We are not going to build
+        most of them. That is the point of an API.
       </p>
-      <p>We will not build all of these.</p>
-      <p>You should.</p>
 
       <h2>Request access</h2>
       <p>
         The Genome API is in private beta with a small group of partners.
+        We are looking for teams shipping real products this year &mdash;
+        clinical, consumer, research, or agent-based &mdash; that want to
+        ship faster and get feedback into the roadmap.
       </p>
       <p>
-        We are looking for teams shipping real products this year across
-        clinical, consumer, research, or agent-based systems. The API is
-        stable enough to build on and early enough that feedback shapes the
-        roadmap.
+        Request access at <a href="/api">genome.computer/api</a> or write to{" "}
+        <a href="mailto:api@genome.computer">api@genome.computer</a>.
       </p>
       <p>
-        Request access at{" "}
-        <a href="/api">genome.computer/api</a>
-        <br />
-        <a href="mailto:api@genome.computer">api@genome.computer</a>
+        The genome is a building block. What are you going to build with it?
       </p>
-
-      <h2>The genome is a building block</h2>
-      <p>It&rsquo;s time to build bio.</p>
     </Prose>
   );
 }
