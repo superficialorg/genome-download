@@ -37,7 +37,17 @@ export function PostContent() {
 
       <h2>What&rsquo;s actually new</h2>
       <p>
-        For the first time, full-depth sequencing happens behind an API call.
+        For the first time, the entire pipeline &mdash; wet lab, sequencing,
+        annotation, interpretation, and packaging into an AI-native file
+        format &mdash; happens behind a single API call.
+      </p>
+      <p>
+        Kit ships to your customer. Sample comes back to our accredited labs.
+        Sequencing, variant calling, annotation, and interpretation all
+        happen under one roof. What lands in your application is a{" "}
+        <code>.genome</code> bundle and a VCF &mdash; consumable genomic data,
+        formatted for the readers that matter today: software, agents, and
+        language models.
       </p>
       <p>
         Until now, building on genomic data meant choosing between three bad
@@ -141,8 +151,17 @@ export function PostContent() {
       </p>
       <p>
         <code>.genome/1.0</code> is designed for AI and software systems, not
-        human specialists.
+        human specialists. The gains are measurable.
       </p>
+      <p>
+        <strong>3&ndash;7&times; fewer tokens. 10&ndash;20&times; better
+        interpretive accuracy.</strong> Compared to the equivalent annotated
+        VCF, an LLM reading a <code>.genome</code> bundle uses a fraction of
+        its context window and produces dramatically more reliable answers on
+        standard genomic-reasoning evaluations. Cheaper and right, on both
+        axes the agent cares about.
+      </p>
+      <p>The four properties below are why.</p>
       <p>
         <strong>AI-readable by construction.</strong> Variant data,
         interpretations, and rules are explicitly structured and versioned.
