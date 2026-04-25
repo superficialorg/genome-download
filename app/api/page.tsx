@@ -51,11 +51,7 @@ export default function ApiPage() {
             It&rsquo;s time to build bio.
           </h1>
           <p className="m-0 max-w-[560px] text-[15px] leading-[1.65] text-muted-foreground sm:text-[17px]">
-            The first genome sequencing API. Order a kit, receive a{" "}
-            <code className="rounded bg-border px-1 py-0.5 font-mono text-[13px] text-foreground">
-              .genome
-            </code>{" "}
-            bundle and a VCF, and build genetic intelligence into anything.
+            The first genome sequencing API, built specifically for AI.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
             <a
