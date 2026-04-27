@@ -13,37 +13,41 @@ export function PostContent() {
         For the last decade, the consumer genome has been locked behind apps,
         PDFs, and proprietary pipelines. Companies sequenced genomes, packaged
         the results into closed reports, and treated the underlying data as
-        an asset to protect and monetise rather than a foundation to build on. Builders
-        outside those companies were left to consume what they were given.
+        an asset to protect and monetise rather than a foundation to build on.
+        Builders were left with whatever they were given.
       </p>
 
       <p>This was a choice, not a constraint. We can choose differently.</p>
 
       <p>
-        Today, The Genome Computer Company is opening early access to the Genome API.
-        Partners can place sequencing orders programmatically, track them
-        through the lab, and receive a complete <code>.genome/1.0</code>{" "}
-        bundle and VCF as soon as results are ready. It is a single HTTPS
-        endpoint between an application and a person&rsquo;s genome.
+        Today, The Genome Computer Company is opening early access to the
+        Genome API.
+      </p>
+
+      <p>
+        With a single HTTPS endpoint, partners can order sequencing, track
+        samples through the lab, and receive a complete{" "}
+        <code>.genome/1.0</code> bundle and VCF as soon as results are ready.
       </p>
 
       <h2>What the API does</h2>
       <p>
-        The Genome API exposes the entire stack &mdash; sample collection,
-        sequencing, annotation, interpretation, and AI-native formatting
-        &mdash; behind one API call. The kit ships to your customer. The
-        sample comes back to our accredited labs. Sequencing, variant calling,
-        annotation, and interpretation happen under one roof. What lands in
-        your application is a <code>.genome</code> bundle and a VCF, formatted
-        for the readers that matter today: software, agents, and language
-        models.
+        The Genome API exposes the full stack behind one call: collection,
+        sequencing, variant calling, annotation, interpretation, and
+        AI-native formatting. A kit ships to your customer. The sample
+        returns to our accredited labs. The full pipeline runs. What lands
+        in your application is the genome itself, not a report.
       </p>
       <p>
         Until now, building on genomic data meant choosing between three bad
-        options: scraping reports from consumer tests, integrating vendor
-        SDKs that abstract away the raw genome, or standing up your own lab.
-        Each of those approaches trades away access to the genome itself.
+        options:
       </p>
+      <ul>
+        <li>Scraping consumer reports.</li>
+        <li>Integrating vendor SDKs that hide the raw genome.</li>
+        <li>Standing up your own lab.</li>
+      </ul>
+      <p>All three trade away direct access to the underlying data.</p>
       <p>
         Whole genome 30x, whole genome 100x, SNP genotyping, and imputed SNP
         panels are all orderable through the same endpoint. The same
@@ -53,15 +57,30 @@ export function PostContent() {
         control the interpretation, and the format you receive it in is open
         and durable.
       </p>
+      <p>
+        The same API also accepts existing VCFs. Partners whose users arrive
+        with a file from a legacy provider, a clinical run, or a research
+        dataset can submit it to a conversion endpoint and receive a
+        fully-annotated <code>.genome</code> bundle in hours rather than
+        weeks. Same output format, same downstream surface &mdash; fresh
+        sequencing and existing files converge on a single primitive.
+      </p>
 
       <h2>Clinical-grade infrastructure</h2>
       <p>
         Sequencing is performed in <strong>CLIA-, CAP-, and NATA-accredited</strong>,{" "}
         <strong>ISO 15189-certified</strong> laboratories. Data handling
-        aligns with HIPAA controls. Every bundle includes a manifest pinning
-        the pipeline version, the reference build (GRCh38), and the
-        guideline snapshots used at interpretation time, so every result is
-        auditable and every claim traces back to a versioned source.
+        aligns with HIPAA controls.
+      </p>
+      <p>Every bundle includes a manifest that pins:</p>
+      <ul>
+        <li>Pipeline version.</li>
+        <li>Reference build (GRCh38).</li>
+        <li>Guideline snapshots used at interpretation time.</li>
+      </ul>
+      <p>
+        Every result is auditable. Every claim traces back to a versioned
+        source.
       </p>
 
       <h2>A Public Benefit Corporation</h2>
@@ -92,9 +111,8 @@ export function PostContent() {
         data has been sold to pharmaceutical companies. Genetic databases
         have been handed to law enforcement without consent. Privacy terms
         have been rewritten retroactively when revenue ran short. When
-        genomes are the most valuable asset on a balance sheet, the
-        incentive to monetise them becomes inevitable under a standard
-        corporate structure.
+        genomes are the most valuable asset on the balance sheet, monetising
+        them becomes the default outcome.
       </p>
       <p>
         A PBC changes that constraint. Selling identifiable genetic data
@@ -160,7 +178,7 @@ export function PostContent() {
       </p>
 
       <h2>What you can build</h2>
-      <p>Real things that should exist and don&rsquo;t yet:</p>
+      <p>Things that should already exist:</p>
       <ul>
         <li>An agent that blocks the wrong drug before it is prescribed.</li>
         <li>

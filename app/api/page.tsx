@@ -88,6 +88,16 @@ export default function ApiPage() {
             pipeline we run for our direct customers, available
             programmatically.
           </p>
+          <p className="m-0 text-[15px] leading-[1.7] text-muted-foreground">
+            The same API accepts existing VCFs. Users arriving with a file
+            from a legacy provider, a clinical run, or a research dataset
+            can be converted to a fully-annotated{" "}
+            <code className="rounded bg-border px-1 py-0.5 font-mono text-[13px] text-foreground">
+              .genome
+            </code>{" "}
+            bundle in hours &mdash; same output format, same downstream
+            surface as a fresh sequencing order.
+          </p>
         </section>
 
         {/* What you get */}
@@ -103,6 +113,10 @@ export default function ApiPage() {
             <Bullet
               title="Both .genome and VCF, every time"
               body=".genome/1.0 is AI-readable by construction — typed columns, deterministic interpretation, queryable in milliseconds. The VCF ships alongside as the sovereignty layer for existing pipelines."
+            />
+            <Bullet
+              title="Bring your own VCF"
+              body="Already have a file from a legacy provider, a clinical run, or a research dataset? POST it to the conversion endpoint and receive a fully-annotated .genome bundle in hours. Same format, same downstream surface as a fresh sequencing order — a fast on-ramp for users who don't need to be sequenced again."
             />
             <Bullet
               title="Clinical-grade infrastructure"
