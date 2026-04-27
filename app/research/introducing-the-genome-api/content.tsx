@@ -13,14 +13,14 @@ export function PostContent() {
         For the last decade, the consumer genome has been locked behind apps,
         PDFs, and proprietary pipelines. Companies sequenced genomes, packaged
         the results into closed reports, and treated the underlying data as
-        an asset to protect rather than a foundation to build on. Builders
+        an asset to protect and monetise rather than a foundation to build on. Builders
         outside those companies were left to consume what they were given.
       </p>
 
       <p>This was a choice, not a constraint. We can choose differently.</p>
 
       <p>
-        Today, Genome Computer is opening early access to the Genome API.
+        Today, The Genome Computer Company is opening early access to the Genome API.
         Partners can place sequencing orders programmatically, track them
         through the lab, and receive a complete <code>.genome/1.0</code>{" "}
         bundle and VCF as soon as results are ready. It is a single HTTPS
@@ -30,7 +30,7 @@ export function PostContent() {
       <h2>What the API does</h2>
       <p>
         The Genome API exposes the entire stack &mdash; sample collection,
-        sequencing, annotation, interpretation, and AI-native packaging
+        sequencing, annotation, interpretation, and AI-native formatting
         &mdash; behind one API call. The kit ships to your customer. The
         sample comes back to our accredited labs. Sequencing, variant calling,
         annotation, and interpretation happen under one roof. What lands in
@@ -184,11 +184,6 @@ export function PostContent() {
         Each of these requires direct application-layer access to genomic
         data formatted for a software reader. Each one is now possible.
       </p>
-      <p>
-        We are not going to build all of these. We are not going to build
-        most of them. That is the point of an API.
-      </p>
-
       <h2>Request access</h2>
       <p>
         The Genome API is in private beta with a small group of partners.

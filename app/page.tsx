@@ -14,7 +14,7 @@ export default function Home() {
       <SiteHeader />
       <div className="mb-16 mt-6 flex flex-col items-center text-center sm:mb-24 sm:mt-10">
         <Link
-          href={`/research/${featuredPost.slug}`}
+          href="/api"
           className="mb-10 inline-flex max-w-full flex-col items-center gap-1.5 rounded-[20px] border border-border bg-background px-4 py-2 text-center text-[12px] leading-[1.35] text-muted-foreground no-underline transition-colors hover:border-foreground/20 hover:text-foreground sm:mb-12 sm:flex-row sm:gap-2 sm:rounded-full sm:py-1 sm:pl-1 sm:pr-3 sm:text-left sm:text-[13px]"
         >
           <span className="inline-flex shrink-0 items-center rounded-full bg-border px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-foreground">
