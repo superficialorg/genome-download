@@ -117,7 +117,7 @@ export function ApiAccessForm() {
         </p>
         <p className="m-0 text-[14px] text-muted-foreground">
           We&rsquo;ll be in touch within a few business days. In the meantime,
-          questions can go to{" "}
+          reach out to{" "}
           <a
             href="mailto:api@genome.computer"
             className="text-foreground underline underline-offset-2"

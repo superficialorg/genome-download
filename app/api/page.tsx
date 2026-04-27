@@ -105,10 +105,6 @@ export default function ApiPage() {
               body=".genome/1.0 is AI-readable by construction — typed columns, deterministic interpretation, queryable in milliseconds. The VCF ships alongside as the sovereignty layer for existing pipelines."
             />
             <Bullet
-              title="Multi-tenant, partner-billed"
-              body="Every API key is scoped to a partner. Wholesale pricing per partner, billed monthly via Stripe Invoicing — no payment forms, no per-order Stripe handoff. We bill you. You build the product."
-            />
-            <Bullet
               title="Clinical-grade infrastructure"
               body="Sequencing in CLIA-, CAP-, and NATA-accredited, ISO 15189-certified laboratories. HIPAA-aligned controls. Every bundle pins pipeline version, reference build (GRCh38), and guideline snapshots. Reproducibility is a property of the format."
             />
@@ -117,51 +113,6 @@ export default function ApiPage() {
               body="Genome Computer ships under Humankind, a Delaware PBC. The charter binds us — legally, not aspirationally — to keep identifiable individual genetic data under individual control and out of commercial sale or licensing. A board authorising that sale would be violating its fiduciary duty, not satisfying it. The commitment survives leadership transitions, financial crises, and acquisitions — the moments at which privacy-policy promises have historically failed."
             />
           </ul>
-        </section>
-
-        {/* Endpoints peek */}
-        <section className="flex flex-col gap-4">
-          <h2 className="m-0 text-[20px] font-semibold tracking-[-0.01em] text-foreground">
-            The shape of it
-          </h2>
-          <p className="m-0 text-[15px] leading-[1.7] text-muted-foreground">
-            A few endpoints, deliberately small. Bearer-token auth,{" "}
-            <code className="rounded bg-border px-1 py-0.5 font-mono text-[13px] text-foreground">
-              Idempotency-Key
-            </code>{" "}
-            on every write, cursor-paginated reads, HMAC-signed webhooks.
-          </p>
-          <pre className="m-0 overflow-x-auto rounded-[var(--radius-lg)] border border-border bg-background p-4 font-mono text-[12.5px] leading-[1.6] text-foreground">
-            <code>{`POST   /v1/orders                   create a sequencing order
-GET    /v1/orders/:id               fetch order + status + kit ids
-GET    /v1/orders                   list (cursor pagination, filters)
-POST   /v1/orders/:id/cancel        cancel before fulfillment
-GET    /v1/products                 catalog of orderable kits
-POST   /v1/webhooks                 register a signed callback
-                                    order.processing
-                                    order.shipped
-                                    order.delivered
-                                    results.ready`}</code>
-          </pre>
-        </section>
-
-        {/* Use cases */}
-        <section className="flex flex-col gap-4">
-          <h2 className="m-0 text-[20px] font-semibold tracking-[-0.01em] text-foreground">
-            What you can build
-          </h2>
-          <p className="m-0 text-[15px] leading-[1.7] text-muted-foreground">
-            A pharmacogenomic agent that warns a clinician before a
-            prescription is written. A nutrition app that personalizes against
-            actual metabolic variants instead of survey data. A longevity
-            coach grounded in the user&rsquo;s own genome rather than
-            population averages. A research platform where consented genomes
-            flow into cohorts in minutes, not quarters. An agent that knows
-            you &mdash; biologically, durably, on your own terms.
-          </p>
-          <p className="m-0 text-[15px] leading-[1.7] text-muted-foreground">
-            We are not going to build all of these. You should.
-          </p>
         </section>
 
         {/* Form */}
