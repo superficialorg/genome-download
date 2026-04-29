@@ -32,7 +32,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
           href="/research"
           className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
         >
-          Research
+          Blog
         </Link>
         <a
           href="mailto:contact@genome.computer"
@@ -67,7 +67,7 @@ function SiteFooter() {
           href="/research"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
-          Research
+          Blog
         </Link>
         <Link
           href="/privacy"
