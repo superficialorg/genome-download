@@ -29,7 +29,7 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
       </Link>
       <nav className="flex items-center gap-5">
         <Link
-          href="/research"
+          href="/blog"
           className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
         >
           Blog
@@ -64,7 +64,7 @@ function SiteFooter() {
           API
         </Link>
         <Link
-          href="/research"
+          href="/blog"
           className="text-muted-foreground transition-colors hover:text-foreground"
         >
           Blog

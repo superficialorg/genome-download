@@ -8,7 +8,7 @@ const post = getPost(SLUG)!;
 
 const POST_DESCRIPTION =
   "The first genome sequencing API. Order a kit programmatically, receive a .genome bundle and a VCF, and build genetic intelligence into anything. Now in private beta.";
-const POST_URL = `https://genome.computer/research/${SLUG}`;
+const POST_URL = `https://genome.computer/blog/${SLUG}`;
 
 export const metadata: Metadata = {
   title: `${post.title} — The Genome Computer Company`,
@@ -47,7 +47,7 @@ export default function IntroducingTheGenomeApiPage() {
       </div>
       <div className="mb-8 mt-6 flex flex-col items-center text-center sm:mt-10">
         <p className="m-0 font-mono text-[13px] text-muted-foreground">
-          Research
+          Product
         </p>
         <h1 className="m-0 mt-2 text-[24px] font-semibold leading-[1.2] tracking-[-0.02em] sm:text-[28px]">
           {post.title}

@@ -3,17 +3,17 @@ import { SiteShell, SiteHeader } from "@/components/site-shell";
 import { POSTS } from "@/lib/posts";
 
 export const metadata = {
-  title: "Research — The Genome Computer Company",
+  title: "Blog — The Genome Computer Company",
 };
 
-export default function ResearchPage() {
+export default function BlogPage() {
   return (
     <SiteShell>
       <SiteHeader compact />
       <article className="mt-10 flex flex-col gap-10 sm:mt-16">
         <div className="flex flex-col items-center gap-4 text-center">
           <h1 className="m-0 text-[28px] font-semibold tracking-[-0.02em]">
-            Research
+            Blog
           </h1>
         </div>
 
@@ -21,7 +21,7 @@ export default function ResearchPage() {
           {POSTS.map((post, i) => (
             <li key={post.slug} className="m-0 p-0">
               <Link
-                href={`/research/${post.slug}`}
+                href={`/blog/${post.slug}`}
                 className="group flex flex-col gap-2 rounded-[var(--radius-lg)] border border-border bg-background p-5 text-foreground no-underline transition-all hover:border-foreground/20 hover:shadow-[0_1px_3px_0_rgb(0_0_0/0.05)] sm:px-6"
               >
                 {i === 0 ? (
