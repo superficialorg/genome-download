@@ -25,7 +25,7 @@ export default function Home() {
           </span>
         </Link>
         <h1 className="m-0 mb-6 text-[28px] font-normal italic leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
-          The fastest, safest way to download and read your genome.
+          The fastest, most reliable way to sequence and read your genome.
         </h1>
         <GenomeCount />
         <div className="mt-4 w-full sm:mt-6">
