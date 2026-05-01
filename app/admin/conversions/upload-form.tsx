@@ -30,6 +30,23 @@ function browserSupabase() {
   return createClient(url, anon);
 }
 
+function formatError(value: unknown): string {
+  if (value instanceof Error) return value.message;
+  if (typeof value === "string") return value;
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    for (const key of ["message", "error", "error_description", "details"]) {
+      if (typeof record[key] === "string") return record[key];
+    }
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return "Unknown error";
+    }
+  }
+  return value == null ? "Unknown error" : String(value);
+}
+
 async function readJson(res: Response) {
   const text = await res.text();
   try {
@@ -75,7 +92,11 @@ export function UploadForm() {
       });
       const body = await readJson(res);
       if (!res.ok || !body.ok) {
-        throw new Error(body.error ?? `Could not create upload (${res.status})`);
+        throw new Error(
+          body.error
+            ? formatError(body.error)
+            : `Could not create upload (${res.status})`
+        );
       }
 
       const { jobId, path, token } = body as {
@@ -93,7 +114,7 @@ export function UploadForm() {
         .uploadToSignedUrl(path, token, file, {
           contentType: "application/octet-stream",
         });
-      if (upErr) throw new Error(upErr.message);
+      if (upErr) throw new Error(formatError(upErr));
 
       setPhase("hashing");
       const sha = await sha256Hex(file);
@@ -106,14 +127,18 @@ export function UploadForm() {
       });
       const completeBody = await readJson(complete);
       if (!complete.ok || !completeBody.ok) {
-        throw new Error(completeBody.error ?? `Could not confirm upload (${complete.status})`);
+        throw new Error(
+          completeBody.error
+            ? formatError(completeBody.error)
+            : `Could not confirm upload (${complete.status})`
+        );
       }
       setMessage(`Created job ${jobId.slice(0, 8)}. Click process when ready.`);
       formEl.reset();
       setPhase("done");
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
+      setError(formatError(err));
       setPhase("idle");
     }
   }
