@@ -7,6 +7,23 @@ import { retryJob } from "@/lib/conversion-jobs";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+function formatError(value: unknown): string {
+  if (value instanceof Error) return value.message;
+  if (typeof value === "string") return value;
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    for (const key of ["message", "error", "error_description", "details", "hint", "code"]) {
+      if (typeof record[key] === "string") return record[key];
+    }
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return "Unknown error";
+    }
+  }
+  return value == null ? "Unknown error" : String(value);
+}
+
 export async function POST(
   _request: Request,
   context: { params: Promise<{ jobId: string }> }
@@ -16,7 +33,7 @@ export async function POST(
     const job = await retryJob(jobId);
     return NextResponse.json({ ok: true, status: job.status });
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
+    const msg = formatError(err);
     const status = /not found/i.test(msg)
       ? 404
       : /cannot retry/i.test(msg)

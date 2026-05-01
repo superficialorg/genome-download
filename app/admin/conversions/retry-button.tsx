@@ -3,6 +3,32 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+function formatError(value: unknown): string {
+  if (value instanceof Error) return value.message;
+  if (typeof value === "string") return value;
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    for (const key of ["message", "error", "error_description", "details"]) {
+      if (typeof record[key] === "string") return record[key];
+    }
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return "Unknown error";
+    }
+  }
+  return value == null ? "Unknown error" : String(value);
+}
+
+async function readJson(res: Response) {
+  const text = await res.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    throw new Error(text || `Request failed (${res.status})`);
+  }
+}
+
 export function RetryButton({ jobId }: { jobId: string }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -17,13 +43,13 @@ export function RetryButton({ jobId }: { jobId: string }) {
         `/api/admin/jobs/${encodeURIComponent(jobId)}/retry`,
         { method: "POST" }
       );
-      const body = await res.json();
+      const body = await readJson(res);
       if (!res.ok || !body.ok) {
-        throw new Error(body.error ?? `retry failed (${res.status})`);
+        throw new Error(body.error ? formatError(body.error) : `retry failed (${res.status})`);
       }
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(formatError(e));
     } finally {
       setBusy(false);
     }
