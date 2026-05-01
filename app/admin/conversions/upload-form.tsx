@@ -47,10 +47,11 @@ export function UploadForm() {
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const formEl = e.currentTarget;
     setPhase("creating");
     setError(null);
     setMessage(null);
-    const form = new FormData(e.currentTarget);
+    const form = new FormData(formEl);
     const email = String(form.get("email") ?? "").trim();
     const customerName = String(form.get("customerName") ?? "").trim();
     const file = form.get("file");
@@ -108,7 +109,7 @@ export function UploadForm() {
         throw new Error(completeBody.error ?? `Could not confirm upload (${complete.status})`);
       }
       setMessage(`Created job ${jobId.slice(0, 8)}. Click process when ready.`);
-      e.currentTarget.reset();
+      formEl.reset();
       setPhase("done");
       router.refresh();
     } catch (err) {
