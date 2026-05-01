@@ -63,9 +63,18 @@ export default async function ConversionsAdmin() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
       <div className="mb-6 flex items-baseline justify-between gap-4">
-        <h1 className="m-0 text-[20px] font-semibold tracking-[-0.01em]">
-          .genome conversions
-        </h1>
+        <Link
+          href="/"
+          aria-label="The Genome Computer Company home"
+          className="inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
+        >
+          <span className="text-[20px] leading-none sm:text-2xl">🧬</span>
+          <span className="text-[13px] font-normal leading-[1.2] tracking-[-0.01em] sm:text-[16px]">
+            The Genome
+            <br />
+            Computer Company
+          </span>
+        </Link>
         <p className="m-0 font-mono text-xs text-neutral-500">
           {jobs.length} most recent
         </p>
