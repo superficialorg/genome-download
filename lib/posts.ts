@@ -7,7 +7,7 @@ export type Post = {
 export const POSTS: Post[] = [
   {
     slug: "introducing-genome-computer-for-codex",
-    title: "Your genome is a workspace: introducing Genome Computer for Codex",
+    title: "Genome Computer for Codex",
     date: "May 2026",
   },
   {

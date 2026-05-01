@@ -21,7 +21,7 @@ export default function Home() {
             New
           </span>
           <span className="min-w-0 sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap">
-            {featuredPost.title}
+            Announcing Genome Computer x Codex
           </span>
         </Link>
         <h1 className="m-0 mb-6 text-[28px] font-normal italic leading-[1.1] tracking-[-0.03em] sm:text-[36px]">
