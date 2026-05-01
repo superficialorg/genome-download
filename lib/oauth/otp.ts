@@ -9,7 +9,7 @@ export function generateOtpCode(): string {
 
 export async function createOtp(email: string): Promise<string> {
   const code = generateOtpCode();
-  await supabaseAdmin()
+  const { error } = await supabaseAdmin()
     .from("oauth_email_codes")
     .insert({
       email,
@@ -17,16 +17,19 @@ export async function createOtp(email: string): Promise<string> {
       nonce: generateToken(8),
       expires_at: nowPlusSeconds(OTP_TTL_SECONDS).toISOString(),
     });
+  if (error) throw error;
   return code;
 }
 
 export async function verifyOtp(email: string, code: string): Promise<boolean> {
-  const { data } = await supabaseAdmin()
+  const { data, error } = await supabaseAdmin()
     .from("oauth_email_codes")
     .select("id, code_hash, expires_at, used_at")
     .eq("email", email)
     .order("created_at", { ascending: false })
     .limit(5);
+  if (error) throw error;
+
   const rows = (data ?? []) as Array<{
     id: string;
     code_hash: string;
@@ -37,9 +40,10 @@ export async function verifyOtp(email: string, code: string): Promise<boolean> {
   const row = rows.find((r) => !r.used_at && r.code_hash === expected);
   if (!row) return false;
   if (Date.parse(row.expires_at) <= Date.now()) return false;
-  await supabaseAdmin()
+  const { error: updateError } = await supabaseAdmin()
     .from("oauth_email_codes")
     .update({ used_at: new Date().toISOString() })
     .eq("id", row.id);
+  if (updateError) throw updateError;
   return true;
 }

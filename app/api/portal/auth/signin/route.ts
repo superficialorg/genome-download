@@ -30,7 +30,14 @@ export async function POST(request: Request) {
   // Avoid account enumeration. If no order exists, still return ok without emailing.
   if (!data || data.length === 0) return NextResponse.json({ ok: true });
 
-  const code = await createOtp(email);
+  let code: string;
+  try {
+    code = await createOtp(email);
+  } catch (err) {
+    console.error("[auth/signin] code insert failed", err);
+    return NextResponse.json({ ok: false, error: "Could not create sign-in code." }, { status: 500 });
+  }
+
   const sent = await sendOAuthSigninCode({ email, code });
   if (!sent.ok) {
     console.error("[auth/signin] send failed", sent.reason);

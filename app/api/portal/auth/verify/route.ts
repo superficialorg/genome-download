@@ -18,7 +18,14 @@ export async function POST(request: Request) {
   if (!email || !/^\d{6}$/.test(code)) {
     return NextResponse.json({ ok: false, error: "Invalid code." }, { status: 400 });
   }
-  const ok = await verifyOtp(email, code);
+  let ok: boolean;
+  try {
+    ok = await verifyOtp(email, code);
+  } catch (err) {
+    console.error("[auth/verify] code lookup failed", err);
+    return NextResponse.json({ ok: false, error: "Could not verify code." }, { status: 500 });
+  }
+
   if (!ok) {
     return NextResponse.json({ ok: false, error: "Invalid or expired code." }, { status: 403 });
   }

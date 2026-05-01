@@ -24,7 +24,10 @@ export function SigninClient() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: trimmed }),
       });
-      if (!res.ok) throw new Error("Could not send code.");
+      const body = await readJson(res);
+      if (!res.ok || body.ok === false) {
+        throw new Error(typeof body.error === "string" ? body.error : "Could not send code.");
+      }
       setEmail(trimmed);
       setStep("code");
       setMessage("If that email has a Genome Computer order, a code is on its way.");
@@ -45,7 +48,10 @@ export function SigninClient() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code }),
       });
-      if (!res.ok) throw new Error("Invalid or expired code.");
+      const body = await readJson(res);
+      if (!res.ok || body.ok === false) {
+        throw new Error(typeof body.error === "string" ? body.error : "Invalid or expired code.");
+      }
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
@@ -94,4 +100,13 @@ export function SigninClient() {
       {error && <p className="m-0 text-[13px] leading-5 text-red-600">{error}</p>}
     </div>
   );
+}
+
+async function readJson(res: Response) {
+  const text = await res.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    return {};
+  }
 }
