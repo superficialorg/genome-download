@@ -8,6 +8,7 @@ import {
 import { RetryButton } from "./retry-button";
 import { ApproveButton } from "./approve-button";
 import { UploadForm } from "./upload-form";
+import { DeleteButton } from "./delete-button";
 
 export const metadata: Metadata = {
   title: "Admin · Conversions",
@@ -169,17 +170,21 @@ export default async function ConversionsAdmin() {
                   )}
                 </td>
                 <td className="px-3 py-2">
-                  {j.status === "failed" && j.input_key ? (
-                    <RetryButton jobId={j.id} />
-                  ) : j.status === "pending" && j.input_key && !j.approved_at ? (
-                    <ApproveButton jobId={j.id} />
-                  ) : j.status === "pending" && j.approved_at ? (
-                    <span className="font-mono text-[10px] text-neutral-500">
-                      queued
-                    </span>
-                  ) : (
-                    <span className="text-neutral-400">—</span>
-                  )}
+                  <div className="flex flex-col items-start gap-1">
+                    {j.status === "failed" && j.input_key ? (
+                      <RetryButton jobId={j.id} />
+                    ) : j.status === "pending" && j.input_key && !j.approved_at ? (
+                      <ApproveButton jobId={j.id} />
+                    ) : j.status === "pending" && j.approved_at ? (
+                      <span className="font-mono text-[10px] text-neutral-500">
+                        queued
+                      </span>
+                    ) : null}
+                    <DeleteButton
+                      jobId={j.id}
+                      label={`${j.id.slice(0, 8)} (${j.email})`}
+                    />
+                  </div>
                 </td>
               </tr>
             ))}

@@ -292,6 +292,49 @@ export async function retryJob(orderId: string): Promise<ConversionJob> {
   return data as ConversionJob;
 }
 
+async function removeStoragePrefix(bucket: string, prefix: string): Promise<number> {
+  const { data: objects, error: listError } = await supabaseAdmin()
+    .storage.from(bucket)
+    .list(prefix, { limit: 1000 });
+  if (listError) throw listError;
+
+  const keys = (objects ?? [])
+    .filter((object) => object.name && object.name !== ".emptyFolderPlaceholder")
+    .map((object) => `${prefix}/${object.name}`);
+  if (keys.length === 0) return 0;
+
+  const { error: removeError } = await supabaseAdmin()
+    .storage.from(bucket)
+    .remove(keys);
+  if (removeError) throw removeError;
+  return keys.length;
+}
+
+/**
+ * Hard-delete a conversion job and its private storage objects.
+ * Admin-only route calls this for cleanup of test/demo jobs.
+ */
+export async function deleteJob(orderId: string): Promise<{
+  job: ConversionJob;
+  removedUploadObjects: number;
+  removedBundleObjects: number;
+}> {
+  const job = await loadJob(orderId);
+  if (!job) throw new Error("job not found");
+
+  const prefix = `orders/${orderId}`;
+  const removedUploadObjects = await removeStoragePrefix(UPLOAD_BUCKET, prefix);
+  const removedBundleObjects = await removeStoragePrefix(BUNDLE_BUCKET, prefix);
+
+  const { error } = await supabaseAdmin()
+    .from("conversion_jobs")
+    .delete()
+    .eq("id", orderId);
+  if (error) throw error;
+
+  return { job, removedUploadObjects, removedBundleObjects };
+}
+
 export async function listRecentJobs(limit = 100): Promise<ConversionJob[]> {
   const { data, error } = await supabaseAdmin()
     .from("conversion_jobs")
