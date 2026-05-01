@@ -31,11 +31,10 @@ export function PostContent() {
       </p>
 
       <p>
-        Codex changes the surface. The same MCP serves both ChatGPT and
-        Codex. In ChatGPT you can ask a question about your genome and get
-        an answer. In Codex you can ask for a tool that answers that
-        question today, keeps the logic visible, and can be adapted
-        tomorrow when the question changes.
+        Codex changes the surface. In ChatGPT you can ask a question
+        about your genome and get an answer. In Codex you can ask for a
+        tool that answers that question today, keeps the logic visible,
+        and can be adapted tomorrow when the question changes.
       </p>
 
       <p>
@@ -68,7 +67,7 @@ export function PostContent() {
       </p>
 
       <p>
-        A <strong>literature watcher</strong> polls PubMed, bioRxiv, and
+        A <strong>literature watcher</strong>{" "}polls PubMed, bioRxiv, and
         medRxiv, joins each new paper against your bundle, and surfaces
         only the rare paper that touches a variant you carry &mdash;{" "}
         <em>
@@ -209,7 +208,7 @@ export function PostContent() {
 
       <p>
         Connect Genome Computer to Codex at{" "}
-        <a href="/api">genome.computer/api</a>.
+        <a href="/">genome.computer</a>.
       </p>
 
       <p>
