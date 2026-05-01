@@ -96,8 +96,8 @@ export function SigninClient() {
           </button>
         </form>
       )}
-      {message && <p className="m-0 text-[13px] leading-5 text-muted-foreground">{message}</p>}
-      {error && <p className="m-0 text-[13px] leading-5 text-red-600">{error}</p>}
+      {message && <p className="m-0 text-center text-[13px] leading-5 text-muted-foreground">{message}</p>}
+      {error && <p className="m-0 text-center text-[13px] leading-5 text-red-600">{error}</p>}
     </div>
   );
 }

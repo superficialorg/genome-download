@@ -67,13 +67,11 @@ export default async function OAuthAuthorizePage({
   return (
     <main className="min-h-screen bg-background px-6 py-10 text-foreground">
       <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-[420px] flex-col justify-center">
-        <p className="mb-4 font-mono text-[12px] uppercase tracking-[0.14em] text-muted-foreground">
-          Genome Computer
-        </p>
+        <GenomeComputerLogo />
         {session ? (
           <form method="POST" action="/oauth/consent" className="flex flex-col gap-6">
             <input type="hidden" name="signed_state" value={signedState} />
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col items-center gap-2 text-center">
               <h1 className="m-0 text-[28px] font-semibold leading-tight tracking-[-0.02em]">
                 Connect Genome Computer to {client.name}
               </h1>
@@ -139,15 +137,34 @@ export default async function OAuthAuthorizePage({
 function SigninForm() {
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="m-0 text-[28px] font-semibold leading-tight tracking-[-0.02em]">
           Sign in to connect your genome
         </h1>
-        <p className="m-0 text-[14px] leading-6 text-muted-foreground">
+        <p className="m-0 max-w-[340px] text-[14px] leading-6 text-muted-foreground">
           Enter the email used for your Genome Computer order. We will send a six digit code.
         </p>
       </div>
       <SigninClient />
+    </div>
+  );
+}
+
+function GenomeComputerLogo() {
+  return (
+    <div className="mb-8 flex justify-center">
+      <a
+        href="/"
+        aria-label="The Genome Computer Company home"
+        className="inline-flex items-center gap-2 text-foreground transition-opacity hover:opacity-80"
+      >
+        <span className="text-[20px] leading-none sm:text-2xl">🧬</span>
+        <span className="text-left text-[13px] font-normal leading-[1.2] tracking-[-0.01em] sm:text-[16px]">
+          The Genome
+          <br />
+          Computer Company
+        </span>
+      </a>
     </div>
   );
 }
