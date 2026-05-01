@@ -6,6 +6,24 @@ import { createSession } from "@/lib/oauth/session";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+function formatError(value: unknown): string {
+  if (value instanceof Error) return value.message;
+  if (typeof value === "string") return value;
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    const parts = ["message", "details", "hint", "code", "name"]
+      .map((key) => (typeof record[key] === "string" ? `${key}: ${record[key]}` : null))
+      .filter(Boolean);
+    if (parts.length > 0) return parts.join("; ");
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return "Unknown error";
+    }
+  }
+  return value == null ? "Unknown error" : String(value);
+}
+
 export async function POST(request: Request) {
   let body: { email?: unknown; code?: unknown };
   try {
@@ -22,8 +40,9 @@ export async function POST(request: Request) {
   try {
     ok = await verifyOtp(email, code);
   } catch (err) {
-    console.error("[auth/verify] code lookup failed", err);
-    return NextResponse.json({ ok: false, error: "Could not verify code." }, { status: 500 });
+    const msg = formatError(err);
+    console.error("[auth/verify] code lookup failed", msg, err);
+    return NextResponse.json({ ok: false, error: `Could not verify code: ${msg}` }, { status: 500 });
   }
 
   if (!ok) {
