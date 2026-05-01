@@ -458,3 +458,29 @@ export async function sendConversionOperatorAlert(params: {
   if (error) return { ok: false, reason: error.message };
   return { ok: true };
 }
+
+export async function sendOAuthSigninCode(params: {
+  email: string;
+  code: string;
+}): Promise<{ ok: boolean; reason?: string }> {
+  const client = getResend();
+  if (!client) {
+    return { ok: false, reason: "Resend not configured." };
+  }
+  const { error } = await client.emails.send({
+    from: getResendFrom(),
+    to: params.email,
+    subject: "Your Genome Computer sign-in code",
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #171717;">
+        <p style="font-size: 32px; margin: 0 0 16px;">🧬</p>
+        <h1 style="font-size: 20px; font-weight: 600; margin: 0 0 12px;">Sign in to Genome Computer</h1>
+        <p style="font-size: 15px; color: #737373; line-height: 1.55; margin: 0 0 16px;">Use this code to connect your genome to Codex or another MCP client.</p>
+        <p style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 28px; letter-spacing: 0.12em; margin: 24px 0; color: #171717;">${escapeHtml(params.code)}</p>
+        <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0;">This code expires in 10 minutes. If you did not request it, you can ignore this email.</p>
+      </div>
+    `,
+  });
+  if (error) return { ok: false, reason: error.message };
+  return { ok: true };
+}
