@@ -8,7 +8,7 @@ export const POSTS: Post[] = [
   {
     slug: "introducing-genome-computer-for-codex",
     title: "Your genome is a workspace: introducing Genome Computer for Codex",
-    date: "April 2026",
+    date: "May 2026",
   },
   {
     slug: "introducing-the-genome-api",

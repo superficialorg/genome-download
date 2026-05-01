@@ -18,17 +18,15 @@ export default function BlogPage() {
         </div>
 
         <ul className="m-0 flex list-none flex-col gap-4 p-0">
-          {POSTS.map((post, i) => (
+          {POSTS.map((post) => (
             <li key={post.slug} className="m-0 p-0">
               <Link
                 href={`/blog/${post.slug}`}
                 className="group flex flex-col gap-2 rounded-[var(--radius-lg)] border border-border bg-background p-5 text-foreground no-underline transition-all hover:border-foreground/20 hover:shadow-[0_1px_3px_0_rgb(0_0_0/0.05)] sm:px-6"
               >
-                {i === 0 ? (
-                  <span className="inline-flex w-fit items-center rounded-full bg-border px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-foreground">
-                    New
-                  </span>
-                ) : null}
+                <span className="inline-flex w-fit items-center rounded-full bg-border px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-foreground">
+                  New
+                </span>
                 <h2 className="m-0 text-[15px] font-semibold tracking-[-0.01em]">
                   {post.title}
                 </h2>
