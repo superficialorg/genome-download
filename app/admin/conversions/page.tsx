@@ -7,6 +7,7 @@ import {
 } from "@/lib/conversion-jobs";
 import { RetryButton } from "./retry-button";
 import { ApproveButton } from "./approve-button";
+import { UploadForm } from "./upload-form";
 
 export const metadata: Metadata = {
   title: "Admin · Conversions",
@@ -68,6 +69,8 @@ export default async function ConversionsAdmin() {
           {jobs.length} most recent
         </p>
       </div>
+
+      <UploadForm />
 
       <div className="mb-8 grid grid-cols-2 gap-2 sm:grid-cols-6">
         {(Object.keys(buckets) as ConversionJob["status"][]).map((s) => (

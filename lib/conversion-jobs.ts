@@ -110,6 +110,28 @@ export async function createConversionJob(params: {
   return data as ConversionJob;
 }
 
+export async function createManualConversionJob(params: {
+  email: string;
+  customerName?: string | null;
+}): Promise<ConversionJob> {
+  const token = mintUploadToken();
+  const manualId = `manual_${Date.now()}_${randomBytes(6).toString("hex")}`;
+  const { data, error } = await supabaseAdmin()
+    .from("conversion_jobs")
+    .insert({
+      payment_intent_id: manualId,
+      email: params.email,
+      customer_name: params.customerName ?? null,
+      upload_token: token,
+      upload_token_expires_at: uploadTokenExpiry().toISOString(),
+      status: "awaiting_upload",
+    })
+    .select("*")
+    .single();
+  if (error) throw error;
+  return data as ConversionJob;
+}
+
 /**
  * Load a job by id AND upload_token — the upload page uses this to gate
  * anonymous access. Wrong token or expired token → null → 404.
