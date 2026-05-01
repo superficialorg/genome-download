@@ -29,6 +29,12 @@ export function SiteHeader({ compact = false }: { compact?: boolean }) {
       </Link>
       <nav className="flex items-center gap-5">
         <Link
+          href="/api"
+          className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          API
+        </Link>
+        <Link
           href="/blog"
           className="text-[14px] font-medium tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
         >
