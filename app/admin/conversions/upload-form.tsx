@@ -1,38 +1,133 @@
 "use client";
 
+import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+const UPLOAD_BUCKET = "dotgenome-uploads";
+const MAX_BYTES = 25 * 1024 * 1024 * 1024; // 25 GB
+
+type Phase =
+  | "idle"
+  | "creating"
+  | "uploading"
+  | "hashing"
+  | "confirming"
+  | "done";
+
+async function sha256Hex(file: File): Promise<string> {
+  const buf = await file.arrayBuffer();
+  const digest = await crypto.subtle.digest("SHA-256", buf);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+function browserSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !anon) return null;
+  return createClient(url, anon);
+}
+
+async function readJson(res: Response) {
+  const text = await res.text();
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch {
+    throw new Error(text || `Request failed (${res.status})`);
+  }
+}
+
 export function UploadForm() {
   const router = useRouter();
-  const [busy, setBusy] = useState(false);
+  const [phase, setPhase] = useState<Phase>("idle");
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setBusy(true);
+    setPhase("creating");
     setError(null);
     setMessage(null);
     const form = new FormData(e.currentTarget);
+    const email = String(form.get("email") ?? "").trim();
+    const customerName = String(form.get("customerName") ?? "").trim();
+    const file = form.get("file");
+
+    if (!(file instanceof File) || file.size === 0) {
+      setError("File required.");
+      setPhase("idle");
+      return;
+    }
+    if (file.size > MAX_BYTES) {
+      setError("File is too large (max 25 GB).");
+      setPhase("idle");
+      return;
+    }
+
     try {
       const res = await fetch("/api/admin/conversions/upload", {
         method: "POST",
-        body: form,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, customerName }),
       });
-      const body = await res.json();
+      const body = await readJson(res);
       if (!res.ok || !body.ok) {
-        throw new Error(body.error ?? `upload failed (${res.status})`);
+        throw new Error(body.error ?? `Could not create upload (${res.status})`);
       }
-      setMessage(`Created job ${String(body.jobId).slice(0, 8)}. Click process when ready.`);
+
+      const { jobId, path, token } = body as {
+        ok: true;
+        jobId: string;
+        path: string;
+        token: string;
+      };
+
+      setPhase("uploading");
+      const sb = browserSupabase();
+      if (!sb) throw new Error("Supabase client not configured");
+      const { error: upErr } = await sb.storage
+        .from(UPLOAD_BUCKET)
+        .uploadToSignedUrl(path, token, file, {
+          contentType: "application/octet-stream",
+        });
+      if (upErr) throw new Error(upErr.message);
+
+      setPhase("hashing");
+      const sha = await sha256Hex(file);
+
+      setPhase("confirming");
+      const complete = await fetch("/api/admin/conversions/upload/complete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ jobId, sha256: sha, sizeBytes: file.size }),
+      });
+      const completeBody = await readJson(complete);
+      if (!complete.ok || !completeBody.ok) {
+        throw new Error(completeBody.error ?? `Could not confirm upload (${complete.status})`);
+      }
+      setMessage(`Created job ${jobId.slice(0, 8)}. Click process when ready.`);
       e.currentTarget.reset();
+      setPhase("done");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setBusy(false);
+      setPhase("idle");
     }
   }
+
+  const busy = phase !== "idle" && phase !== "done";
+  const label =
+    phase === "creating"
+      ? "preparing..."
+      : phase === "uploading"
+        ? "uploading..."
+        : phase === "hashing"
+          ? "hashing..."
+          : phase === "confirming"
+            ? "confirming..."
+            : "Upload";
 
   return (
     <form
@@ -64,7 +159,7 @@ export function UploadForm() {
         disabled={busy}
         className="h-10 rounded-md bg-foreground px-4 text-[12px] font-medium text-background disabled:opacity-60"
       >
-        {busy ? "uploading..." : "Upload"}
+        {label}
       </button>
       {(error || message) && (
         <p
