@@ -63,7 +63,7 @@ function Overview() {
           consumer genome file designed to be read by an AI.
         </li>
         <li>
-          <strong>readmygenome.md</strong> — a Claude skill that lets any
+          <strong>readmygenome.md</strong> — a skill that lets any
           Claude instance read a <code>.genome</code> bundle correctly, with
           provenance, out of the box.
         </li>
@@ -235,7 +235,7 @@ function Overview() {
         rewrite, no custom infrastructure.
       </p>
       <p>
-        <strong>The Claude skill.</strong> <code>readmygenome.md</code> — a
+        <strong>The skill.</strong> <code>readmygenome.md</code> — a
         drop-in skill that teaches any Claude instance how to read a{" "}
         <code>.genome</code> bundle correctly, with provenance and without
         improvising. Install it once, upload a bundle, ask anything.
@@ -253,7 +253,7 @@ function Overview() {
           <code>genome-convert</code>.
         </li>
         <li>
-          Install <code>readmygenome.md</code> as a Claude skill.
+          Install <code>readmygenome.md</code> as a skill.
         </li>
         <li>
           Upload your bundle to a Claude conversation. Ask questions.
@@ -344,7 +344,7 @@ function Technical() {
           annotated VCF in under five minutes with no pipeline rewrite.
         </li>
         <li>
-          <strong>readmygenome.md</strong> — a Claude skill that
+          <strong>readmygenome.md</strong> — a skill that
           operationalises the spec. It lets any Claude instance read a{" "}
           <code>.genome</code> bundle correctly, enforcing the spec&rsquo;s
           structural guarantees at the agent layer. The skill is a single
@@ -863,7 +863,7 @@ function Technical() {
         not a format change; it is a capability unlock.
       </p>
 
-      <h3>7.2 readmygenome.md — the Claude skill</h3>
+      <h3>7.2 readmygenome.md — the skill</h3>
       <p>
         Producing a bundle is half the problem. The other half is
         making sure an agent reading the bundle actually respects the
@@ -873,7 +873,7 @@ function Technical() {
         prevent.
       </p>
       <p>
-        We ship <code>readmygenome.md</code>: a Claude skill released
+        We ship <code>readmygenome.md</code>: a skill released
         under the same Apache 2.0 license, in the same repository, that
         instructs any Claude instance how to read a{" "}
         <code>.genome/1.0</code> bundle correctly. It is a single

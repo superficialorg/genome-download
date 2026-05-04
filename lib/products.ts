@@ -26,7 +26,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 9900,
     priceLabel: "$99",
     description:
-      "~700K measured variants. Comparable to consumer genotyping kits. Ships as a .genome bundle with the readmygenome.md Claude skill. 1 week lab turnaround. VCF on request.",
+      "~700K measured variants. Comparable to consumer genotyping kits. Ships as a .genome bundle with the readmygenome.md skill. 1 week lab turnaround. VCF on request.",
     stripeProductId: "prod_UMadBTHvuZE0Ta",
   },
   "snp-imputed": {
@@ -35,7 +35,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 12900,
     priceLabel: "$129",
     description:
-      "~23M variants via statistical imputation from your SNP data. Expanded coverage beyond standard genotyping. Ships as a .genome bundle with the readmygenome.md Claude skill. 1 week lab turnaround. VCF on request.",
+      "~23M variants via statistical imputation from your SNP data. Expanded coverage beyond standard genotyping. Ships as a .genome bundle with the readmygenome.md skill. 1 week lab turnaround. VCF on request.",
     stripeProductId: "prod_UMakmwJOGjbHuZ",
   },
   "wgs-30x": {
@@ -44,7 +44,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 59900,
     priceLabel: "$599",
     description:
-      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Ships as a .genome bundle with the readmygenome.md Claude skill. 4-6 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
+      "Standard-depth whole genome sequencing. ~4–5M variants including SNVs and indels. Ships as a .genome bundle with the readmygenome.md skill. 4-6 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
     stripeProductId: "prod_UMaosHtOSO6ATY",
     popular: true,
   },
@@ -54,7 +54,7 @@ export const PRODUCTS: Record<TierSlug, Product> = {
     priceCents: 149900,
     priceLabel: "$1,499",
     description:
-      "High-depth sequencing. Higher confidence for low-frequency and structural variants. Suitable for research workflows. Ships as a .genome bundle with the readmygenome.md Claude skill. 4-6 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
+      "High-depth sequencing. Higher confidence for low-frequency and structural variants. Suitable for research workflows. Ships as a .genome bundle with the readmygenome.md skill. 4-6 weeks lab turnaround. VCF, BAM, and FASTQ on request.",
     stripeProductId: "prod_UMaoDyJYIUROWI",
   },
   convert: {

@@ -3,7 +3,7 @@
 Direct-to-consumer landing + checkout site for **Humankind Bio, Inc.**
 Customers order a sequencing kit (or pay for a `.genome` conversion of an
 existing DNA file) and receive their data as a `.genome/1.0` bundle plus
-the `readmygenome.md` Claude skill.
+the `readmygenome.md` skill.
 
 Note: the repo directory name is `genome-download` for historical
 reasons; the actual production domain is `genome.computer`.

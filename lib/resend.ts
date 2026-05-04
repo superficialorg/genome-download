@@ -137,7 +137,7 @@ export async function sendOrderConfirmation(
         <ul style="font-size: 15px; color: #171717; line-height: 1.6; padding-left: 20px; margin: 0 0 24px;">
           <li>Your sample kit ships within 1 business day.</li>
           <li>Return it in the prepaid envelope.</li>
-          <li>We'll email your .genome bundle and the readmygenome.md Claude skill one week after the lab receives your sample (4–6 weeks for whole genome sequencing). VCF available on request.</li>
+          <li>We'll email your .genome bundle and the readmygenome.md skill one week after the lab receives your sample (4–6 weeks for whole genome sequencing). VCF available on request.</li>
         </ul>
 
         <h2 style="font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #737373; margin: 0 0 8px;">Order summary</h2>
@@ -271,7 +271,7 @@ export async function sendConversionUploadLink(params: {
         </p>
         <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0 0 12px;">The link expires ${new Date(params.expiresAt).toUTCString()}. If it expires, reply to this email and we'll send a fresh one.</p>
         <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0 0 8px;">Accepted formats: <code style="font-family: monospace;">.txt</code> (23andMe, Ancestry, MyHeritage), <code style="font-family: monospace;">.vcf</code>, <code style="font-family: monospace;">.vcf.gz</code>. Up to 25 GB.</p>
-        <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0;">You'll hear back within 48 hours with your .genome bundle and the <code style="font-family: monospace;">readmygenome</code> Claude skill.</p>
+        <p style="font-size: 13px; color: #737373; line-height: 1.55; margin: 0;">You'll hear back within 48 hours with your .genome bundle and the <code style="font-family: monospace;">readmygenome.md</code> skill.</p>
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 24px 0;" />
         <p style="font-size: 12px; color: #a3a3a3; margin: 0;">Order <strong style="color: #737373; font-family: monospace;">${escapeHtml(params.orderId)}</strong></p>
       </div>
@@ -321,7 +321,7 @@ export async function sendConversionReady(params: {
         <p style="font-size: 32px; margin: 0 0 16px;">🧬</p>
         <h1 style="font-size: 20px; font-weight: 600; margin: 0 0 12px;">Your .genome bundle is ready.</h1>
         <p style="font-size: 15px; line-height: 1.55; margin: 0 0 16px;">${greeting}</p>
-        <p style="font-size: 15px; line-height: 1.55; margin: 0 0 16px;">Your conversion is done. The link below opens a signed download of your <code style="font-family: monospace;">.genome.tar.gz</code> bundle. It includes the <code style="font-family: monospace;">readmygenome</code> Claude skill and a <code style="font-family: monospace;">README.md</code> with DuckDB queries you can run right away.</p>
+        <p style="font-size: 15px; line-height: 1.55; margin: 0 0 16px;">Your conversion is done. The link below opens a signed download of your <code style="font-family: monospace;">.genome.tar.gz</code> bundle. It includes the <code style="font-family: monospace;">readmygenome.md</code> skill and a <code style="font-family: monospace;">README.md</code> with DuckDB queries you can run right away.</p>
         <p style="margin: 24px 0;">
           <a href="${params.bundleUrl}" style="display: inline-block; padding: 12px 18px; border-radius: 8px; background: #171717; color: #fff; text-decoration: none; font-size: 14px; font-weight: 500;">Download your bundle →</a>
         </p>

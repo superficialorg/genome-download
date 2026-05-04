@@ -28,14 +28,14 @@ export default async function ThanksPage({
             Check your email in the next couple of minutes for a secure
             upload link. Send us your DNA file there and we&apos;ll email
             your <span className="font-mono">.genome</span> bundle and{" "}
-            <span className="font-mono">readmygenome.md</span> Claude skill
+            <span className="font-mono">readmygenome.md</span> skill
             within 48 hours. Every conversion is hand-processed.
           </p>
         ) : (
           <p className="m-0 max-w-[520px] text-[15px] leading-[1.55] text-muted-foreground">
             We&apos;ll email you shipping details within 1 business day. Your{" "}
             <span className="font-mono">.genome</span> bundle and the{" "}
-            <span className="font-mono">readmygenome.md</span> Claude skill
+            <span className="font-mono">readmygenome.md</span> skill
             will be delivered one week after the lab receives your sample
             (4–6 weeks for whole genome sequencing). VCF available on
             request.

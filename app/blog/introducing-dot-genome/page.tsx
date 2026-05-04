@@ -7,7 +7,7 @@ const SLUG = "introducing-dot-genome";
 const post = getPost(SLUG)!;
 
 const POST_DESCRIPTION =
-  "A new open specification for consumer genome files designed to be read by an AI — with a Claude skill that reads them correctly, with provenance, out of the box.";
+  "A new open specification for consumer genome files designed to be read by an AI — with a skill that reads them correctly, with provenance, out of the box.";
 const POST_URL = `https://genome.computer/blog/${SLUG}`;
 
 export const metadata: Metadata = {
