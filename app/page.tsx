@@ -72,7 +72,7 @@ export default function Home() {
           </div>
 
           <p className="m-0 mt-3 max-w-2xl text-[14px] leading-[1.55] text-background/80 sm:text-[15px]">
-            Send us your VCF file from any legacy sequencing provider and
+            Upload your VCF file from any legacy sequencing provider and
             we&apos;ll return a fully-annotated{" "}
             <span className="font-mono text-background">.genome</span> bundle
             within 48 hours. Imputed where needed, VEP-annotated,
@@ -82,7 +82,7 @@ export default function Home() {
           <p className="m-0 mt-3 max-w-2xl text-[14px] leading-[1.55] text-background/80 sm:text-[15px]">
             <span className="font-mono text-background">.genome</span> files
             use 3–10× fewer tokens and are 10–20× more accurate when
-            interpreted by AI, compared with VCF.
+            interpreted by AI.
           </p>
 
           <div className="mt-6">
